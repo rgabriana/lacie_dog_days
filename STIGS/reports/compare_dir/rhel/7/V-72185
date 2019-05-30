@@ -1,0 +1,20 @@
+12c12
+< CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the \"pam_timestamp_check\" command occur. 
+---
+> CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur. 
+14c14
+< Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
+---
+> Check the auditing rules in "/etc/audit/audit.rules" with the following command:
+16c16
+< # grep -iw \"/usr/sbin/pam_timestamp_check\" /etc/audit/audit.rules
+---
+> # grep -iw "/usr/sbin/pam_timestamp_check" /etc/audit/audit.rules
+23c23
+< FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the \"pam_timestamp_check\" command occur. 
+---
+> FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur. 
+25c25
+< Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
+---
+> Add or update the following rule in "/etc/audit/rules.d/audit.rules": 

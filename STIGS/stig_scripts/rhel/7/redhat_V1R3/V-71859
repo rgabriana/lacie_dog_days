@@ -1,0 +1,37 @@
+vulid="V-71859"
+GROUP_TITLE="SRG-OS-000023-GPOS-00006"
+RULE_ID="SV-86483r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010030"
+RULE_TITLE="The operating system must display the Standard Mandatory DoD Notice and Consent Banner before granting local or remote access to the system via a graphical user logon."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system displays the Standard Mandatory DoD Notice and Consent Banner before granting access to the operating system via a graphical user logon.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable. 
+
+Check to see if the operating system displays a banner at the logon screen with the following command:
+
+# grep banner-message-enable /etc/dconf/db/local.d/*
+banner-message-enable=true
+
+If "banner-message-enable" is set to "false" or is missing, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to display the Standard Mandatory DoD Notice and Consent Banner before granting access to the system.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
+
+Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the following command:
+
+# touch /etc/dconf/db/local.d/01-banner-message
+
+Add the following line to the [org/gnome/login-screen] section of the "/etc/dconf/db/local.d/01-banner-message":
+
+[org/gnome/login-screen]
+banner-message-enable=true"
+
+CCI="CCI-000663"

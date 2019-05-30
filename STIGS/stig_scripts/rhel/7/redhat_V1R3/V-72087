@@ -1,0 +1,39 @@
+vulid="V-72087"
+GROUP_TITLE="SRG-OS-000342-GPOS-00133"
+RULE_ID="SV-86711r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030320"
+RULE_TITLE="The audit system must take appropriate action when the audit storage volume is full."
+
+
+VULNERABILITY_DISCUSSION="USB mass storage permits easy introduction of unknown devices, thereby facilitating malicious activity.
+
+Satisfies: SRG-OS-000114-GPOS-00059, SRG-OS-000378-GPOS-00163, SRG-OS-000480-GPOS-00227false"
+
+
+CHECK_CONTENT="Verify the action the operating system takes if the disk the audit records are written to becomes full.
+
+To determine the action that takes place if the disk is full on the remote server, use the following command:
+
+# grep -i disk_full_action /etc/audisp/audisp-remote.conf
+disk_full_action = single
+
+To determine the action that takes place if the network connection fails, use the following command:
+
+# grep -i network_failure_action /etc/audisp/audisp-remote.conf
+network_failure_action = stop
+
+If the value of the "network_failure_action" option is not "syslog", "single", or "halt", or the line is commented out, this is a finding.
+
+If the value of the "disk_full_action" option is not "syslog", "single", or "halt", or the line is commented out, this is a finding."
+
+
+FIX_TEXT="Configure the action the operating system takes if the disk the audit records are written to becomes full.
+
+Uncomment or edit the "disk_full_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog", "single", or "halt", such as the following line:
+
+disk_full_action = single
+
+Uncomment the "network_failure_action" option in "/etc/audisp/audisp-remote.conf" and set it to "syslog", "single", or "halt"."
+
+CCI="CCI-000366"

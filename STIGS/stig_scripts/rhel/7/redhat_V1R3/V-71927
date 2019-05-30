@@ -1,0 +1,25 @@
+vulid="V-71927"
+GROUP_TITLE="SRG-OS-000075-GPOS-00043"
+RULE_ID="SV-86551r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010240"
+RULE_TITLE="Passwords must be restricted to a 24 hours/1 day minimum lifetime."
+
+
+VULNERABILITY_DISCUSSION="Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks.
+
+Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that need to be tested before the password is compromised.false"
+
+
+CHECK_CONTENT="Check whether the minimum time period between password changes for each user account is one day or greater.
+
+# awk -F: '$4 < 1 {print $1}' /etc/shadow
+
+If any results are returned that are not associated with a system account, this is a finding."
+
+
+FIX_TEXT="Configure non-compliant accounts to enforce a 24 hours/1 day minimum password lifetime:
+
+# chage -m 1 [user]"
+
+CCI="CCI-000198"

@@ -1,0 +1,18 @@
+12c12
+< CHECK_CONTENT="Verify that a separate file system/partition has been created for \"/var\".
+---
+> CHECK_CONTENT="Verify that a separate file system/partition has been created for "/var".
+14c14
+< Check that a file system/partition has been created for \"/var\" with the following command:
+---
+> Check that a file system/partition has been created for "/var" with the following command:
+19c19
+< If a separate entry for \"/var\" is not in use, this is a finding."
+---
+> If a separate entry for "/var" is not in use, this is a finding."
+22c22
+< FIX_TEXT="Migrate the \"/var\" path onto a separate file system."
+\ No newline at end of file
+---
+> FIX_TEXT="Migrate the "/var" path onto a separate file system."
+\ No newline at end of file

@@ -1,0 +1,30 @@
+vulid="V-71911"
+GROUP_TITLE="SRG-OS-000072-GPOS-00040"
+RULE_ID="SV-86535r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010160"
+RULE_TITLE="When passwords are changed a minimum of eight of the total number of characters must be changed."
+
+
+VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user's session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled.false"
+
+
+CHECK_CONTENT="The "difok" option sets the number of characters in a password that must not be present in the old password.
+
+Check for the value of the "difok" option in "/etc/security/pwquality.conf" with the following command:
+
+# grep difok /etc/security/pwquality.conf 
+difok = 8
+
+If the value of "difok" is set to less than "8", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to require the change of at least eight of the total number of characters when passwords are changed by setting the "difok" option.
+
+Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
+
+difok = 8"
+
+CCI="CCI-001619"

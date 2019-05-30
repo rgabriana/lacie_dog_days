@@ -1,0 +1,24 @@
+12c12
+< CHECK_CONTENT="Verify that \"rsyslog\" is configured to log cron events.
+---
+> CHECK_CONTENT="Verify that "rsyslog" is configured to log cron events.
+14c14
+< Check the configuration of \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files for the cron facility with the following command:
+---
+> Check the configuration of "/etc/rsyslog.conf" or "/etc/rsyslog.d/*.conf" files for the cron facility with the following command:
+16c16
+< Note: If another logging package is used, substitute the utility configuration file for \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.
+---
+> Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf" or "/etc/rsyslog.d/*.conf" files.
+21c21
+< If the command does not return a response, check for cron logging all facilities by inspecting the \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files.
+---
+> If the command does not return a response, check for cron logging all facilities by inspecting the "/etc/rsyslog.conf" or "/etc/rsyslog.d/*.conf" files.
+27c27
+< If \"rsyslog\" is not logging messages for the cron facility or all facilities, this is a finding."
+---
+> If "rsyslog" is not logging messages for the cron facility or all facilities, this is a finding."
+30c30
+< FIX_TEXT="Configure \"rsyslog\" to log all cron messages by adding or updating the following line to \"/etc/rsyslog.conf\" or a configuration file in the /etc/rsyslog.d/ directory:
+---
+> FIX_TEXT="Configure "rsyslog" to log all cron messages by adding or updating the following line to "/etc/rsyslog.conf" or a configuration file in the /etc/rsyslog.d/ directory:

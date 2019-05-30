@@ -1,0 +1,34 @@
+vulid="V-72271"
+GROUP_TITLE="SRG-OS-000420-GPOS-00186"
+RULE_ID="SV-86895r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040510"
+RULE_TITLE="The operating system must protect against or limit the effects of Denial of Service (DoS) attacks by validating the operating system is implementing rate-limiting measures on impacted network interfaces."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system protects against or limits the effects of DoS attacks by ensuring the operating system is implementing rate-limiting measures on impacted network interfaces.
+
+Check the firewall configuration with the following command:
+
+Note: The command is to query rules for the public zone.
+
+# firewall-cmd --direct --get-rule ipv4 filter IN_public_allow
+rule ipv4 filter IN_public_allow 0 -p tcp -m limit --limit 25/minute --limit-burst 100  -j ACCEPT
+
+If a rule with both the limit and limit-burst arguments parameters does not exist, this is a finding."
+
+
+FIX_TEXT="Create a direct firewall rule to protect against DoS attacks with the following command:
+
+Note: The command is to add a rule to the public zone.
+
+# firewall-cmd --direct --permanent --add-rule ipv4 filter IN_public_allow 0 -m tcp -p tcp -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+
+The firewalld service will need to be restarted for this to take effect:
+
+# systemctl restart firewalld"
+
+CCI="CCI-000135"

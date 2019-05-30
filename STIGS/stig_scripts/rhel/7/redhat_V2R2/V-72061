@@ -1,0 +1,22 @@
+vulid="V-72061"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86685r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-021320"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must use a separate file system for /var."
+
+
+VULNERABILITY_DISCUSSION="The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing."
+
+
+CHECK_CONTENT="Verify that a separate file system/partition has been created for "/var".
+
+Check that a file system/partition has been created for "/var" with the following command:
+
+# grep /var /etc/fstab
+UUID=c274f65f    /var                    ext4    noatime,nobarrier        1 2
+
+If a separate entry for "/var" is not in use, this is a finding."
+
+
+FIX_TEXT="Migrate the "/var" path onto a separate file system."

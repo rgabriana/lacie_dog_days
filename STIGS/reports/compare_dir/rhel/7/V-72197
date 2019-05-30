@@ -1,0 +1,8 @@
+18c18
+< Check the auditing rules in \"/etc/audit/audit.rules\" with the following command:
+---
+> Check the auditing rules in "/etc/audit/audit.rules" with the following command:
+29c29
+< Add or update the following rule \"/etc/audit/rules.d/audit.rules\":
+---
+> Add or update the following rule "/etc/audit/rules.d/audit.rules":

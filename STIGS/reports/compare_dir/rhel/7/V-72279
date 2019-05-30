@@ -1,0 +1,12 @@
+12c12
+< CHECK_CONTENT="Verify there are no \"shosts.equiv\" files on the system.
+---
+> CHECK_CONTENT="Verify there are no "shosts.equiv" files on the system.
+18c18
+< If any \"shosts.equiv\" files are found on the system, this is a finding."
+---
+> If any "shosts.equiv" files are found on the system, this is a finding."
+21c21
+< FIX_TEXT="Remove any found \"shosts.equiv\" files from the system.
+---
+> FIX_TEXT="Remove any found "shosts.equiv" files from the system.

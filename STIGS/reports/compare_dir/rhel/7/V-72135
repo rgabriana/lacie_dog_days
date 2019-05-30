@@ -1,0 +1,16 @@
+16c16
+< CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the \"semanage\" command occur.
+---
+> CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "semanage" command occur.
+18c18
+< Check the file system rule in \"/etc/audit/audit.rules\" with the following command:
+---
+> Check the file system rule in "/etc/audit/audit.rules" with the following command:
+27c27
+< FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the \"semanage\" command occur.
+---
+> FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "semanage" command occur.
+29c29
+< Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+---
+> Add or update the following rule in "/etc/audit/rules.d/audit.rules":

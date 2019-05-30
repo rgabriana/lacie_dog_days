@@ -1,0 +1,16 @@
+12c12
+< CHECK_CONTENT="Verify the SSH public host key files have mode \"0644\" or less permissive.
+---
+> CHECK_CONTENT="Verify the SSH public host key files have mode "0644" or less permissive.
+18c18
+< # find /etc/ssh -name \'*.pub\' -exec ls -lL {} \;
+---
+> # find /etc/ssh -name '*.pub' -exec ls -lL {} \;
+24c24
+< If any file has a mode more permissive than \"0644\", this is a finding."
+---
+> If any file has a mode more permissive than "0644", this is a finding."
+29c29
+< Change the mode of public host key files under \"/etc/ssh\" to \"0644\" with the following command:
+---
+> Change the mode of public host key files under "/etc/ssh" to "0644" with the following command:

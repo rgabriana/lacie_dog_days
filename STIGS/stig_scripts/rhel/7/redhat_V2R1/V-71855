@@ -1,0 +1,37 @@
+vulid="V-71855"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86479r3_rule"
+SEVERITY="CAT I"
+RULE_VERSION="RHEL-07-010020"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that the cryptographic hash of system files and commands matches vendor values."
+
+
+VULNERABILITY_DISCUSSION="Without cryptographic integrity protections, system command and files can be altered by unauthorized users without detection.
+
+Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the key used to generate the hash."
+
+
+CHECK_CONTENT="Verify the cryptographic hash of system files and commands match the vendor values.
+
+Check the cryptographic hash of system files and commands with the following command:
+
+Note: System configuration files (indicated by a \"c\" in the second column) are expected to change over time. Unusual modifications should be investigated through the system audit log.
+
+# rpm -Va | grep '^..5'
+
+If there is any output from the command for system files or binaries, this is a finding."
+
+
+FIX_TEXT="Run the following command to determine which package owns the file:
+
+# rpm -qf <filename>
+
+The package can be reinstalled from a yum repository using the command:
+
+# sudo yum reinstall <packagename>
+
+Alternatively, the package can be reinstalled from trusted media using the command:
+
+# sudo rpm -Uvh <packagename>"
+
+CCI="CCI-001496"

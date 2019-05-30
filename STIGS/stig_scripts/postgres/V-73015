@@ -1,0 +1,30 @@
+vulid='V-73015'
+GROUP_TITLE='SRG-APP-000171-DB-000074'
+RULE_ID='SV-87667r2_rule'
+SEVERITY='CAT II'
+RULE_VERSION='PGS9-00-009500'
+RULE_TITLE='If passwords are used for authentication, PostgreSQL must store only hashed, salted representations of passwords.'
+VULNERABILITY_DISCUSSION="The DoD standard for authentication is DoD-approved PKI certificates.
+Authentication based on User ID and Password may be used only when it is not possible to employ a PKI certificate, and requires AO approval.
+In such cases, database passwords stored in clear text, using reversible encryption, or using unsalted hashes would be vulnerable to unauthorized disclosure. Database passwords must always be in the form of one-way, salted hashes when stored internally or externally to PostgreSQL."
+CHECK_CONTENT="To check if password encryption is enabled, as the database administrator (shown here as \"postgres\"), run the following SQL:
+\$ sudo su - postgres
+\$ psql -c \"SHOW password_encryption\"
+If password_encryption is not on, this is a finding.
+Next, to identify if any passwords have been stored without being hashed and salted, as the database administrator (shown here as \"postgres\"), run the following SQL:
+\$ sudo su - postgres
+\$ psql -x -c \"SELECT * FROM pg_shadow\"
+If any password is in plaintext, this is a finding."
+FIX_TEXT="Note: The following instructions use the PGDATA and PGVER environment variables. See supplementary content APPENDIX-F for instructions on configuring PGDATA and APPENDIX-H for PGVER.
+To enable password_encryption, as the database administrator, edit postgresql.conf:
+\$ sudo su - postgres
+\$ vi \${PGDATA?}/postgresql.conf
+password_encryption = on
+Institute a policy of not using the \"WITH UNENCRYPTED PASSWORD\" option with the CREATE ROLE/USER and ALTER ROLE/USER commands. (This option overrides the setting of the password_encryption configuration parameter.)
+As the system administrator, restart the server with the new configuration:
+# SYSTEMD SERVER ONLY
+\$ sudo systemctl restart postgresql-\${PGVER?}
+# INITD SERVER ONLY
+\$ sudo service postgresql-\${PGVER?} restart"
+CCI='CCI-000196'
+

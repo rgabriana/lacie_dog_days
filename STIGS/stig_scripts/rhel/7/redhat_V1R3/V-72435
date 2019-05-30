@@ -1,0 +1,30 @@
+vulid="V-72435"
+GROUP_TITLE="SRG-OS-000375-GPOS-00160"
+RULE_ID="SV-87059r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-041004"
+RULE_TITLE="The operating system must implement smart card logons for multifactor authentication for access to privileged accounts."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system requires smart card logons for multifactor authentication to uniquely identify privileged users.
+
+Check to see if smartcard authentication is enforced on the system with the following command:
+
+# authconfig --test | grep -i smartcard
+
+The entry for use only smartcard for logon may be enabled, and the smartcard module and smartcard removal actions must not be blank.
+
+If smartcard authentication is disabled or the smartcard and smartcard removal actions are blank, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to implement smart card logon for multifactor authentication to uniquely identify privileged users.
+
+Enable smart card logons with the following commands:
+
+#authconfig --enablesmartcard --smartcardaction=1 --update
+# authconfig --enablerequiresmartcard --update"
+
+CCI="CCI-002884"

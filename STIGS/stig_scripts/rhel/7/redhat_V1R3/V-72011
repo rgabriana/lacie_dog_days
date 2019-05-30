@@ -1,0 +1,33 @@
+vulid="V-72011"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86635r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020600"
+RULE_TITLE="All local interactive users must have a home directory assigned in the /etc/passwd file."
+
+
+VULNERABILITY_DISCUSSION="By limiting the number of failed logon attempts, the risk of unauthorized system access via user password guessing, otherwise known as brute-forcing, is reduced. Limits are imposed by locking the account.
+
+Satisfies: SRG-OS-000329-GPOS-00128, SRG-OS-000021-GPOS-00005false"
+
+
+CHECK_CONTENT="Verify local interactive users on the system have a home directory assigned.
+
+Check for missing local interactive user home directories with the following command:
+
+# pwck -r
+user 'lp': directory '/var/spool/lpd' does not exist
+user 'news': directory '/var/spool/news' does not exist
+user 'uucp': directory '/var/spool/uucp' does not exist
+user 'smithj': directory '/home/smithj' does not exist
+
+Ask the System Administrator (SA) if any users found without home directories are local interactive users. If the SA is unable to provide a response, check for users with a User Identifier (UID) of 1000 or greater with the following command:
+
+# cut -d: -f 1,3 /etc/passwd | egrep ":[1-4][0-9]{2}$|:[0-9]{1,2}$"
+
+If any interactive users do not have a home directory assigned, this is a finding."
+
+
+FIX_TEXT="Assign home directories to all local interactive users that currently do not have a home directory assigned."
+
+CCI="CCI-000366"

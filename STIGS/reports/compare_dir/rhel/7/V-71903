@@ -1,0 +1,20 @@
+14c14
+< CHECK_CONTENT="Note: The value to require a number of upper-case characters to be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
+---
+> CHECK_CONTENT="Note: The value to require a number of upper-case characters to be set is expressed as a negative number in "/etc/security/pwquality.conf".
+16c16
+< Check the value for \"ucredit\" in \"/etc/security/pwquality.conf\" with the following command:
+---
+> Check the value for "ucredit" in "/etc/security/pwquality.conf" with the following command:
+21c21
+< If the value of \"ucredit\" is not set to a negative value, this is a finding."
+---
+> If the value of "ucredit" is not set to a negative value, this is a finding."
+24c24
+< FIX_TEXT="Configure the operating system to enforce password complexity by requiring that at least one upper-case character be used by setting the \"ucredit\" option.
+---
+> FIX_TEXT="Configure the operating system to enforce password complexity by requiring that at least one upper-case character be used by setting the "ucredit" option.
+26c26
+< Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the required value):
+---
+> Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):

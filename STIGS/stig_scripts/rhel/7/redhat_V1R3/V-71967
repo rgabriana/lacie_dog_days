@@ -1,0 +1,23 @@
+vulid="V-71967"
+GROUP_TITLE="SRG-OS-000095-GPOS-00049"
+RULE_ID="SV-86591r1_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-020000"
+RULE_TITLE="The rsh-server package must not be installed."
+
+
+VULNERABILITY_DISCUSSION="Passwords need to be protected at all times, and encryption is the standard method for protecting passwords. If passwords are not encrypted, they can be plainly read (i.e., clear text) and easily compromised. Passwords encrypted with a weak algorithm are no more protected than if they are kept in plain text.false"
+
+
+CHECK_CONTENT="Check to see if the rsh-server package is installed with the following command:
+
+# yum list installed rsh-server
+
+If the rsh-server package is installed, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to disable non-essential capabilities by removing the rsh-server package from the system with the following command:
+
+# yum remove rsh-server"
+
+CCI="CCI-000766"

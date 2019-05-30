@@ -1,0 +1,12 @@
+25c25
+< If the \"sssd.service\" is \"active\", then LDAP is being used.
+---
+> If the "sssd.service" is \"active\", then LDAP is being used.
+33c33
+< Verify the \"ldap_tls_cacert\" option points to a file that contains the trusted CA certificate.
+---
+> Verify the "ldap_tls_cacert" option points to a file that contains the trusted CA certificate.
+40c40
+< Add or modify the following line in \"/etc/sssd/sssd.conf\":
+---
+> Add or modify the following line in "/etc/sssd/sssd.conf":

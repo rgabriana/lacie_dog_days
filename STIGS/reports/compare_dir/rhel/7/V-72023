@@ -1,0 +1,12 @@
+12c12
+< CHECK_CONTENT="Verify all files and directories in a local interactive user\'s home directory are owned by the user.
+---
+> CHECK_CONTENT="Verify all files and directories in a local interactive user's home directory are owned by the user.
+14c14
+< Check the owner of all files and directories in a local interactive user\'s home directory with the following command:
+---
+> Check the owner of all files and directories in a local interactive user's home directory with the following command:
+26c26
+< FIX_TEXT="Change the owner of a local interactive user\'s files and directories to that owner. To change the owner of a local interactive user\'s files and directories, use the following command:
+---
+> FIX_TEXT="Change the owner of a local interactive user's files and directories to that owner. To change the owner of a local interactive user's files and directories, use the following command:

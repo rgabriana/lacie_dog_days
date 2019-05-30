@@ -1,0 +1,34 @@
+vulid="V-71903"
+GROUP_TITLE="SRG-OS-000069-GPOS-00037"
+RULE_ID="SV-86527r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010120"
+RULE_TITLE="When passwords are changed or new passwords are established, the new password must contain at least one upper-case character."
+
+
+VULNERABILITY_DISCUSSION="A session lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not want to log out because of the temporary nature of the absence.
+
+The session lock is implemented at the point where session activity can be determined.
+
+Regardless of where the session lock is determined and implemented, once invoked, the session lock must remain in place until the user reauthenticates. No other activity aside from reauthentication must unlock the system.
+
+Satisfies: SRG-OS-000028-GPOS-00009, SRG-OS-000030-GPOS-00011false"
+
+
+CHECK_CONTENT="Note: The value to require a number of upper-case characters to be set is expressed as a negative number in "/etc/security/pwquality.conf".
+
+Check the value for "ucredit" in "/etc/security/pwquality.conf" with the following command:
+
+# grep ucredit /etc/security/pwquality.conf 
+ucredit = -1
+
+If the value of "ucredit" is not set to a negative value, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to enforce password complexity by requiring that at least one upper-case character be used by setting the "ucredit" option.
+
+Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
+
+ucredit = -1"
+
+CCI="CCI-000057"

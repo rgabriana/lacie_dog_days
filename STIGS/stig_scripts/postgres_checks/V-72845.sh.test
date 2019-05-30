@@ -1,0 +1,20 @@
+#!/bin/bash 
+FILE=`rpm -qa | grep postgres`
+db_exec= 'psq'
+FOUND_ITEM=`$db_exec --version`
+EXPECTED_ITEM="psql awips2-postgresql-9.5.8-1.el7.centos.x86_64"
+RESULTS=0
+
+if [[ $EXPECTED_ITEM == $FOUND_ITEM ]]; then
+  RESULTS=PASS
+elif [[ -z $FOUND_ITEM ]]; then
+  FOUND_ITEM=`echo -e "TEST RESULT IS NULL"`
+  RESULTS=FAIL
+else
+  RESULTS=FAIL
+fi
+
+#echo -e "\t\t\t<td align=right; valign=top>$FILE</td>" >> $report_file
+#echo -e "\t\t\t<td align=right; valign=top>"$FOUND_ITEM"</td>" >> $report_file
+#echo -e "\t\t\t<td align=right; valign=top>$EXPECTED_ITEM</td>" >> $report_file
+#echo -e "\t\t\t<td align=right; valign=top>$RESULTS</td>" >> $report_file

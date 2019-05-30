@@ -1,0 +1,8 @@
+19c19
+< If the value of the \"space_left_action\" keyword is not set to \"email\", this is a finding."
+---
+> If the value of the "space_left_action" keyword is not set to "email", this is a finding."
+24c24
+< Uncomment or edit the \"space_left_action\" keyword in \"/etc/audit/auditd.conf\" and set it to \"email\". 
+---
+> Uncomment or edit the "space_left_action" keyword in "/etc/audit/auditd.conf" and set it to "email". 

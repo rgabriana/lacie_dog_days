@@ -1,0 +1,8 @@
+14c14
+< # grep -r dccp /etc/modprobe.d/* | grep -i \"/bin/true\" | grep -v \"^#"
+---
+> # grep -r dccp /etc/modprobe.d/* | grep -i "/bin/true" | grep -v \"^#"
+23c23
+< Create a file under \"/etc/modprobe.d\" with the following command:
+---
+> Create a file under "/etc/modprobe.d" with the following command:

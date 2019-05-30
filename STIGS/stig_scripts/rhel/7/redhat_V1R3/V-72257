@@ -1,0 +1,34 @@
+vulid="V-72257"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86881r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040420"
+RULE_TITLE="The SSH private host key files must have mode 0600 or less permissive."
+
+
+VULNERABILITY_DISCUSSION="Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data. The operating system must implement cryptographic modules adhering to the higher standards approved by the federal government since this provides assurance they have been tested and validated.
+
+Satisfies: SRG-OS-000033-GPOS-00014, SRG-OS-000185-GPOS-00079, SRG-OS-000396-GPOS-00176, SRG-OS-000405-GPOS-00184, SRG-OS-000478-GPOS-00223false"
+
+
+CHECK_CONTENT="Verify the SSH private host key files have mode "0600" or less permissive.
+
+The following command will find all SSH private key files on the system:
+
+# find / -name '*ssh_host*key'
+
+Check the mode of the private host key files under "/etc/ssh" file with the following command:
+
+# ls -lL /etc/ssh/*key
+-rw-------  1 root  wheel  668 Nov 28 06:43 ssh_host_dsa_key
+-rw-------  1 root  wheel  582 Nov 28 06:43 ssh_host_key
+-rw-------  1 root  wheel  887 Nov 28 06:43 ssh_host_rsa_key
+
+If any file has a mode more permissive than "0600", this is a finding."
+
+
+FIX_TEXT="Configure the mode of SSH private host key files under "/etc/ssh" to "0600" with the following command:
+
+# chmod 0600 /etc/ssh/ssh_host*key"
+
+CCI="CCI-000135"

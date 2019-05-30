@@ -1,0 +1,33 @@
+vulid="V-72293"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86917r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040660"
+RULE_TITLE="The system must not send Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirects."
+
+
+VULNERABILITY_DISCUSSION="Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+
+Off-loading is a common process in information systems with limited audit storage capacity.
+
+Satisfies: SRG-OS-000342-GPOS-00133, SRG-OS-000479-GPOS-00224false"
+
+
+CHECK_CONTENT="Verify the system does not send IPv4 ICMP redirect messages.
+
+Check the value of the "all send_redirects" variables with the following command:
+
+# grep  'net.ipv4.conf.all.send_redirects' /etc/sysctl.conf
+
+net.ipv4.conf.all.send_redirects=0
+
+If the returned line does not have a value of "0", or a line is not returned, this is a finding."
+
+
+FIX_TEXT="Configure the system to not allow interfaces to perform IPv4 ICMP redirects. 
+
+Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" (or modify the line to have the required value):
+
+net.ipv4.conf.all.send_redirects=0"
+
+CCI="CCI-000130"

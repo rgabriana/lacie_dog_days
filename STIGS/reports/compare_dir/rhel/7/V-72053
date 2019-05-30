@@ -1,0 +1,20 @@
+9c9
+< VULNERABILITY_DISCUSSION="If the owner of the \"cron.allow\" file is not set to root, the possibility exists for an unauthorized user to view or to edit sensitive information."
+---
+> VULNERABILITY_DISCUSSION="If the owner of the "cron.allow" file is not set to root, the possibility exists for an unauthorized user to view or to edit sensitive information."
+12c12
+< CHECK_CONTENT="Verify that the \"cron.allow\" file is owned by root.
+---
+> CHECK_CONTENT="Verify that the "cron.allow" file is owned by root.
+14c14
+< Check the owner of the \"cron.allow\" file with the following command:
+---
+> Check the owner of the "cron.allow" file with the following command:
+19c19
+< If the \"cron.allow\" file exists and has an owner other than root, this is a finding."
+---
+> If the "cron.allow" file exists and has an owner other than root, this is a finding."
+22c22
+< FIX_TEXT="Set the owner on the \"/etc/cron.allow\" file to root with the following command:
+---
+> FIX_TEXT="Set the owner on the "/etc/cron.allow" file to root with the following command:

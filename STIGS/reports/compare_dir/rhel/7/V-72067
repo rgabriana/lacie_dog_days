@@ -1,0 +1,40 @@
+16c16
+< Check to see if the \"dracut-fips\" package is installed with the following command:
+---
+> Check to see if the "dracut-fips" package is installed with the following command:
+22c22
+< If a \"dracut-fips\" package is installed, check to see if the kernel command line is configured to use FIPS mode with the following command:
+---
+> If a "dracut-fips" package is installed, check to see if the kernel command line is configured to use FIPS mode with the following command:
+24c24
+< Note: GRUB 2 reads its configuration from the \"/boot/grub2/grub.cfg\" file on traditional BIOS-based machines and from the \"/boot/efi/EFI/redhat/grub.cfg\" file on UEFI machines.
+---
+> Note: GRUB 2 reads its configuration from the "/boot/grub2/grub.cfg" file on traditional BIOS-based machines and from the "/boot/efi/EFI/redhat/grub.cfg" file on UEFI machines.
+34c34
+< If a \"dracut-fips\" package is not installed, the kernel command line does not have a fips entry, or the system has a value of \"0\" for \"fips_enabled\" in \"/proc/sys/crypto\", this is a finding."
+---
+> If a "dracut-fips" package is not installed, the kernel command line does not have a fips entry, or the system has a value of "0" for "fips_enabled" in "/proc/sys/crypto", this is a finding."
+49c49
+< Recreate the \"initramfs\" file with the following command:
+---
+> Recreate the "initramfs" file with the following command:
+51c51
+< Note: This command will overwrite the existing \"initramfs\" file.
+---
+> Note: This command will overwrite the existing "initramfs" file.
+55c55
+< Modify the kernel command line of the current kernel in the \"grub.cfg\" file by adding the following option to the GRUB_CMDLINE_LINUX key in the \"/etc/default/grub\" file and then rebuild the \"grub.cfg\" file:
+---
+> Modify the kernel command line of the current kernel in the "grub.cfg" file by adding the following option to the GRUB_CMDLINE_LINUX key in the "/etc/default/grub" file and then rebuild the "grub.cfg" file:
+59c59
+< Changes to \"/etc/default/grub\" require rebuilding the \"grub.cfg\" file as follows:
+---
+> Changes to "/etc/default/grub" require rebuilding the "grub.cfg" file as follows:
+75c75
+< To ensure the \"boot=" configuration option will work even if device naming changes occur between boots, identify the universally unique identifier (UUID) of the partition with the following command:
+---
+> To ensure the "boot=" configuration option will work even if device naming changes occur between boots, identify the universally unique identifier (UUID) of the partition with the following command:
+78c78
+< /dev/sda1: UUID="05c000f1-a213-759e-c7a2-f11b7424c797\" TYPE="ext4"
+---
+> /dev/sda1: UUID="05c000f1-a213-759e-c7a2-f11b7424c797" TYPE="ext4"

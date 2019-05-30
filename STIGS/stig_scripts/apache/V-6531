@@ -1,0 +1,14 @@
+vulid="V-6531"
+GROUP_TITLE="WG140"
+RULE_ID="SV-33019r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WG140 A22"
+RULE_TITLE="Private web servers must require certificates issued from a DoD-authorized Certificate Authority."
+VULNERABILITY_DISCUSSION="Web sites requiring authentication within the DoD must utilize PKI as an authentication mechanism for web users. Information systems residing behind web servers requiring authorization based on individual identity must use the identity provided by certificate-based authentication to support access control decisions."
+IAControls="IATS-1, IATS-2"
+CHECK_CONTENT="To view the SSLVerifyClient value enter the following command:
+
+grep \"SSLVerifyClient\" /usr/local/apache2/conf/httpd.conf.
+
+If the value of SSLVerifyClient is not set to \“require\”, this is a finding."
+FIX_TEXT="Edit the httpd.conf file and set the value of SSLVerifyClient to \"require\"."

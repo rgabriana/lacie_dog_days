@@ -1,0 +1,30 @@
+vulid="V-71935"
+GROUP_TITLE="SRG-OS-000078-GPOS-00046"
+RULE_ID="SV-86559r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010280"
+RULE_TITLE="Passwords must be a minimum of 15 characters in length."
+
+
+VULNERABILITY_DISCUSSION="Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks.
+
+Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that need to be tested before the password is compromised.false"
+
+
+CHECK_CONTENT="Verify the operating system enforces a minimum 15-character password length. The "minlen" option sets the minimum number of characters in a new password.
+
+Check for the value of the "minlen" option in "/etc/security/pwquality.conf" with the following command:
+
+# grep minlen /etc/security/pwquality.conf
+minlen = 15
+
+If the command does not return a "minlen" value of 15 or greater, this is a finding."
+
+
+FIX_TEXT="Configure operating system to enforce a minimum 15-character password length.
+
+Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):
+
+minlen = 15"
+
+CCI="CCI-000200"

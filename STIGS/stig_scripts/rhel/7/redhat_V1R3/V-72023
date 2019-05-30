@@ -1,0 +1,34 @@
+vulid="V-72023"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86647r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020660"
+RULE_TITLE="All files and directories contained in local interactive user home directories must be owned by the owner of the home directory."
+
+
+VULNERABILITY_DISCUSSION="Configuring the operating system to implement organization-wide security implementation guides and security checklists verifies compliance with federal standards and establishes a common security baseline across DoD that reflects the most restrictive security posture consistent with operational requirements.
+
+Configuration settings are the set of parameters that can be changed in hardware, software, or firmware components of the system that affect the security posture and/or functionality of the system. Security-related parameters are those parameters impacting the security state of the system, including the parameters required to satisfy other security control requirements. Security-related parameters include, for example, registry settings; account, file, and directory permission settings; and settings for functions, ports, protocols, services, and remote connections.false"
+
+
+CHECK_CONTENT="Verify all files and directories in a local interactive user’s home directory are owned by the user.
+
+Check the owner of all files and directories in a local interactive user’s home directory with the following command:
+
+Note: The example will be for the user "smithj", who has a home directory of "/home/smithj".
+
+# ls -lLR /home/smithj
+-rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1
+-rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2
+-rw-r--r-- 1 smithj smithj 231 Mar  5 17:06 file3
+
+If any files are found with an owner different than the home directory user, this is a finding."
+
+
+FIX_TEXT="Change the owner of a local interactive user’s files and directories to that owner. To change the owner of a local interactive user’s files and directories, use the following command:
+
+Note: The example will be for the user smithj, who has a home directory of "/home/smithj".
+
+# chown smithj /home/smithj/<file or directory>"
+
+CCI="CCI-002165"

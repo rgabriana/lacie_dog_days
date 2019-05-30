@@ -1,0 +1,12 @@
+12c12
+< CHECK_CONTENT="Verify all files and directories contained in a local interactive user home directory, excluding local initialization files, have a mode of \"0750\".
+---
+> CHECK_CONTENT="Verify all files and directories contained in a local interactive user home directory, excluding local initialization files, have a mode of "0750".
+16c16
+< Files that begin with a \".\" are excluded from this requirement.
+---
+> Files that begin with a "." are excluded from this requirement.
+25c25
+< If any files are found with a mode more permissive than \"0750\", this is a finding."
+---
+> If any files are found with a mode more permissive than "0750", this is a finding."

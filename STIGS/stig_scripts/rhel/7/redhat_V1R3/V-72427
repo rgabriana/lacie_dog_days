@@ -1,0 +1,27 @@
+vulid="V-72427"
+GROUP_TITLE="SRG-OS-000375-GPOS-00160"
+RULE_ID="SV-87051r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-041002"
+RULE_TITLE="The operating system must implement multifactor authentication for access to privileged accounts via pluggable authentication modules (PAM)."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system implements multifactor authentication for remote access to privileged accounts via pluggable authentication modules (PAM).
+
+Check the "/etc/sssd/sssd.conf" file for the authentication services that are being used with the following command:
+
+# grep services /etc/sssd/sssd.conf
+
+services = nss, pam
+
+If the "pam" service is not present, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to implement multifactor authentication for remote access to privileged accounts via pluggable authentication modules (PAM).
+
+Modify all of the services lines in /etc/sssd/sssd.conf to include pam."
+
+CCI="CCI-002884"

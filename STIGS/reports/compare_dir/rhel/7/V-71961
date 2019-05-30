@@ -1,0 +1,8 @@
+3c3
+< RULE_ID="SV-86585r6_rule"
+---
+> RULE_ID="SV-86585r5_rule"
+17c17
+< # grep -i password_pbkdf2 /boot/grub2/grub.cfg
+---
+> # grep -i ^password_pbkdf2 /boot/grub2/grub.cfg

@@ -1,0 +1,35 @@
+vulid="V-71955"
+GROUP_TITLE="SRG-OS-000480-GPOS-00229"
+RULE_ID="SV-86579r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-010450"
+RULE_TITLE="The operating system must not allow an unrestricted logon to the system."
+
+
+VULNERABILITY_DISCUSSION="Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks.
+
+Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that need to be tested before the password is compromised.false"
+
+
+CHECK_CONTENT="Verify the operating system does not allow an unrestricted logon to the system via a graphical user interface.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable. 
+
+Check for the value of the "TimedLoginEnable" parameter in "/etc/gdm/custom.conf" file with the following command:
+
+# grep -i timedloginenable /etc/gdm/custom.conf
+TimedLoginEnable=false
+
+If the value of "TimedLoginEnable" is not set to "false", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to not allow an unrestricted account to log on to the system via a graphical user interface.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
+
+Add or edit the line for the "TimedLoginEnable" parameter in the [daemon] section of the "/etc/gdm/custom.conf" file to "false":
+
+[daemon]
+TimedLoginEnable=false"
+
+CCI="CCI-000366"

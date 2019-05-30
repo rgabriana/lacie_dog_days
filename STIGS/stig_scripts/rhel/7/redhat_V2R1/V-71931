@@ -1,0 +1,23 @@
+vulid="V-71931"
+GROUP_TITLE="SRG-OS-000076-GPOS-00044"
+RULE_ID="SV-86555r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010260"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that existing passwords are restricted to a 60-day maximum lifetime."
+
+
+VULNERABILITY_DISCUSSION="Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed periodically. If the operating system does not limit the lifetime of passwords and force users to change their passwords, there is the risk that the operating system passwords could be compromised."
+
+
+CHECK_CONTENT="Check whether the maximum time period for existing passwords is restricted to 60 days.
+
+# awk -F: '$4 < 1 {print $1 \" \" $5}' /etc/shadow
+
+If any results are returned that are not associated with a system account, this is a finding."
+
+
+FIX_TEXT="Configure non-compliant accounts to enforce a 60-day maximum password lifetime restriction.
+
+# chage -M 60 [user]"
+
+CCI="CCI-000199"

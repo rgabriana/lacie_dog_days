@@ -1,0 +1,31 @@
+vulid="V-71923"
+GROUP_TITLE="SRG-OS-000073-GPOS-00041"
+RULE_ID="SV-86547r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010220"
+RULE_TITLE="User and group account administration utilities must be configured to store only encrypted representations of passwords."
+
+
+VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user's session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled.false"
+
+
+CHECK_CONTENT="Verify the user and group account administration utilities are configured to store only encrypted representations of passwords. The strength of encryption that must be used to hash passwords for all accounts is "SHA512".
+
+Check that the system is configured to create "SHA512" hashed passwords with the following command:
+
+# cat /etc/libuser.conf | grep -i sha512
+
+crypt_style = sha512
+
+If the "crypt_style" variable is not set to "sha512", is not in the defaults section, or does not exist, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to store only SHA512 encrypted representations of passwords.
+
+Add or update the following line in "/etc/libuser.conf" in the [defaults] section: 
+
+crypt_style = sha512"
+
+CCI="CCI-000196"

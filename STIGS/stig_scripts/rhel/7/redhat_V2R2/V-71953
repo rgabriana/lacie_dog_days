@@ -1,0 +1,31 @@
+vulid="V-71953"
+GROUP_TITLE="SRG-OS-000480-GPOS-00229"
+RULE_ID="SV-86577r2_rule"
+SEVERITY="CAT I"
+RULE_VERSION="RHEL-07-010440"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must not allow an unattended or automatic logon to the system via a graphical user interface."
+
+
+VULNERABILITY_DISCUSSION="Failure to restrict system access to authenticated users negatively impacts operating system security."
+
+
+CHECK_CONTENT="Verify the operating system does not allow an unattended or automatic logon to the system via a graphical user interface.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable. 
+
+Check for the value of the \"AutomaticLoginEnable\" in the \"/etc/gdm/custom.conf\" file with the following command:
+
+# grep -i automaticloginenable /etc/gdm/custom.conf
+AutomaticLoginEnable=false
+
+If the value of \"AutomaticLoginEnable\" is not set to \"\", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to not allow an unattended or automatic logon to the system via a graphical user interface.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
+
+Add or edit the line for the \"AutomaticLoginEnable\" parameter in the [daemon] section of the \"/etc/gdm/custom.conf\" file to \"\":
+
+[daemon]
+AutomaticLoginEnable="

@@ -1,0 +1,32 @@
+vulid="V-71983"
+GROUP_TITLE="SRG-OS-000114-GPOS-00059"
+RULE_ID="SV-86607r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020100"
+RULE_TITLE="USB mass storage must be disabled."
+
+
+VULNERABILITY_DISCUSSION="Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed periodically. If the operating system does not limit the lifetime of passwords and force users to change their passwords, there is the risk that the operating system passwords could be compromised.false"
+
+
+CHECK_CONTENT="If there is an HBSS with a Device Control Module and a Data Loss Prevention mechanism, this requirement is not applicable.
+
+Verify the operating system disables the ability to use USB mass storage devices.
+
+Check to see if USB mass storage is disabled with the following command:
+
+# grep usb-storage /etc/modprobe.d/blacklist.conf
+blacklist usb-storage
+
+If the command does not return any output or the output is not "blacklist usb-storage", and use of USB storage devices is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to disable the ability to use USB mass storage devices.
+
+# vi /etc/modprobe.d/blacklist.conf
+
+Add or update the line:
+
+blacklist usb-storage"
+
+CCI="CCI-001749"

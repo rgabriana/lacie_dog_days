@@ -1,0 +1,16 @@
+9c9
+< VULNERABILITY_DISCUSSION="If a local interactive user\'s files are group-owned by a group of which the user is not a member, unintended users may be able to access them."
+---
+> VULNERABILITY_DISCUSSION="If a local interactive user's files are group-owned by a group of which the user is not a member, unintended users may be able to access them."
+14c14
+< Check the group owner of all files and directories in a local interactive user\'s home directory with the following command:
+---
+> Check the group owner of all files and directories in a local interactive user's home directory with the following command:
+29c29
+< If the user is not a member of a group that group owns file(s) in a local interactive user\'s home directory, this is a finding."
+---
+> If the user is not a member of a group that group owns file(s) in a local interactive user's home directory, this is a finding."
+32c32
+< FIX_TEXT="Change the group of a local interactive user\'s files and directories to a group that the interactive user is a member of. To change the group owner of a local interactive user\'s files and directories, use the following command:
+---
+> FIX_TEXT="Change the group of a local interactive user's files and directories to a group that the interactive user is a member of. To change the group owner of a local interactive user's files and directories, use the following command:

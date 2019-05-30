@@ -1,0 +1,16 @@
+12c12
+< CHECK_CONTENT="Verify the assigned home directory of all local interactive users has a mode of \"0750\" or less permissive.
+---
+> CHECK_CONTENT="Verify the assigned home directory of all local interactive users has a mode of "0750" or less permissive.
+18c18
+< # ls -ld $(egrep \':[0-9]{4}\' /etc/passwd | cut -d: -f6)
+---
+> # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+21c21
+< If home directories referenced in \"/etc/passwd\" do not have a mode of \"0750\" or less permissive, this is a finding."
+---
+> If home directories referenced in \"/etc/passwd\" do not have a mode of "0750" or less permissive, this is a finding."
+24c24
+< FIX_TEXT="Change the mode of interactive user\'s home directories to \"0750\". To change the mode of a local interactive user\'s home directory, use the following command:
+---
+> FIX_TEXT="Change the mode of interactive user's home directories to "0750". To change the mode of a local interactive user's home directory, use the following command:

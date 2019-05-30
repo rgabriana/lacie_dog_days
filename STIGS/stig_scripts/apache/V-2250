@@ -1,0 +1,17 @@
+vulid="V-2250"
+GROUP_TITLE="WG240"
+RULE_ID="SV-33025r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WG240 A22"
+RULE_TITLE="Logs of web server access and errors must be established and maintained"
+VULNERABILITY_DISCUSSION="A major tool in exploring the web site use, attempted use, unusual conditions, and problems are reported in the access and error logs. In the event of a security incident, these logs can provide the SA and the web manager with valuable information. Without these log files, SAs and web managers are seriously hindered in their efforts to respond appropriately to suspicious or criminal actions targeted at the web site."
+IAControls="ECAT-1, ECAT-2"
+CHECK_CONTENT="To view a list of loaded modules enter the following command:
+
+/usr/local/apache2/bin/httpd -M
+
+If the following module is not found, this is a finding: \"log_config_module\""
+
+FIX_TEXT="Edit the httpd.conf file and add the following module to configure logging.
+
+\"log_config_module\""

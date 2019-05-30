@@ -1,0 +1,38 @@
+vulid="V-72417"
+GROUP_TITLE="SRG-OS-000375-GPOS-00160"
+RULE_ID="SV-87041r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-041001"
+RULE_TITLE="The operating system must have the required packages for multifactor authentication installed."
+
+
+VULNERABILITY_DISCUSSION="Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).
+
+Satisfies: SRG-OS-000064-GPOS-00033, SRG-OS-000392-GPOS-00172, SRG-OS-000458-GPOS-00203, SRG-OS-000474-GPOS-00219false"
+
+
+CHECK_CONTENT="Verify the operating system has the packages required for multifactor authentication installed.
+
+Check for the presence of the packages required to support multifactor authentication with the following commands:
+
+# yum list installed esc
+esc-1.1.0-26.el7.noarch.rpm
+
+# yum list installed pam_pkcs11
+pam_pkcs11-0.6.2-14.el7.noarch.rpm
+
+# yum list installed authconfig-gtk
+authconfig-gtk-6.1.12-19.el7.noarch.rpm
+
+If the "esc", "pam_pkcs11", and "authconfig-gtk" packages are not installed, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to implement multifactor authentication by installing the required packages.
+
+Install the "esc", "pam_pkcs11", "authconfig", and "authconfig-gtk" packages on the system with the following command:
+
+# yum install esc pam_pkcs11 authconfig-gtk"
+
+CCI="CCI-000135"

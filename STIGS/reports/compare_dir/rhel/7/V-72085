@@ -1,0 +1,4 @@
+30c30
+< Uncomment the \"enable_krb5\" option in \"/etc/audisp/audisp-remote.conf\" and set it with the following line:
+---
+> Uncomment the \"enable_krb5\" option in "/etc/audisp/audisp-remote.conf" and set it with the following line:

@@ -1,0 +1,27 @@
+vulid="V-72063"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86687r6_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-021330"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must use a separate file system for the system audit data path."
+
+
+VULNERABILITY_DISCUSSION="The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing."
+
+
+CHECK_CONTENT="Determine if the operating system is configured to have the "/var/log/audit" path is on a separate file system.
+
+# grep /var/log/audit /etc/fstab
+
+If no result is returned, or the operating system is not configured to have "/var/log/audit" on a separate file system, this is a finding.
+
+Verify that "/var/log/audit" is mounted on a separate file system:
+
+# mount | grep "/var/log/audit"
+
+If no result is returned, or "/var/log/audit" is not on a separate file system, this is a finding."
+
+
+FIX_TEXT="Migrate the system audit data path onto a separate file system."
+
+CCI="CCI-001814"

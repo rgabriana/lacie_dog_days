@@ -1,0 +1,20 @@
+14c14
+< CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the \"rename\" syscall occur.
+---
+> CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "rename" syscall occur.
+16c16
+< Check the file system rules in \"/etc/audit/audit.rules\" with the following commands:
+---
+> Check the file system rules in "/etc/audit/audit.rules" with the following commands:
+26c26
+< If there are no audit rules defined for the \"rename\" syscall, this is a finding."
+---
+> If there are no audit rules defined for the "rename" syscall, this is a finding."
+29c29
+< FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the \"rename\" syscall occur.
+---
+> FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "rename" syscall occur.
+31c31
+< Add the following rules in \"/etc/audit/rules.d/audit.rules\":
+---
+> Add the following rules in "/etc/audit/rules.d/audit.rules":

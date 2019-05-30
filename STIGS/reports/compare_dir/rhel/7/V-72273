@@ -1,0 +1,28 @@
+16c16
+< Check to see if \"firewalld\" is installed with the following command:
+---
+> Check to see if "firewalld" is installed with the following command:
+21c21
+< If the \"firewalld\" package is not installed, ask the System Administrator if another firewall application (such as iptables) is installed. 
+---
+> If the "firewalld" package is not installed, ask the System Administrator if another firewall application (such as iptables) is installed. 
+33c33
+< If \"firewalld\" does not show a status of \"loaded\" and \"active\", this is a finding. 
+---
+> If "firewalld" does not show a status of "loaded" and \"active\", this is a finding. 
+40c40
+< If \"firewalld\" does not show a state of \"running\", this is a finding."
+---
+> If "firewalld" does not show a state of "running", this is a finding."
+43c43
+< FIX_TEXT="Ensure the operating system\'s application firewall is enabled.
+---
+> FIX_TEXT="Ensure the operating system's application firewall is enabled.
+45c45
+< Install the \"firewalld\" package, if it is not on the system, with the following command:
+---
+> Install the "firewalld" package, if it is not on the system, with the following command:
+49c49
+< Start the firewall via \"systemctl\" with the following command:
+---
+> Start the firewall via "systemctl" with the following command:

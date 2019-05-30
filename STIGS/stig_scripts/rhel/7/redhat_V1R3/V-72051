@@ -1,0 +1,52 @@
+vulid="V-72051"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86675r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021100"
+RULE_TITLE="Cron logging must be implemented."
+
+
+VULNERABILITY_DISCUSSION="To assure accountability and prevent unauthenticated access, organizational users must be identified and authenticated to prevent potential misuse and compromise of the system.
+
+Organizational users include organizational employees or individuals the organization deems to have equivalent status of employees (e.g., contractors). Organizational users (and processes acting on behalf of users) must be uniquely identified and authenticated to all accesses, except for the following:
+
+1) Accesses explicitly identified and documented by the organization. Organizations document specific user actions that can be performed on the information system without identification or authentication; 
+
+and
+
+2) Accesses that occur through authorized use of group authenticators without individual authentication. Organizations may require unique identification of individuals in group accounts (e.g., shared privilege accounts) or for detailed accountability of individual activity.
+
+Satisfies: SRG-OS-000104-GPOS-00051, SRG-OS-000106-GPOS-00053, SRG-OS-000107-GPOS-00054, SRG-OS-000109-GPOS-00056, SRG-OS-000108-GPOS-00055, SRG-OS-000108-GPOS-00057, SRG-OS-000108-GPOS-00058false"
+
+
+CHECK_CONTENT="Verify that "rsyslog" is configured to log cron events.
+
+Check the configuration of "/etc/rsyslog.conf" for the cron facility with the following command:
+
+Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf". 
+
+# grep cron /etc/rsyslog.conf
+cron.* /var/log/cron.log
+
+If the command does not return a response, check for cron logging all facilities by inspecting the "/etc/rsyslog.conf" file:
+
+# more /etc/rsyslog.conf
+
+Look for the following entry:
+
+*.* /var/log/messages
+
+If "rsyslog" is not logging messages for the cron facility or all facilities, this is a finding.  
+
+If the entry is in the "/etc/rsyslog.conf" file but is after the entry "*.*", this is a finding."
+
+
+FIX_TEXT="Configure "rsyslog" to log all cron messages by adding or updating the following line to "/etc/rsyslog.conf":
+
+cron.* /var/log/cron.log
+
+Note: The line must be added before the following entry if it exists in "/etc/rsyslog.conf":
+
+*.* ~ # discards everything"
+
+CCI="CCI-000366"

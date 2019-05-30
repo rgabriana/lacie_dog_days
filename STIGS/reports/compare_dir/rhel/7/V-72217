@@ -1,0 +1,16 @@
+14c14
+< CHECK_CONTENT="Verify the operating system limits the number of concurrent sessions to \"10\" for all accounts and/or account types by issuing the following command:
+---
+> CHECK_CONTENT="Verify the operating system limits the number of concurrent sessions to "10" for all accounts and/or account types by issuing the following command:
+16c16
+< # grep \"maxlogins\" /etc/security/limits.conf
+---
+> # grep "maxlogins" /etc/security/limits.conf
+21c21
+< If the \"maxlogins\" item is missing, commented out, or the value is not set to \"10\" or less for all domains that have the \"maxlogins\" item assigned, this is a finding."
+---
+> If the "maxlogins" item is missing, commented out, or the value is not set to "10" or less for all domains that have the "maxlogins" item assigned, this is a finding."
+24c24
+< FIX_TEXT="Configure the operating system to limit the number of concurrent sessions to \"10\" for all accounts and/or account types.
+---
+> FIX_TEXT="Configure the operating system to limit the number of concurrent sessions to "10" for all accounts and/or account types.

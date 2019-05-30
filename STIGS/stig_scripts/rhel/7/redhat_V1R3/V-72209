@@ -1,0 +1,30 @@
+vulid="V-72209"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86833r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-031000"
+RULE_TITLE="The system must send rsyslog output to a log aggregation server."
+
+
+VULNERABILITY_DISCUSSION="The "nosuid" mount option causes the system to not execute "setuid" and "setgid" files with owner privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.false"
+
+
+CHECK_CONTENT="Verify "rsyslog" is configured to send all messages to a log aggregation server.
+
+Check the configuration of "rsyslog" with the following command:
+
+Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf".
+
+# grep @ /etc/rsyslog.conf
+*.* @@logagg.site.mil
+
+If there are no lines in the "/etc/rsyslog.conf" file that contain the "@" or "@@" symbol(s), and the lines with the correct symbol(s) to send output to another system do not cover all "rsyslog" output, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media. 
+
+If there is no evidence that the audit logs are being sent to another system, this is a finding."
+
+
+FIX_TEXT="Modify the "/etc/rsyslog.conf" file to contain a configuration line to send all "rsyslog" output to a log aggregation system:
+
+*.* @@<log aggregation system name>"
+
+CCI="CCI-000172"

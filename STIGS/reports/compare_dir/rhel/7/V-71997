@@ -1,0 +1,18 @@
+3c3
+< RULE_ID="SV-86621r4_rule"
+---
+> RULE_ID="SV-86621r3_rule"
+9c9
+< VULNERABILITY_DISCUSSION="An operating system release is considered \"supported\" if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software."
+---
+> VULNERABILITY_DISCUSSION="An operating system release is considered "supported" if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software."
+20c20
+< Current End of Life for RHEL 7.1 is 31 March 2017.
+---
+> Current End of Life for RHEL 7.1 is 31 March 2017
+28,30c28
+< Current End of Life for RHEL 7.5 is 30 April 2020.
+<
+< Current End of Life for RHEL 7.6 is 31 October 2020.
+---
+> Current End of Life for RHEL 7.5 is 30 April 2020

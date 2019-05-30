@@ -1,0 +1,18 @@
+22c22
+< If the \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" configuration files allow for password hashes other than SHA512 to be used, this is a finding."
+---
+> If the "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" configuration files allow for password hashes other than SHA512 to be used, this is a finding."
+27c27
+< Add the following line in \"/etc/pam.d/system-auth\":
+---
+> Add the following line in "/etc/pam.d/system-auth":
+30c30
+< Add the following line in \"/etc/pam.d/password-auth\":
+---
+> Add the following line in "/etc/pam.d/password-auth":
+33c33
+< Note: Manual changes to the listed files may be overwritten by the \"authconfig\" program. The \"authconfig\" program should not be used to update the configurations listed in this requirement."
+\ No newline at end of file
+---
+> Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program should not be used to update the configurations listed in this requirement."
+\ No newline at end of file

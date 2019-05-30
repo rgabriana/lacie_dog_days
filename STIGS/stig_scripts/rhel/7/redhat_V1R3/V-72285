@@ -1,0 +1,32 @@
+vulid="V-72285"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86909r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040620"
+RULE_TITLE="The system must not forward Internet Protocol version 4 (IPv4) source-routed packets by default."
+
+
+VULNERABILITY_DISCUSSION="It is critical for the appropriate personnel to be aware if a system is at risk of failing to process audit logs as required. Without this notification, the security personnel may be unaware of an impending failure of the audit capability, and system operation may be adversely affected.
+
+Audit processing failures include software/hardware errors, failures in the audit capturing mechanisms, and audit storage capacity being reached or exceeded.
+
+This requirement applies to each audit data storage repository (i.e., distinct information system component where audit records are stored), the centralized audit storage capacity of organizations (i.e., all audit data storage repositories combined), or both.
+
+Satisfies: SRG-OS-000046-GPOS-00022, SRG-OS-000047-GPOS-00023false"
+
+
+CHECK_CONTENT="Verify the system does not accept IPv4 source-routed packets by default.
+
+Check the value of the accept source route variable with the following command:
+
+# /sbin/sysctl -a | grep  net.ipv4.conf.default.accept_source_route
+net.ipv4.conf.default.accept_source_route=0
+
+If the returned line does not have a value of "0", a line is not returned, or the returned line is commented out, this is a finding."
+
+
+FIX_TEXT="Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" (or modify the line to have the required value):
+
+net.ipv4.conf.default.accept_source_route = 0"
+
+CCI="CCI-000130"

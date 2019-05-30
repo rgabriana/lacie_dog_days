@@ -1,0 +1,8 @@
+21c21
+< If the value is not set to \"0\", is commented out, or is not defined, this is a finding."
+---
+> If the value is not set to "0", is commented out, or is not defined, this is a finding."
+26c26
+< Add the following line to \"/etc/default/useradd\" (or modify the line to have the required value):
+---
+> Add the following line to "/etc/default/useradd" (or modify the line to have the required value):

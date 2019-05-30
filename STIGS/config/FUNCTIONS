@@ -1,0 +1,536 @@
+ROOT_CHECK () {
+
+
+  if [[ $UID -gt "0" ]]; then
+
+    echo -e "$redfont YOU NEED ADMIN PRIVELEGES TO EXECUTE THIS SCRIPT $resetfont"
+    exit
+
+  fi
+
+}
+
+OS_CHECK () {
+
+OS=`cat /etc/*-release|grep ^ID=|awk -F "=" '{print $2}'|tr -d '"'|tr -d " "`
+
+  if [[ $OS != $answer ]]; then
+    echo -e "$yellowfont You choose to perfrom checks for $lgreefont$answer$yellowfont.\nThis system OS is $bluefont$OS$resetfont"
+    exit
+  fi
+
+}
+
+PKG_CHECK () {
+
+pkg=`yum -q list installed $1`
+
+}
+
+USER_PROMPT () {
+shopt -s nocasematch
+echo -e $lgreenfont
+
+  read -p "PLEASE ENTER THE CHECK YOU WANT TO PERFORM:
+" answer
+  read -p "PLEASE ENTER A VULENRABILITY NUMBER OR ALL:
+" vornov
+  case $vornov in 
+    all )
+      read -p "PLEASE ENTER WHAT VERSION OF THE SOFTWARE YOU WANT TO PERFORM?
+" VERSION
+      read -p "PLEASE ENTER THE DIRECTION OF WHERE YOU WANT TO PERFORM THE CHECK? (TOP/BOTTOM)
+" topbottom
+    ;;
+    * )
+      read -p "PLEASE ENTER WHAT VERSION OF THE SOFTWARE YOU WANT TO PERFORM?
+" VERSION
+      REPORT_TABLE
+      ONE_RESULT_TABLE $vornov
+      exit
+    ;;
+  esac
+shopt -u nocasematch
+}
+
+CSV_REPORT_HEADER () {
+echo -e "VULID\tGROUP TITLE\tRULE ID\tSEVERITY\tRULE VERSION\tRULE TITLE\tVULNERABILITY DISCUSSION\tIA CONTROLS\tCHECK CONTENT\tFIX TEXT\tFILE\tFOUND ITEM\tEXPECTED ITEM\tPASS/FAIL\tNOTES" >> $csv_file
+}
+
+CSV_REPORT_VALUE  () {
+
+CHECK_CONTENT=`echo -e $CHECK_CONTENT | tr '\n' ' '`
+FIX_TEXT=`echo -e $FIX_TEXT | tr '\n' ' '`
+VULNERABILITY_DISCUSSION=`echo -e $VULNERABILITY_DISCUSSION | tr '\n' ' '`
+echo -ne "$vulid\t$GROUP_TITLE\t$RULE_ID\t$SEVERITY\t$RULE_VERSION\t$RULE_TITLE\t$VULNERABILITY_DISCUSSION\t$IAControls\t$CHECK_CONTENT\t$FIX_TEXT\t" >> $csv_file
+
+}
+
+CSV_RESULTS_VALUE () {
+if [[ -z $NOTES ]]
+  then
+    NOTES=x
+fi
+echo -e "$FILE\t""$FOUND_ITEM\t""$EXPECTED_ITEM\t""$RESULTS\t""$NOTES" >> $csv_file
+
+}
+
+CSV_FILLER_VALUE () {
+
+  echo -ne "x\tx\tx\tx\tx\tx\tx\tx\tx\tx\t" >> $csv_file
+}
+
+MITIGATION_TABLE () {
+
+echo -e "$yellowfont"
+read -p "please enter mitigation comment in double quotes (\" \") " mitigation_text
+echo -e "MITIGATION NOTES: $mitigation_text $resetfont" >> $csv_file
+
+
+}
+
+REPORT_TABLE () {
+
+    report_file=$report_dir/$(hostname)_"$answer"."$VERSION"_"$vornov"_stig_report_$(date +%Y%b%d_%H%M%S).html
+    csv_file=$report_dir/$(hostname)_"$answer"."$VERSION"_"$vornov"_stig_report_$(date +%Y%b%d_%H%M%S).csv
+    report_title=`basename --suffix=".html" $report_file`
+    csv_title=`basename --suffix=".csv" $csv_file`
+    FCOUNT=0
+    PCOUNT=0
+# REPORT HTML
+    echo -e "<HTML>" >> $report_file
+    echo -e "\t<style>" >> $report_file
+    echo -e "\t\th1 {" >> $report_file
+    echo -e "\t\t\tfont-family: \"Courier New\", Courier, monospace;" >> $report_file
+    echo -e "\t\t}" >> $report_file
+    echo -e "\t\ttable, th, td {" >> $report_file
+    echo -e "\t\t\tborder: 1px solid black;" >> $report_file
+    echo -e "\t\t\tfont-family: \"Courier New\", Courier, monospace;" >> $report_file
+    echo -e "\t\t}" >> $report_file
+    echo -e "\t</style>" >>$report_file
+    echo -e "<body>" >> $report_file
+    echo -e "<h1 style="text-align:center\;color:red\;">$report_title FAILED=0 PASSED=0</h1>" >> $report_file
+    echo -e "\t<table style="width:100%">" >> $report_file
+    echo -e "\t\t<tr>" >> $report_file
+    echo -e "\t\t\t<th>VULID</th>" >> $report_file
+    echo -e "\t\t\t<th>GROUP TITLE</th>" >> $report_file
+    echo -e "\t\t\t<th>RULE ID</th>" >> $report_file
+    echo -e "\t\t\t<th>SEVERITY</th>" >> $report_file
+    echo -e "\t\t\t<th>RULE VERSION</th>" >> $report_file
+    echo -e "\t\t\t<th>RULE TITLE</th>" >> $report_file
+    echo -e "\t\t\t<th>VULNERABILITY DISCUSSION</th>" >> $report_file
+    echo -e "\t\t\t<th>IA CONTROLS</th>" >> $report_file
+    echo -e "\t\t\t<th>CHECK CONTENT</th>" >> $report_file
+    echo -e "\t\t\t<th>FIX TEXT</th>" >> $report_file
+    echo -e "\t\t\t<th>FILE</th>" >> $report_file
+    echo -e "\t\t\t<th>FOUND ITEM</th>" >> $report_file
+    echo -e "\t\t\t<th>EXPECTED ITEM</th>" >> $report_file
+    echo -e "\t\t\t<th>PASS/FAIL</th>" >> $report_file
+    echo -e "\t\t\t<th>NOTES:</th>" >> $report_file
+    echo -e "\t\t</tr>" >> $report_file
+    CSV_REPORT_HEADER
+}
+
+ONE_RESULT_TABLE () {
+  echo -e "$lyellowfont PLEASE WAIT WHILE THE SCAN IS BEING PERFORMED $resetfont"
+
+# LOAD THE STIG
+
+    source $check_dir/$answer/$VERSION/stig/$1
+      echo -e "\t\t<tr>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$vulid</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$GROUP_TITLE</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$RULE_ID</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$SEVERITY</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$RULE_VERSION</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$RULE_TITLE</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$VULNERABILITY_DISCUSSION</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$IAControls</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$CHECK_CONTENT</td>" >> $report_file
+      echo -e "\t\t\t<td align="right"; valign="top">$FIX_TEXT</td>" >> $report_file
+      CSV_REPORT_VALUE
+
+      echo -e $lredfont
+
+# LOAD THE CHECK
+
+      os_check=$1
+      source $check_dir/"$answer"/$VERSION/checks/"$os_check".sh
+      echo -e $resetfont
+
+      echo -e "\t\t</tr>" >> $report_file
+      echo -e "</body>" >> $report_file
+      echo -e "</HTML>" >> $report_file
+      COUNT_PASS_FAIL
+      echo -e "$resetfont"
+
+      echo -e "$lmagentafont SCAN COMPLETE $resetfont"
+
+}
+
+RESULTS_TABLE_TOP () {
+
+       echo -e "$lyellowfont PLEASE WAIT WHILE THE SCAN IS BEING PERFORMED $resetfont"
+
+# LOAD THE STIGS
+
+       for i in $(find -L $check_dir/$answer/$VERSION/stig/ -type f|sort); do
+       set -e
+       source $i
+         echo -e "\t\t<tr>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$vulid</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$GROUP_TITLE</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$RULE_ID</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$SEVERITY</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$RULE_VERSION</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$RULE_TITLE</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$VULNERABILITY_DISCUSSION</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$IAControls</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$CHECK_CONTENT</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$FIX_TEXT</td>" >> $report_file
+         CSV_REPORT_VALUE
+
+         echo -e $lredfont
+
+# LOAD THE CHECKS
+
+         os_check=`basename $i`
+         echo -e "$yellowfont RUNNING CHECK FOR $os_check"
+         source $check_dir/"$answer"/$VERSION/checks/"$os_check".sh 
+         if [[ $RESULTS == FAIL ]]
+           then
+             echo -e "$redfont $RESULTS"
+         elif [[ $RESULTS == PASS ]]
+           then
+             echo -e "$greenfont $RESULTS"
+         else
+           echo -e "$bluefont $RESULTS"
+         fi
+         echo -e $resetfont
+         echo -e "\t\t</tr>" >> $report_file
+         COUNT_PASS_FAIL
+
+       done
+
+# CLOSE THE REPORT
+
+       echo -e "</body>" >> $report_file
+       echo -e "</HTML>" >> $report_file
+       echo -e "resetfont"
+       echo -e "$lmagentafont SCAN COMPLETE $resetfont"
+
+}
+
+RESULTS_TABLE_BOTTOM () {
+
+       echo -e "$lyellowfont PLEASE WAIT WHILE THE SCAN IS BEING PERFORMED $resetfont"
+
+# LOAD THE STIG
+
+       for i in $(find -L $check_dir/$answer/$VERSION/stig/ -type f|sort -r); do
+       set -e
+       source $i
+         echo -e "\t\t<tr>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$vulid</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$GROUP_TITLE</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$RULE_ID</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$SEVERITY</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$RULE_VERSION</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$RULE_TITLE</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$VULNERABILITY_DISCUSSION</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$IAControls</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$CHECK_CONTENT</td>" >> $report_file
+         echo -e "\t\t\t<td align="right"; valign="top">$FIX_TEXT</td>" >> $report_file
+         CSV_REPORT_VALUE
+
+         echo -e $lredfont
+
+# LOAD THE CHECK
+
+         os_check=`basename $i`
+         echo -e "$yellowfont RUNNING CHECK FOR $os_check"
+         source $check_dir/"$answer"/$VERSION/checks/"$os_check".sh 
+         if [[ $RESULTS == FAIL ]]
+           then
+             echo -e "$redfont $RESULTS"
+         elif [[ $RESULTS == PASS ]]
+           then
+             echo -e "$greenfont $RESULTS"
+         else
+           echo -e "$bluefont $RESULTS"
+         fi
+         echo -e $resetfont
+         echo -e "\t\t</tr>" >> $report_file
+         COUNT_PASS_FAIL
+       done 
+
+# CLOSE THE REPORT
+
+       echo -e "</body>" >> $report_file
+       echo -e "</HTML>" >> $report_file
+       echo -e "resetfont"
+       echo -e "$lmagentafont SCAN COMPLETE $resetfont"
+
+}
+
+
+RESULT_TABLE () {
+
+echo -e "\t\t\t<td align="right"; valign="top">$FILE</td>" >> $report_file
+echo -e "\t\t\t<td align="right"; valign="top">"$FOUND_ITEM"</td>" >> $report_file
+echo -e "\t\t\t<td align="right"; valign="top">$EXPECTED_ITEM</td>" >> $report_file
+CSV_RESULTS_VALUE
+FAILED_LIST=`basename --suffix=.html $report_file`.FAIL
+PASS_LIST=`basename --suffix=.html $report_file`.PASS
+shopt -s nocasematch
+
+case $RESULTS in
+
+  FAIL )
+
+    echo -e "\t\t\t<td style="color:red"; align="right"; valign="top">$RESULTS</td>" >> $report_file
+    echo -e "$os_check" >> $report_dir/$FAILED_LIST
+
+  ;;
+
+  PASS )
+
+    echo -e "\t\t\t<td style="color:green"; align="right"; valign="top">$RESULTS</td>" >> $report_file
+    echo -e "$os_check" >> $report_dir/$PASS_LIST
+
+  ;;
+  
+  * )
+
+    echo -e "\t\t\t<td style="color:blue"; align="right"; valign="top">$RESULTS</td>" >> $report_file
+
+  ;;
+ 
+esac
+
+echo -e "\t\t\t<td align="right"; valign="top">$NOTES</td>" >> $report_file
+
+shopt -u nocasematch
+
+NOTES=""
+
+}
+
+FILL_RESULTS () {
+
+# THIS IS A TABLE FILLER FUNCTION FOR RUNNING IN LOOPS
+
+  echo -e "\t\t</tr>" >> $report_file
+  echo -e "\t\t<tr>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  CSV_FILLER_VALUE
+
+}
+
+LOGIC_TEST () {
+EXPECTED_ITEM=$1
+FOUND_ITEM=$2
+
+if [[ -z $FOUND_ITEM ]]; then
+  FOUND_ITEM=`echo -e "TEST RESULT IS NULL"`
+  RESULTS=FAIL
+elif [[ $EXPECTED_ITEM == $FOUND_ITEM ]]; then
+  RESULTS=PASS
+else
+  RESULTS=FAIL
+fi
+RESULT_TABLE
+
+}
+
+LOGIC_TEST_PLUS_MINUS () {
+# This logic test tests for whether or an integer is lower or higher than the expected item.
+# usage: LOGIC_TEST_PLUS_MINUS "< GREATER_THAN || LESS_THAN >" "$EXPECTED_ITEM" "$FOUND_ITEM"
+shopt  -s nocasematch
+PLUSMINUS=$2
+EXPECTED_ITEM=$1
+FOUND_ITEM=$3
+
+case $PLUSMINUS in
+
+  GREATER_THAN )
+
+    if [[ -z $FOUND_ITEM ]]
+      then
+        FOUND_ITEM="TEST RESULT IS NULL"
+        RESULTS=FAIL
+    elif [[ $EXPECTED_ITEM -ge $FOUND_ITEM ]]
+      then
+        RESULTS=PASS
+    else
+      RESULTS=FAIL
+    fi 
+
+  ;;
+
+  LESS_THAN )
+
+    if [[ -z $FOUND_ITEM ]]
+      then
+        FOUND_ITEM="TEST RESULT IS NULL"
+        RESULTS=FAIL
+    elif [[ $EXPECTED_ITEM -le $FOUND_ITEM ]]
+      then
+        RESULTS=PASS
+    else
+      RESULTS=FAIL
+    fi
+
+  ;;
+
+  * )
+
+    echo -e "$redfont INPUT UNKNOWN PLEASE CORRECT AND TRY AGAIN"
+    exit 
+
+  ;;
+
+esac
+shopt -u nocasematch
+RESULT_TABLE
+}
+
+APACHE_CONFIG_PARSE () {
+
+  CONFIG_FILE=$1
+  DELIMETER=$2
+
+# Clean all comments and leading whitespaces
+  LINE=`grep -v "^#\|^[[:blank:]].*#" $CONFIG_FILE | awk "/<$DELIMETER/,/<\/$DELIMETER>/" | tr -s "\n" "\t" | tr -s [:blank:] "\t" | sed -e "s|</$DELIMETER>|</$DELIMETER>\n|g" | sed -e "s|^[ \t]*||g"`
+
+}
+
+DB_ENCRYPT () {
+
+  shopt -s nocasematch
+
+  echo -e $lgreenfont
+
+  read -p "DOES THE DATABASE REQUIRE ENCRYPTION?
+  " db_encrypt
+
+  echo -e $resetfont
+
+  case $db_encrypt in
+
+    yes )
+
+      db_encrypt=yes
+      db_crypto=`$db_exec -U $db_user --tuples-only --no-align -c "select name from pg_available_extensions where name="pgcrypto""`
+
+    ;;
+
+    no )
+
+      db_encrypt=no
+      db_crypto="DATABASE DOES NOT REQUIRE ENCRYPTION"
+
+    ;;
+
+    * )
+
+    echo -e "$redfont Please enter yes or no $resetfont"
+    DB_ENCRYPT
+
+    ;;
+
+  esac
+
+  shopt -u nocasematch
+
+}
+
+COUNT_PASS_FAIL () {
+
+if [[ $RESULTS == FAIL ]]
+  then
+
+    FCOUNT=`echo -e $(sort -u $report_dir/$FAILED_LIST | wc -l)`
+    sed -i "s|FAILED=.* PASS|FAILED=$FCOUNT PASS|g" $report_file
+
+elif [[ $RESULTS == PASS ]]
+  then
+
+    PCOUNT=`echo -e $(sort -u $report_dir/$PASS_LIST | wc -l)`
+    sed -i "s|PASSED=.*</h1>|PASSED=$PCOUNT</h1>|g" $report_file
+
+fi
+
+
+}
+
+DB_SEC_LABEL () {
+
+  shopt -s nocasematch
+
+  echo -e $lgreenfont
+
+  read -p "SECURITY LABELING REQUIRED FOR THIS DATABASE?
+  " db_sec_label
+
+  echo -e $resetfont
+
+  case $db_sec_label in
+
+    yes )
+
+      db_sec_label=yes
+      db_seclabels=$db_exec -U postgres --tuples-only --no-align -c "\d+"
+
+    ;;
+
+    no )
+
+      db_sec_label=no
+      db_seclabels="ROW-LEVEL SECURITY IS NOT REQUIRED FOR THIS DATABASE"
+
+    ;;
+
+
+    * )
+
+      echo -e "$redfont Please enter yes or no $resetfont"
+      DB_SEC_LABEL
+
+    ;;
+
+  esac
+
+  shopt -u nocasematch
+}
+
+DB_OWNER () {
+
+  echo -e $lgreenfont
+
+  read -p "PLEASE ENTER THE USERNAME OF THE OWNER OF THE DATABASE
+  " db_owner
+
+  echo -e $resetfont
+
+  if [[ -z $(id $db_owner) ]]; then
+
+    echo -e "$redfont THAT IS NOT A VALID USER FOR THIS SYSTEM $resetfont"
+    DB_OWNER
+
+  else
+
+    db_owner=$db_owner
+
+  fi
+
+}

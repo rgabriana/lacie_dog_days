@@ -1,0 +1,38 @@
+vulid="V-71993"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86617r1_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-020230"
+RULE_TITLE="The x86 Ctrl-Alt-Delete key sequence must be disabled."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system is not configured to reboot the system when Ctrl-Alt-Delete is pressed.
+
+Check that the ctrl-alt-del.service is not active with the following command:
+
+# systemctl status ctrl-alt-del.service
+reboot.target - Reboot
+   Loaded: loaded (/usr/lib/systemd/system/reboot.target; disabled)
+   Active: inactive (dead)
+     Docs: man:systemd.special(7)
+
+If the ctrl-alt-del.service is active, this is a finding."
+
+
+FIX_TEXT="Configure the system to disable the Ctrl-Alt_Delete sequence for the command line with the following command:
+
+# systemctl mask ctrl-alt-del.target
+
+If GNOME is active on the system, create a database to contain the system-wide setting (if it does not already exist) with the following command: 
+
+# cat /etc/dconf/db/local.d/00-disable-CAD 
+
+Add the setting to disable the Ctrl-Alt_Delete sequence for GNOME:
+
+[org/gnome/settings-daemon/plugins/media-keys]
+logout=’’"
+
+CCI="CCI-000366"

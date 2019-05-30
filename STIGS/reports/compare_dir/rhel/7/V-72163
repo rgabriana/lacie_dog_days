@@ -1,0 +1,20 @@
+16c16
+< CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to access the \"/etc/sudoers\" file and files in the \"/etc/sudoers.d/\" directory. 
+---
+> CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to access the \"/etc/sudoers\" file and files in the \"/etc/sudoers.d/*\" directory. 
+18c18
+< Check for modification of the following files being audited by performing the following commands to check the file system rules in \"/etc/audit/audit.rules\": 
+---
+> Check for modification of the following files being audited by performing the following commands to check the file system rules in "/etc/audit/audit.rules": 
+24c24
+< # grep -i \"/etc/sudoers.d/\" /etc/audit/audit.rules
+---
+> # grep -i \"/etc/sudoers.d/*\" /etc/audit/audit.rules
+31c31
+< FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to access the \"/etc/sudoers\" file and files in the \"/etc/sudoers.d/\" directory.
+---
+> FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to access the \"/etc/sudoers\" file and files in the \"/etc/sudoers.d/*\" directory.
+33c33
+< Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+---
+> Add or update the following rule in "/etc/audit/rules.d/audit.rules":

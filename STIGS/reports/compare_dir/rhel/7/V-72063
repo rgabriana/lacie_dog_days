@@ -1,0 +1,20 @@
+12c12
+< CHECK_CONTENT="Determine if the operating system is configured to have the \"/var/log/audit\" path is on a separate file system.
+---
+> CHECK_CONTENT="Determine if the operating system is configured to have the "/var/log/audit" path is on a separate file system.
+16c16
+< If no result is returned, or the operating system is not configured to have \"/var/log/audit\" on a separate file system, this is a finding.
+---
+> If no result is returned, or the operating system is not configured to have "/var/log/audit" on a separate file system, this is a finding.
+18c18
+< Verify that \"/var/log/audit\" is mounted on a separate file system:
+---
+> Verify that "/var/log/audit" is mounted on a separate file system:
+20c20
+< # mount | grep \"/var/log/audit"
+---
+> # mount | grep "/var/log/audit"
+22c22
+< If no result is returned, or \"/var/log/audit\" is not on a separate file system, this is a finding."
+---
+> If no result is returned, or "/var/log/audit" is not on a separate file system, this is a finding."

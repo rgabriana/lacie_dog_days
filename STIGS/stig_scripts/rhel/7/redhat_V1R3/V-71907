@@ -1,0 +1,30 @@
+vulid="V-71907"
+GROUP_TITLE="SRG-OS-000071-GPOS-00039"
+RULE_ID="SV-86531r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010140"
+RULE_TITLE="When passwords are changed or new passwords are assigned, the new password must contain at least one numeric character."
+
+
+VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user's session has idled and take action to initiate the session lock.
+
+The session lock is implemented at the point where session activity can be determined and/or controlled.false"
+
+
+CHECK_CONTENT="Note: The value to require a number of numeric characters to be set is expressed as a negative number in "/etc/security/pwquality.conf".
+
+Check the value for "dcredit" in "/etc/security/pwquality.conf" with the following command:
+
+# grep dcredit /etc/security/pwquality.conf 
+dcredit = -1 
+
+If the value of "dcredit" is not set to a negative value, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to enforce password complexity by requiring that at least one numeric character be used by setting the "dcredit" option.
+
+Add the following line to /etc/security/pwquality.conf (or modify the line to have the required value):
+
+dcredit = -1"
+
+CCI="CCI-000193"

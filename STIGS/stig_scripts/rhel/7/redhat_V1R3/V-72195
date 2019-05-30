@@ -1,0 +1,35 @@
+vulid="V-72195"
+GROUP_TITLE="SRG-OS-000471-GPOS-00216"
+RULE_ID="SV-86819r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030860"
+RULE_TITLE="All uses of the modprobe command must be audited."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "modprobe" command occur. 
+
+Check the auditing rules in "/etc/audit/audit.rules" with the following command:
+
+Note: The output lines of the command are duplicated to cover both 32-bit and 64-bit architectures. Only the line appropriate for the system architecture must be present.
+
+# grep -i modprobe /etc/audit/audit.rules
+
+If the command does not return the following output, this is a finding. 
+
+-w /sbin/modprobe -p x -F auid!=4294967295 -k module-change
+
+If the command does not return any output, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "modprobe" command occur. 
+
+Add or update the following rule in "/etc/audit/rules.d/audit.rules":
+
+-w /sbin/modprobe -p x -F auid!=4294967295 -k module-change
+
+The audit daemon must be restarted for the changes to take effect."
+
+CCI="CCI-002884"

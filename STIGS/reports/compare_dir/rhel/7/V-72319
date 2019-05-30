@@ -1,0 +1,12 @@
+20c20
+< If \"net.ipv6.conf.all.accept_source_route\" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out or does not have a value of \"0\", this is a finding.
+---
+> If "net.ipv6.conf.all.accept_source_route" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out or does not have a value of "0", this is a finding.
+27c27
+< If the returned lines do not have a value of \"0\", this is a finding."
+---
+> If the returned lines do not have a value of "0", this is a finding."
+30c30
+< FIX_TEXT="Set the system to the required kernel parameter, if IPv6 is enabled, by adding the following line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
+---
+> FIX_TEXT="Set the system to the required kernel parameter, if IPv6 is enabled, by adding the following line to "/etc/sysctl.conf" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):

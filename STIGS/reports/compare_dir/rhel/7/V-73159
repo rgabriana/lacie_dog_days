@@ -1,0 +1,28 @@
+9c9
+< VULNERABILITY_DISCUSSION="Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. \"pwquality\" enforces complex password construction configuration and has the ability to limit brute-force attacks on the system."
+---
+> VULNERABILITY_DISCUSSION="Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. "pwquality" enforces complex password construction configuration and has the ability to limit brute-force attacks on the system."
+12c12
+< CHECK_CONTENT="Verify the operating system uses \"pwquality\" to enforce the password complexity rules. 
+---
+> CHECK_CONTENT="Verify the operating system uses "pwquality" to enforce the password complexity rules. 
+14c14
+< Check for the use of \"pwquality\" with the following command:
+---
+> Check for the use of "pwquality" with the following command:
+20c20
+< If the command does not return an uncommented line containing the value \"pam_pwquality.so\", this is a finding.
+---
+> If the command does not return an uncommented line containing the value "pam_pwquality.so", this is a finding.
+22c22
+< If the value of \"retry\" is set to \"0\" or greater than \"3\", this is a finding."
+---
+> If the value of \"retry\" is set to "0" or greater than \"3\", this is a finding."
+25c25
+< FIX_TEXT="Configure the operating system to use \"pwquality\" to enforce password complexity rules.
+---
+> FIX_TEXT="Configure the operating system to use "pwquality" to enforce password complexity rules.
+27c27
+< Add the following line to \"/etc/pam.d/system-auth\" (or modify the line to have the required value):
+---
+> Add the following line to "/etc/pam.d/system-auth" (or modify the line to have the required value):

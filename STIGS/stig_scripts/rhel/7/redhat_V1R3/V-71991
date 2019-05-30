@@ -1,0 +1,37 @@
+vulid="V-71991"
+GROUP_TITLE="SRG-OS-000445-GPOS-00199"
+RULE_ID="SV-86615r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-020220"
+RULE_TITLE="The operating system must enable the SELinux targeted policy."
+
+
+VULNERABILITY_DISCUSSION="The shorter the password, the lower the number of possible combinations that need to be tested before the password is compromised.
+
+Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password length is one factor of several that helps to determine strength and how long it takes to crack a password. Use of more characters in a password helps to exponentially increase the time and/or resources required to compromise the password.false"
+
+
+CHECK_CONTENT="Verify the operating system verifies correct operation of all security functions.
+
+Check if "SELinux" is active and is enforcing the targeted policy with the following command:
+
+# sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /selinu
+XCurrent mode:                   enforcing
+Mode from config file:          enforcing
+Policy version:                 24
+Policy from config file:        targeted
+
+If the "Policy from config file" is not set to "targeted", or the "Loaded policy name" is not set to "targeted", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to verify correct operation of all security functions.
+
+Set the "SELinuxtype" to the "targeted" policy by modifying the "/etc/selinux/config" file to have the following line:
+
+SELINUXTYPE=targeted
+
+A reboot is required for the changes to take effect."
+
+CCI="CCI-001958"

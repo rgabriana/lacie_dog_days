@@ -1,0 +1,16 @@
+24c24
+< If the process is found, then check the \"ntp.conf\" file for the \"maxpoll\" option setting:
+---
+> If the process is found, then check the "ntp.conf" file for the "maxpoll" option setting:
+29c29
+< If the option is set to \"17\" or is not set, this is a finding.
+---
+> If the option is set to "17" or is not set, this is a finding.
+41c41
+< FIX_TEXT="Edit the \"/etc/ntp.conf\" file and add or update an entry to define \"maxpoll\" to \"10\" as follows:
+---
+> FIX_TEXT="Edit the "/etc/ntp.conf" file and add or update an entry to define "maxpoll" to "10" as follows:
+45c45
+< If NTP was running and \"maxpoll\" was updated, the NTP service must be restarted:
+---
+> If NTP was running and "maxpoll" was updated, the NTP service must be restarted:

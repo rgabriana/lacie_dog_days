@@ -1,0 +1,90 @@
+RGNext STIG Checking script:
+==========================================================================
+This is a collection of scripts to perform vulnerability assessment based off of the Department of Information Services Agency (DISA) Security Technical Implementation Guides (STIG).
+
+The program is design to perform the following checks based off of the DISA STIG:
+
+	-Apache
+	-PostgreSQL
+	-CentOS 7
+	-Red Hat Enterprise Linux (RHEL) 7
+        -Oracle JAVA
+
+The guidances used to create the script are located in:
+
+/opt/STIGS/guidance
+
+Simply run the script as root:
+
+$ sudo /opt/STIGS/stig_check/stig_check
+
+Upon execution the program will ask what software the user wants to check:
+
+	- APACHE
+	- POSTGRES
+	- RHEL
+	- CENTOS
+	- JRE
+
+Next the user will be prompted to either one vulnerability ID or all
+Next the user will be prompted for the version of the software.
+	Enter only the major Version, do not include the release build
+Next the user will be prompted to check from the bottom or the top of the list of available Vulnerability ID's
+	Note: if a single vulnerability ID is entered. Then this prompt is bypassed.
+
+Depending on the amount of data that needs to be assessed along with the CPU and memory resources of the system, the scan may take up to 30 mins.
+	Due to the nature of the program the user will not be prompted for a progress report
+
+Upon completion of the scan, the reports directory contains the results of the assessment.
+
+$ /opt/STIGS/reports/
+
+Report file name format
+
+	- <hostname>_<software>.<version>_<VULID>_stig_report_<datestamp>_<timestamp>.csv
+		- csv reporting for application importing
+	- <hostname>_<software>.<version>_<VULID>_stig_report_<datestamp>_<timestamp>.html
+		- html reporting for web display
+	- <hostname>_<software>.<version>_<VULID>_stig_report_<datestamp>_<timestamp>.PASS
+		- VULID PASS reporting
+	- <hostname>_<software>.<version>_<VULID>_stig_report_<datestamp>_<timestamp>.FAIL
+		- VULID FAIL reporting
+
+
+RPM Build instructions:
+================================================================================================
+A script has been created to create an RPM package of the RGNext STIG scripts.
+
+/opt/STIGS/utils/build_stig_script
+
+The idea is to automate the RPM build process, the script assumes that Apache Subversion is used to perform the Configuration Management of the scripts
+
+The build process utilizes rpmdev-setuptree to create the directory structure that RPM is going to use. 
+The default root directory is the users home directory,
+
+~/rpmbuild/
+
+
+
+
+Post-installation:
+================================================================================================
+LINKS
+
+Because DISA has a rolling STIG versions, the rhel check folder are symbolic links of the current check
+
+ln -s redhat_VxRx stig <-- Where 'Vx' is the Version Number and 'Rx' is the Release Number
+T
+---
+
+Because CentOS and Red Hat Enterprise Linux checks and fixes are synonymous, all fix and checks are symbolic links of rhel to centos
+
+ln -s rhel centos
+
+================================================================================================
+
+
+
+
+
+

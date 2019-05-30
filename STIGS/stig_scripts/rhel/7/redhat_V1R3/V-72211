@@ -1,0 +1,26 @@
+vulid="V-72211"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86835r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-031010"
+RULE_TITLE="The rsyslog daemon must not accept log messages from other servers unless the server is being used for log aggregation."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify that the system is not accepting "rsyslog" messages from other systems unless it is documented as a log aggregation server.
+
+Check the configuration of "rsyslog" with the following command:
+
+# grep imtcp /etc/rsyslog.conf
+ModLoad imtcp
+
+If the "imtcp" module is being loaded in the "/etc/rsyslog.conf" file, ask to see the documentation for the system being used for log aggregation.
+
+If the documentation does not exist, or does not specify the server as a log aggregation system, this is a finding."
+
+
+FIX_TEXT="Modify the "/etc/rsyslog.conf" file to remove the "ModLoad imtcp" configuration line, or document the system as being used for log aggregation."
+
+CCI="CCI-002884"

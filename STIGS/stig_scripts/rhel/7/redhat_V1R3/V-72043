@@ -1,0 +1,25 @@
+vulid="V-72043"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86667r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021010"
+RULE_TITLE="File systems that are used with removable media must be mounted to prevent files with the setuid and setgid bit set from being executed."
+
+
+VULNERABILITY_DISCUSSION="If the system does not require valid root authentication before it boots into single-user or maintenance mode, anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system. GRUB 2 is the default boot loader for RHEL 7 and is designed to require a password to boot into single-user mode or make modifications to the boot menu.false"
+
+
+CHECK_CONTENT="Verify file systems that are used for removable media are mounted with the "nouid" option.
+
+Check the file systems that are mounted at boot time with the following command:
+
+# more /etc/fstab
+
+UUID=2bc871e4-e2a3-4f29-9ece-3be60c835222     /mnt/usbflash      vfat   noauto,owner,ro,nosuid                        0 0
+
+If a file system found in "/etc/fstab" refers to removable media and it does not have the "nosuid" option set, this is a finding."
+
+
+FIX_TEXT="Configure the "/etc/fstab" to use the "nosuid" option on file systems that are associated with removable media."
+
+CCI="CCI-000366"

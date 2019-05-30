@@ -1,0 +1,30 @@
+vulid="V-72241"
+GROUP_TITLE="SRG-OS-000163-GPOS-00072"
+RULE_ID="SV-86865r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040340"
+RULE_TITLE="All network connections associated with SSH traffic must terminate after a period of inactivity."
+
+
+VULNERABILITY_DISCUSSION="The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing.false"
+
+
+CHECK_CONTENT="Verify the operating system automatically terminates a user session after inactivity time-outs have expired.
+
+Check for the value of the "ClientAliveCountMax" keyword with the following command:
+
+# grep -i clientalivecount /etc/ssh/sshd_config
+ClientAliveCountMax 0
+
+If "ClientAliveCountMax" is not set to "0" in "/etc/ ssh/sshd_config", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to automatically terminate a user session after inactivity time-outs have expired or at shutdown.
+
+Add the following line (or modify the line to have the required value) to the "/etc/ssh/sshd_config" file (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor):
+
+ClientAliveCountMax 0
+
+The SSH service must be restarted for changes to take effect."
+
+CCI="CCI-000172"

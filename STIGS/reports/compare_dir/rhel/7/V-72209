@@ -1,0 +1,20 @@
+12c12
+< CHECK_CONTENT="Verify \"rsyslog\" is configured to send all messages to a log aggregation server.
+---
+> CHECK_CONTENT="Verify "rsyslog" is configured to send all messages to a log aggregation server.
+14c14
+< Check the configuration of \"rsyslog\" with the following command:
+---
+> Check the configuration of "rsyslog" with the following command:
+16c16
+< Note: If another logging package is used, substitute the utility configuration file for \"/etc/rsyslog.conf\".
+---
+> Note: If another logging package is used, substitute the utility configuration file for "/etc/rsyslog.conf".
+21c21
+< If there are no lines in the \"/etc/rsyslog.conf\" or \"/etc/rsyslog.d/*.conf\" files that contain the \"@\" or \"@@\" symbol(s), and the lines with the correct symbol(s) to send output to another system do not cover all \"rsyslog\" output, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media. 
+---
+> If there are no lines in the "/etc/rsyslog.conf" or "/etc/rsyslog.d/*.conf" files that contain the "@" or "@@" symbol(s), and the lines with the correct symbol(s) to send output to another system do not cover all "rsyslog" output, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media. 
+26c26
+< FIX_TEXT="Modify the \"/etc/rsyslog.conf\" or an \"/etc/rsyslog.d/*.conf\" file to contain a configuration line to send all \"rsyslog\" output to a log aggregation system:
+---
+> FIX_TEXT="Modify the "/etc/rsyslog.conf" or an "/etc/rsyslog.d/*.conf" file to contain a configuration line to send all "rsyslog" output to a log aggregation system:

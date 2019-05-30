@@ -1,0 +1,29 @@
+vulid="V-71905"
+GROUP_TITLE="SRG-OS-000070-GPOS-00038"
+RULE_ID="SV-86529r4_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010130"
+RULE_TITLE="When passwords are changed or new passwords are established, the new password must contain at least one lower-case character."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Note: The value to require a number of lower-case characters to be set is expressed as a negative number in "/etc/security/pwquality.conf".
+
+Check the value for "lcredit" in "/etc/security/pwquality.conf" with the following command:
+
+# grep lcredit /etc/security/pwquality.conf 
+lcredit = -1 
+
+If the value of "lcredit" is not set to a negative value, this is a finding."
+
+
+FIX_TEXT="Configure the system to require at least one lower-case character when creating or changing a password.
+
+Add or modify the following line 
+in "/etc/security/pwquality.conf":
+
+lcredit = -1"
+
+CCI="CCI-000192"

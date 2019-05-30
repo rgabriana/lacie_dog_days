@@ -1,0 +1,30 @@
+vulid="V-72289"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86913r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040640"
+RULE_TITLE="The system must prevent Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages from being accepted."
+
+
+VULNERABILITY_DISCUSSION="Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+
+Off-loading is a common process in information systems with limited audit storage capacity.
+
+Satisfies: SRG-OS-000342-GPOS-00133, SRG-OS-000479-GPOS-00224false"
+
+
+CHECK_CONTENT="Verify the system will not accept IPv4 ICMP redirect messages.
+
+Check the value of the default "accept_redirects" variables with the following command:
+
+# /sbin/sysctl -a | grep  'net.ipv4.conf.default.accept_redirects'
+net.ipv4.conf.default.accept_redirects=0
+
+If the returned line does not have a value of "0", or a line is not returned, this is a finding."
+
+
+FIX_TEXT="Set the system to not accept IPv4 ICMP redirect messages by adding the following line to "/etc/sysctl.conf" (or modify the line to have the required value):
+
+net.ipv4.conf.default.accept_redirects = 0"
+
+CCI="CCI-000172"

@@ -1,0 +1,31 @@
+vulid="V-72185"
+GROUP_TITLE="SRG-OS-000471-GPOS-00215"
+RULE_ID="SV-86809r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030810"
+RULE_TITLE="All uses of the pam_timestamp_check command must be audited."
+
+
+VULNERABILITY_DISCUSSION="Local initialization files for interactive users are used to configure the user's shell environment upon logon. Malicious modification of these files could compromise accounts upon logon.false"
+
+
+CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur. 
+
+Check the auditing rules in "/etc/audit/audit.rules" with the following command:
+
+# grep -i "/sbin/pam_timestamp_check" /etc/audit/audit.rules
+
+-a always,exit -F path=/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=4294967295  -k privileged-pam  
+
+If the command does not return any output, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "pam_timestamp_check" command occur. 
+
+Add or update the following rule in "/etc/audit/rules.d/audit.rules": 
+
+-a always,exit -F path=/sbin/pam_timestamp_check -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-pam
+
+The audit daemon must be restarted for the changes to take effect."
+
+CCI="CCI-000172"

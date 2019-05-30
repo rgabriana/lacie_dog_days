@@ -1,0 +1,18 @@
+vulid='V-73001'
+GROUP_TITLE='SRG-APP-000092-DB-000208'
+RULE_ID='SV-87653r2_rule'
+SEVERITY='CAT II'
+RULE_VERSION='PGS9-00-008600'
+RULE_TITLE='PostgreSQL must initiate session auditing upon startup.'
+VULNERABILITY_DISCUSSION="Session auditing is for use when a user's activities are under investigation. To be sure of capturing all activity during those periods when session auditing is in use, it needs to be in operation for the whole time PostgreSQL is running."
+CHECK_CONTENT="As the database administrator (shown here as \"postgres\"), check the current settings by running the following SQL:
+\$ sudo su - postgres
+\$ psql -c \"SHOW shared_preload_libraries\"
+If pgaudit is not in the current setting, this is a finding.
+As the database administrator (shown here as "postgres"), check the current settings by running the following SQL:
+\$ psql -c \"SHOW log_destination\"
+If stderr or syslog are not in the current setting, this is a finding."
+FIX_TEXT="Configure PostgreSQL to enable auditing.
+To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.
+For session logging we suggest using pgaudit. For instructions on how to setup pgaudit, see supplementary content APPENDIX-B."
+CCI='CCI-001464'

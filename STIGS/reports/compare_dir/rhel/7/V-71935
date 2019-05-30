@@ -1,0 +1,16 @@
+14c14
+< CHECK_CONTENT="Verify the operating system enforces a minimum 15-character password length. The \"minlen\" option sets the minimum number of characters in a new password.
+---
+> CHECK_CONTENT="Verify the operating system enforces a minimum 15-character password length. The "minlen" option sets the minimum number of characters in a new password.
+16c16
+< Check for the value of the \"minlen\" option in \"/etc/security/pwquality.conf\" with the following command:
+---
+> Check for the value of the "minlen" option in "/etc/security/pwquality.conf" with the following command:
+21c21
+< If the command does not return a \"minlen\" value of 15 or greater, this is a finding."
+---
+> If the command does not return a "minlen" value of 15 or greater, this is a finding."
+26c26
+< Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the required value):
+---
+> Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):

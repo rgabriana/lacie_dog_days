@@ -1,0 +1,30 @@
+vulid="V-72239"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86863r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040330"
+RULE_TITLE="The SSH daemon must not allow authentication using RSA rhosts authentication."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the SSH daemon does not allow authentication using RSA rhosts authentication.
+
+To determine how the SSH daemon's "RhostsRSAAuthentication" option is set, run the following command:
+
+# grep RhostsRSAAuthentication /etc/ssh/sshd_config
+RhostsRSAAuthentication no
+
+If the value is returned as "yes", the returned line is commented out, or no output is returned, this is a finding."
+
+
+FIX_TEXT="Configure the SSH daemon to not allow authentication using RSA rhosts authentication.
+
+Add the following line in "/etc/ssh/sshd_config", or uncomment the line and set the value to "no":
+
+RhostsRSAAuthentication no
+
+The SSH service must be restarted for changes to take effect."
+
+CCI="CCI-000135"

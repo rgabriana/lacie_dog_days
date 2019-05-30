@@ -1,0 +1,16 @@
+12c12
+< CHECK_CONTENT="Verify the user and group account administration utilities are configured to store only encrypted representations of passwords. The strength of encryption that must be used to hash passwords for all accounts is \"SHA512\".
+---
+> CHECK_CONTENT="Verify the user and group account administration utilities are configured to store only encrypted representations of passwords. The strength of encryption that must be used to hash passwords for all accounts is "SHA512".
+14c14
+< Check that the system is configured to create \"SHA512\" hashed passwords with the following command:
+---
+> Check that the system is configured to create "SHA512" hashed passwords with the following command:
+20c20
+< If the \"crypt_style\" variable is not set to \"sha512\", is not in the defaults section, is commented out, or does not exist, this is a finding."
+---
+> If the "crypt_style" variable is not set to "sha512", is not in the defaults section, is commented out, or does not exist, this is a finding."
+25c25
+< Add or update the following line in \"/etc/libuser.conf\" in the [defaults] section: 
+---
+> Add or update the following line in "/etc/libuser.conf" in the [defaults] section: 

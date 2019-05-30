@@ -1,0 +1,26 @@
+vulid="V-72299"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86923r1_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-040690"
+RULE_TITLE="A File Transfer Protocol (FTP) server package must not be installed unless needed."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify a lightweight FTP server has not been installed on the system.
+
+Check to see if a lightweight FTP server has been installed with the following commands:
+
+# yum list installed lftpd
+ lftp-4.4.8-7.el7.x86_64.rpm
+
+If "lftpd" is installed and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
+
+
+FIX_TEXT="Document the "lftpd" package with the ISSO as an operational requirement or remove it from the system with the following command:
+
+# yum remove lftpd"
+
+CCI="CCI-002884"

@@ -1,0 +1,16 @@
+vulid="V-2270"
+GROUP_TITLE="WG430"
+RULE_ID="SV-36641r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WG430 A22"
+RULE_TITLE="Anonymous FTP user access to interactive scripts is prohibited."
+VULNERABILITY_DISCUSSION="The directories containing the CGI scripts, such as PERL, must not be accessible to anonymous users via FTP. This applies to all directories that contain scripts that can dynamically produce web pages in an interactive manner (i.e., scripts based upon user-provided input). Such scripts contain information that could be used to compromise a web service, access system resources, or deface a web site."
+IAControls="ECCD-1, ECCD-2"
+CHECK_CONTENT="Locate the directories containing the CGI scripts. These directories should be language-specific (e.g., PERL, ASP, JS, JSP, etc.).
+
+Using ls –al, examine the file permissions on the CGI, the cgi-bin, and the cgi-shl directories.
+
+Anonymous FTP users must not have access to these directories.
+
+If the CGI, the cgi-bin, or the cgi-shl directories can be accessed by any group that does not require access, this is a finding."
+FIX_TEXT="If the CGI, the cgi-bin, or the cgi-shl directories can be accessed via FTP by any group or user that does not require access, remove permissions to such directories for all but the web administrators and the SAs. Ensure that any such access employs an encrypted connection."

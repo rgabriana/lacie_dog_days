@@ -1,0 +1,16 @@
+12c12
+< CHECK_CONTENT="Verify there are no \".shosts\" files on the system.
+---
+> CHECK_CONTENT="Verify there are no ".shosts" files on the system.
+16c16
+< # find / -name \'*.shosts\'
+---
+> # find / -name '*.shosts'
+18c18
+< If any \".shosts\" files are found on the system, this is a finding."
+---
+> If any ".shosts" files are found on the system, this is a finding."
+21c21
+< FIX_TEXT="Remove any found \".shosts\" files from the system.
+---
+> FIX_TEXT="Remove any found ".shosts" files from the system.

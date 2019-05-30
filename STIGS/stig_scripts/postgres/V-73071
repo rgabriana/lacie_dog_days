@@ -1,0 +1,12 @@
+vulid='V-73071'
+GROUP_TITLE='SRG-APP-000179-DB-000114'
+RULE_ID='SV-87723r2_rule'
+SEVERITY='CAT I'
+RULE_VERSION='PGS9-00-012800'
+RULE_TITLE='The DBMS must be configured on a platform that has a NIST certified FIPS 140-2 installation of OpenSSL.'
+VULNERABILITY_DISCUSSION='Postgres uses OpenSSL for the underlying encryption layer. Currently only Red Hat Enterprise Linux is certified as a FIPS 140-2 distribution of OpenSSL. For other operating systems, users must obtain or build their own FIPS 140-2 OpenSSL libraries.'
+CHECK_CONTENT='If the deployment incorporates a custom build of the operating system and PostgreSQL guaranteeing the use of FIPS 140-2- compliant OpenSSL, this is not a finding.
+If PostgreSQL is not installed on Red Hat Enterprise Linux (RHEL), this is a finding.
+If FIPS encryption is not enabled, this is a finding.'
+FIX_TEXT='Install PostgreSQL with FIPS-compliant cryptography enabled on RHEL; or by other means ensure that FIPS 140-2-certified OpenSSL libraries are used by the DBMS.'
+CCI='CCI-000803'

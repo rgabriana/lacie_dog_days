@@ -1,0 +1,24 @@
+3c3
+< RULE_ID="SV-87041r4_rule"
+---
+> RULE_ID="SV-87041r3_rule"
+18a19,20
+> Requires further clarification from NIST.
+>
+31a34,35
+> # yum list installed authconfig-gtk
+> authconfig-gtk-6.1.12-19.el7.noarch.rpm
+33c37
+< If the \"esc\" and \"pam_pkcs11\" packages are not installed, this is a finding."
+---
+> If the "esc", "pam_pkcs11", and "authconfig-gtk" packages are not installed, this is a finding."
+38c42
+< Install the \"esc\" and \"pam_pkcs11\" packages on the system with the following command:
+---
+> Install the "esc", "pam_pkcs11", "authconfig", and "authconfig-gtk" packages on the system with the following command:
+40c44
+< # yum install esc pam_pkcs11"
+\ No newline at end of file
+---
+> # yum install esc pam_pkcs11 authconfig-gtk"
+\ No newline at end of file

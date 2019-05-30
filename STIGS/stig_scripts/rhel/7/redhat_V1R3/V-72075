@@ -1,0 +1,39 @@
+vulid="V-72075"
+GROUP_TITLE="SRG-OS-000364-GPOS-00151"
+RULE_ID="SV-86699r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021700"
+RULE_TITLE="The system must not allow removable media to be used as the boot loader unless approved."
+
+
+VULNERABILITY_DISCUSSION="Changes to any software components can have significant effects on the overall security of the operating system. This requirement ensures the software has not been tampered with and that it has been provided by a trusted vendor.
+
+Accordingly, patches, service packs, device drivers, or operating system components must be signed with a certificate recognized and approved by the organization.
+
+Verifying the authenticity of the software prior to installation validates the integrity of the patch or upgrade received from a vendor. This verifies the software has not been tampered with and that it has been provided by a trusted vendor. Self-signed certificates are disallowed by this requirement. The operating system should not have to verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the certificate used to verify the software must be from an approved CA.false"
+
+
+CHECK_CONTENT="Verify the system is not configured to use a boot loader on removable media.
+
+Note: GRUB 2 reads its configuration from the "/boot/grub2/grub.cfg" file on traditional BIOS-based machines and from the "/boot/efi/EFI/redhat/grub.cfg" file on UEFI machines.
+
+Check for the existence of alternate boot loader configuration files with the following command:
+
+# find / -name grub.cfg
+/boot/grub2/grub.cfg
+
+If a "grub.cfg" is found in any subdirectories other than "/boot/grub2" and "/boot/efi/EFI/redhat", ask the System Administrator if there is documentation signed by the ISSO to approve the use of removable media as a boot loader. 
+
+Check that the grub configuration file has the set root command in each menu entry with the following commands:
+
+# grep -c menuentry /boot/grub2/grub.cfg
+1
+# grep ‘set root’ /boot/grub2/grub.cfg
+set root=(hd0,1)
+
+If the system is using an alternate boot loader on removable media, and documentation does not exist approving the alternate configuration, this is a finding."
+
+
+FIX_TEXT="Remove alternate methods of booting the system from removable media or document the configuration to boot from removable media with the ISSO."
+
+CCI="CCI-000368"

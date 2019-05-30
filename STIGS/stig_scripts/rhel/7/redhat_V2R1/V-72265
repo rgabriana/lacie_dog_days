@@ -1,0 +1,29 @@
+vulid="V-72265"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86889r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040460"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that the SSH daemon uses privilege separation."
+
+
+VULNERABILITY_DISCUSSION="SSH daemon privilege separation causes the SSH process to drop root privileges when not needed, which would decrease the impact of software vulnerabilities in the unprivileged section."
+
+
+CHECK_CONTENT="Verify the SSH daemon performs privilege separation.
+
+Check that the SSH daemon performs privilege separation with the following command:
+
+# grep -i usepriv /etc/ssh/sshd_config
+
+UsePrivilegeSeparation sandbox
+
+If the "UsePrivilegeSeparation" keyword is set to "no", is missing, or the returned line is commented out, this is a finding."
+
+
+FIX_TEXT="Uncomment the "UsePrivilegeSeparation" keyword in "/etc/ssh/sshd_config" (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor) and set the value to "sandbox" or "yes":
+
+UsePrivilegeSeparation sandbox
+
+The SSH service must be restarted for changes to take effect."
+
+CCI="CCI-002884"

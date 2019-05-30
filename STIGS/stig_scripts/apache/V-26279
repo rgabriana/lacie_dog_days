@@ -1,0 +1,16 @@
+vulid="V-26279"
+GROUP_TITLE="WA00605"
+RULE_ID="SV-33192r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WA00605 A22"
+RULE_TITLE="Error logging must be enabled."
+VULNERABILITY_DISCUSSION="The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. Log data can reveal anomalous behavior such as \“not found\” or \“unauthorized\” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems."
+IAControls="ECAR-1"
+CHECK_CONTENT="Enter the following command:
+
+grep \"ErrorLog\" /usr/local/apache2/conf/httpd.conf
+
+This directive lists the name and location of the error log.
+
+If the command result lists no data, this is a finding."
+FIX_TEXT="Edit the httpd.conf file and enter the name and path to the ErrorLog."

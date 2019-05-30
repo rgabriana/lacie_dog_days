@@ -1,0 +1,18 @@
+14c14
+< Check for the value of the \"remember\" argument in \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" with the following command:
+---
+> Check for the value of the "remember" argument in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" with the following command:
+20c20
+< If the line containing the \"pam_pwhistory.so\" line does not have the \"remember\" module argument set, is commented out, or the value of the \"remember\" module argument is set to less than \"5\", this is a finding."
+---
+> If the line containing the "pam_pwhistory.so" line does not have the "remember" module argument set, is commented out, or the value of the "remember" module argument is set to less than "5", this is a finding."
+25c25
+< Add the following line in \"/etc/pam.d/system-auth\" and \"/etc/pam.d/password-auth\" (or modify the line to have the required value):
+---
+> Add the following line in "/etc/pam.d/system-auth" and "/etc/pam.d/password-auth" (or modify the line to have the required value):
+29c29
+< Note: Manual changes to the listed files may be overwritten by the \"authconfig\" program. The \"authconfig\" program should not be used to update the configurations listed in this requirement."
+\ No newline at end of file
+---
+> Note: Manual changes to the listed files may be overwritten by the "authconfig" program. The "authconfig" program should not be used to update the configurations listed in this requirement."
+\ No newline at end of file

@@ -1,0 +1,8 @@
+9c9
+< VULNERABILITY_DISCUSSION="Local initialization files are used to configure the user\'s shell environment upon logon. Malicious modification of these files could compromise accounts upon logon."
+---
+> VULNERABILITY_DISCUSSION="Local initialization files are used to configure the user's shell environment upon logon. Malicious modification of these files could compromise accounts upon logon."
+23c23
+< If any file that sets a local interactive user\'s environment variables to override the system is not owned by the home directory owner or root, this is a finding."
+---
+> If any file that sets a local interactive user's environment variables to override the system is not owned by the home directory owner or root, this is a finding."

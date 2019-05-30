@@ -1,0 +1,118 @@
+#!bin/bash
+#########################################################################################
+# Title: Fix STIG									#
+# Author: Rolando R. Gabriana Jr. 							#
+# Contact: rolando.gabriana.ctr@us.af.mil						#
+# STIG VERSION: 	U_Apache_2-2_Server_UNIX_V1R9_Manual_STIG			#
+#			U_PostgreSQL_9-x_V1R2_Manual_STIG				#
+#			U_Red_Hat_Enterprise_Linux_7_V2R1_Manual_STIG			#
+# Usage: sudo fix_stig <check-type> <vulnerability-ID> 					#
+# Purpose: 										#
+# 	script to apply fix for failed test from the stig_check script.			#
+#	This script is written in a way for users to either run one fix at a time	#
+#	or run the fix in bulk using a list saved in a text file.			#
+#											#
+#########################################################################################
+set -e
+shopt -s nocasematch
+
+# LOAD CONFIG FILES
+
+for configs in $(ls /opt/STIGS/config/*)
+do
+  if [[ -z $configs ]]
+    then
+      echo -e "$redfont NO CONFIG FILES FOUND $resetfont"
+      exit
+  elif [[ ! -r $configs ]]
+    then
+       echo -e "$redfont $config file unreadable $resetfont"
+       exit
+  else
+    source $configs
+  fi
+done
+
+# ROOT CHECK
+ROOT_CHECK
+
+# VARS BEGIN
+# USER INPUTS
+choose_fix=$1
+fix_vulid=$2
+input_error_msg="$yellowfont \bCANNOT PROCESS INPUT. PLEASE TRY AGAIN $resetfont\n\n$lyellowfont Usage: $resetfont\n\n$greenfont\t\t$(basename $0)$redfont <centos|rhel|postgres|apache> <Vulnerability-ID> or <space-separated list in double quotes\"\" > $resetfont"
+fix_file=$fix_script_dir/"$fix_vulid"_fix
+answer=$choose_fix
+# VARS ENDS
+# FUNCTIONS BEGIN
+
+FIX_CHOICE () {
+
+echo "STIG CHECK $fix_vulid RESULTS IS $RESULTS"
+read -p "do you want to fix? " fix_text
+
+case $fix_text in
+  y|yes )
+    echo -e "$lgreenfont APPLYING FIX FOR $fix_vulid PLEASE WAIT $resetfont"
+    echo -e "$lyellowfont"
+    source $fix_script_dir/$choose_fix/"$fix_vulid"_fix
+    echo -e "FIX APPLIED FOR "$greenfont"$fix_vulid $resetfont"
+  ;;
+
+  n|no )
+    MITIGATION_TABLE
+  ;;
+
+  * )
+    echo -e "$yellowfont PLEASE ENTER YES OR NO $resetfont"
+    FIX_CHOICE
+  ;;
+esac
+
+}
+
+INPUT_CHECK ()  {
+
+# check for empty string
+# check if a fix is available
+
+if [[ -z $fix_vulid ]]
+  then
+    echo -e "$input_error_msg"
+    exit
+fi
+
+for list in $fix_vulid
+  do
+#    source $check_dir/"$choose_fix"_checks/$list.sh
+    ONE_RESULT_TABLE $fix_vulid
+    if [[ $RESULTS == FAIL ]]
+      then
+        FIX_CHOICE
+    fi      
+  done
+  
+}
+
+# FUNCTIONS ENDS
+
+case $choose_fix in
+
+  centos|rhel )
+  OS_CHECK
+  REPORT_TABLE
+  INPUT_CHECK
+  ;;
+  postgres )
+  INPUT_CHECK  
+  ;;
+  apache )
+  INPUT_CHECK
+  ;;
+  * )
+  echo -e "$input_error_msg"
+  exit 
+  ;;
+
+esac
+shopt -u nocasematch

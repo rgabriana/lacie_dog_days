@@ -1,0 +1,17 @@
+ comparing  /home/rgabriana/Documents/software_tools_dev/STIGS/stig_scripts/rhel/7/rhel_V2R2/V-72155  /home/rgabriana/Documents/software_tools_dev/STIGS/stig_scripts/rhel/7/redhat_V2R3/V-72155  
+3c3
+< RULE_ID="SV-86779r4_rule"
+---
+> RULE_ID="SV-86779r5_rule"
+13c13
+< Satisfies: SRG-OS-000042-GPOS-00020, SRG-OS-000392-GPOS-00172, SRG-OS-000471-GPOS-00215"
+---
+> Satisfies: SRG-OS-000042-GPOS-00020, SRG-OS-000392-GPOS-00172, SRG-OS-000471-GPOS-0021."
+22c22
+< -a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-passwd
+---
+> -a always,exit -F path=/usr/bin/chage -F auid>=1000 -F auid!=4294967295 -k privileged-passwd
+31c31
+< -a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-passwd
+---
+> -a always,exit -F path=/usr/bin/chage -F auid>=1000 -F auid!=4294967295 -k privileged-passwd

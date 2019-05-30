@@ -1,0 +1,30 @@
+vulid="V-71915"
+GROUP_TITLE="SRG-OS-000072-GPOS-00040"
+RULE_ID="SV-86539r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010180"
+RULE_TITLE="When passwords are changed the number of repeating consecutive characters must not be more than three characters."
+
+
+VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user's session has idled and take action to initiate the session lock.
+
+The screen package allows for a session lock to be implemented and configured.false"
+
+
+CHECK_CONTENT="The \"maxrepeat\" option sets the maximum number of allowed same consecutive characters in a new password.
+
+Check for the value of the \"maxrepeat\" option in \"/etc/security/pwquality.conf\" with the following command:
+
+# grep maxrepeat /etc/security/pwquality.conf 
+maxrepeat = 3
+
+If the value of \"maxrepeat\" is set to more than \"3\", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to require the change of the number of repeating consecutive characters when passwords are changed by setting the \"maxrepeat\" option.
+
+Add the following line to \"/etc/security/pwquality.conf conf\" (or modify the line to have the required value):
+
+maxrepeat = 3"
+
+CCI="CCI-000195"

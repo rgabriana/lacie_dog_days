@@ -1,0 +1,12 @@
+9c9
+< VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user\'s session has idled and take action to initiate the session lock.
+---
+> VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user's session has idled and take action to initiate the session lock.
+23c23
+< If the \"idle-delay\" setting is missing or is not set to \"900\" or less, this is a finding."
+---
+> If the "idle-delay" setting is missing or is not set to "900" or less, this is a finding."
+38c38
+< You must include the \"uint32\" along with the integer key values as shown.
+---
+> You must include the "uint32" along with the integer key values as shown.

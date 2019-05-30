@@ -1,0 +1,4 @@
+20c20
+< To determine how the SSH daemon\'s \"RhostsRSAAuthentication\" option is set, run the following command:
+---
+> To determine how the SSH daemon's "RhostsRSAAuthentication" option is set, run the following command:

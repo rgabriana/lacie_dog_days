@@ -1,0 +1,35 @@
+vulid="V-72021"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86645r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020650"
+RULE_TITLE="All local interactive user home directories must be group-owned by the home directory owners primary group."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the assigned home directory of all local interactive users is group-owned by that user’s primary GID.
+
+Check the home directory assignment for all non-privileged users on the system with the following command:
+
+Note: This may miss local interactive users that have been assigned a privileged UID. Evidence of interactive use may be obtained from a number of log files containing system logon information.
+
+# ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+-rwxr-x--- 1 smithj users  18 Mar  5 17:06 /home/smithj
+
+Check the user's primary group with the following command:
+
+# grep users /etc/group
+users:x:250:smithj,jonesj,jacksons
+
+If the user home directory referenced in "/etc/passwd" is not group-owned by that user’s primary GID, this is a finding."
+
+
+FIX_TEXT="Change the group owner of a local interactive user’s home directory to the group found in "/etc/passwd". To change the group owner of a local interactive user’s home directory, use the following command:
+
+Note: The example will be for the user "smithj", who has a home directory of "/home/smithj", and has a primary group of users.
+
+# chgrp users /home/smithj"
+
+CCI="CCI-000366"

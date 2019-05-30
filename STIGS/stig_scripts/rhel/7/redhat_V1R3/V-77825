@@ -1,0 +1,33 @@
+vulid="V-77825"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-92521r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040201"
+RULE_TITLE="The operating system must implement virtual address space randomization."
+
+
+VULNERABILITY_DISCUSSION="Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).
+
+Satisfies: SRG-OS-000458-GPOS-00203, SRG-OS-000392-GPOS-00172, SRG-OS-000064-GPOS-00033false"
+
+
+CHECK_CONTENT="Verify the operating system implements virtual address space randomization.
+
+Check that the operating system implements virtual address space randomization with the following command:
+
+# grep kernel.randomize_va_space /etc/sysctl.conf 
+
+kernel.randomize_va_space=2
+
+If "kernel.randomize_va_space" does not have a value of "2", this is a finding."
+
+
+FIX_TEXT="Configure the operating system implement virtual address space randomization.
+
+Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" (or modify the line to have the required value):
+
+kernel.randomize_va_space=2"
+
+CCI="CCI-000018"

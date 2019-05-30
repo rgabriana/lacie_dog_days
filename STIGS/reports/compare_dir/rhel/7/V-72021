@@ -1,0 +1,24 @@
+9c9
+< VULNERABILITY_DISCUSSION="If the Group Identifier (GID) of a local interactive user\'s home directory is not the same as the primary GID of the user, this would allow unauthorized access to the user\'s files, and users that share the same group may not be able to access files that they legitimately should."
+---
+> VULNERABILITY_DISCUSSION="If the Group Identifier (GID) of a local interactive user's home directory is not the same as the primary GID of the user, this would allow unauthorized access to the user's files, and users that share the same group may not be able to access files that they legitimately should."
+12c12
+< CHECK_CONTENT="Verify the assigned home directory of all local interactive users is group-owned by that user\'s primary GID.
+---
+> CHECK_CONTENT="Verify the assigned home directory of all local interactive users is group-owned by that user's primary GID.
+16c16
+< # ls -ld $(egrep \':[0-9]{4}\' /etc/passwd | cut -d: -f6)
+---
+> # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+20c20
+< Check the user\'s primary group with the following command:
+---
+> Check the user's primary group with the following command:
+26c26
+< If the user home directory referenced in \"/etc/passwd\" is not group-owned by that user\'s primary GID, this is a finding."
+---
+> If the user home directory referenced in \"/etc/passwd\" is not group-owned by that user's primary GID, this is a finding."
+29c29
+< FIX_TEXT="Change the group owner of a local interactive user\'s home directory to the group found in \"/etc/passwd\". To change the group owner of a local interactive user\'s home directory, use the following command:
+---
+> FIX_TEXT="Change the group owner of a local interactive user's home directory to the group found in \"/etc/passwd\". To change the group owner of a local interactive user's home directory, use the following command:

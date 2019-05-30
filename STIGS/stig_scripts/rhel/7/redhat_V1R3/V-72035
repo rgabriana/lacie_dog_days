@@ -1,0 +1,29 @@
+vulid="V-72035"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86659r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020720"
+RULE_TITLE="All local interactive user initialization files executable search paths must contain only paths that resolve to the users home directory."
+
+
+VULNERABILITY_DISCUSSION="Failure to restrict system access to authenticated users negatively impacts operating system security.false"
+
+
+CHECK_CONTENT="Verify that all local interactive user initialization files' executable search path statements do not contain statements that will reference a working directory other than the users’ home directory.
+
+Check the executable search path statement for all local interactive user initialization files in the users' home directory with the following commands:
+
+Note: The example will be for the smithj user, which has a home directory of "/home/smithj".
+
+# grep -i path /home/smithj/.*
+/home/smithj/.bash_profile:PATH=$PATH:$HOME/.local/bin:$HOME/bin
+/home/smithj/.bash_profile:export PATH
+
+If any local interactive user initialization files have executable search path statements that include directories outside of their home directory, this is a finding."
+
+
+FIX_TEXT="Edit the local interactive user initialization files to change any PATH variable statements that reference directories other than their home directory. 
+
+If a local interactive user requires path variables to reference a directory owned by the application, it must be documented with the ISSO. "
+
+CCI="CCI-000366"

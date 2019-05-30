@@ -1,0 +1,33 @@
+vulid="V-72305"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86929r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040720"
+RULE_TITLE="If the Trivial File Transfer Protocol (TFTP) server is required, the TFTP daemon must be configured to operate in secure mode."
+
+
+VULNERABILITY_DISCUSSION="If security personnel are not notified immediately when the threshold for the repository maximum audit record storage capacity is reached, they are unable to expand the audit record storage capacity before records are lost.false"
+
+
+CHECK_CONTENT="Verify the TFTP daemon is configured to operate in secure mode.
+
+Check to see if a TFTP server has been installed with the following commands:
+
+# yum list installed | grep tftp-server
+tftp-server.x86_64    x.x-x.el7    rhel-7-server-rpms
+
+If a TFTP server is not installed, this is Not Applicable.
+
+If a TFTP server is installed, check for the server arguments with the following command: 
+
+# grep server_arge /etc/xinetd.d/tftp
+server_args = -s /var/lib/tftpboot
+
+If the "server_args" line does not have a "-s" option and a subdirectory is not assigned, this is a finding."
+
+
+FIX_TEXT="Configure the TFTP daemon to operate in secure mode by adding the following line to "/etc/xinetd.d/tftp" (or modify the line to have the required value):
+
+server_args = -s /var/lib/tftpboot"
+
+CCI="CCI-000172"

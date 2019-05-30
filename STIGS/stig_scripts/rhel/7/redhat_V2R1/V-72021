@@ -1,0 +1,35 @@
+vulid="V-72021"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86645r5_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020650"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that all local interactive user home directories are group-owned by the home directory owners primary group."
+
+
+VULNERABILITY_DISCUSSION="If the Group Identifier (GID) of a local interactive user's home directory is not the same as the primary GID of the user, this would allow unauthorized access to the user's files, and users that share the same group may not be able to access files that they legitimately should."
+
+
+CHECK_CONTENT="Verify the assigned home directory of all local interactive users is group-owned by that user's primary GID.
+
+Check the home directory assignment for all local interactive users on the system with the following command:
+
+# ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+
+-rwxr-x--- 1 smithj users 18 Mar 5 17:06 /home/smithj
+
+Check the user's primary group with the following command:
+
+# grep users /etc/group
+
+users:x:250:smithj,jonesj,jacksons
+
+If the user home directory referenced in "/etc/passwd" is not group-owned by that user's primary GID, this is a finding."
+
+
+FIX_TEXT="Change the group owner of a local interactive user's home directory to the group found in "/etc/passwd". To change the group owner of a local interactive user's home directory, use the following command:
+
+Note: The example will be for the user "smithj", who has a home directory of "/home/smithj", and has a primary group of users.
+
+# chgrp users /home/smithj"
+
+CCI="CCI-000366"

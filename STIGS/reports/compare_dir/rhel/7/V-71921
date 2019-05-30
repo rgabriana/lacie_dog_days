@@ -1,0 +1,12 @@
+12c12
+< CHECK_CONTENT="Verify the system\'s shadow file is configured to store only encrypted representations of passwords. The strength of encryption that must be used to hash passwords for all accounts is SHA512.
+---
+> CHECK_CONTENT="Verify the system's shadow file is configured to store only encrypted representations of passwords. The strength of encryption that must be used to hash passwords for all accounts is SHA512.
+19c19
+< If the \"/etc/login.defs\" configuration file does not exist or allows for password hashes other than SHA512 to be used, this is a finding."
+---
+> If the "/etc/login.defs" configuration file does not exist or allows for password hashes other than SHA512 to be used, this is a finding."
+24c24
+< Add or update the following line in \"/etc/login.defs\":
+---
+> Add or update the following line in "/etc/login.defs":

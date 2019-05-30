@@ -1,0 +1,33 @@
+vulid="V-72255"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86879r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040410"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that the SSH public host key files have mode 0644 or less permissive."
+
+
+VULNERABILITY_DISCUSSION="If a public host key file is modified by an unauthorized user, the SSH service may be compromised."
+
+
+CHECK_CONTENT="Verify the SSH public host key files have mode "0644" or less permissive.
+
+Note: SSH public key files may be found in other directories on the system depending on the installation.
+
+The following command will find all SSH public key files on the system:
+
+# find /etc/ssh -name '*.pub' -exec ls -lL {} \;
+
+-rw-r--r-- 1 root root 618 Nov 28 06:43 ssh_host_dsa_key.pub
+-rw-r--r-- 1 root root 347 Nov 28 06:43 ssh_host_key.pub
+-rw-r--r-- 1 root root 238 Nov 28 06:43 ssh_host_rsa_key.pub
+
+If any file has a mode more permissive than "0644", this is a finding."
+
+
+FIX_TEXT="Note: SSH public key files may be found in other directories on the system depending on the installation. 
+
+Change the mode of public host key files under "/etc/ssh" to "0644" with the following command:
+
+# chmod 0644 /etc/ssh/*.key.pub"
+
+CCI="CCI-000135"

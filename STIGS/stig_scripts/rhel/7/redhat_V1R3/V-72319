@@ -1,0 +1,28 @@
+vulid="V-72319"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86943r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040830"
+RULE_TITLE="The system must not forward IPv6 source-routed packets."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the system does not accept IPv6 source-routed packets.
+
+Note: If IPv6 is not enabled, the key will not exist, and this is not a finding.
+
+Check the value of the accept source route variable with the following command:
+
+# /sbin/sysctl -a | grep  net.ipv6.conf.all.accept_source_route
+net.ipv6.conf.all.accept_source_route=0
+
+If the returned lines do not have a value of "0", or a line is not returned, this is a finding."
+
+
+FIX_TEXT="Set the system to the required kernel parameter, if IPv6 is enabled, by adding the following line to "/etc/sysctl.conf" (or modify the line to have the required value):
+
+net.ipv6.conf.all.accept_source_route = 0"
+
+CCI="CCI-002884"

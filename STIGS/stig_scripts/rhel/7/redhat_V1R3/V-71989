@@ -1,0 +1,30 @@
+vulid="V-71989"
+GROUP_TITLE="SRG-OS-000445-GPOS-00199"
+RULE_ID="SV-86613r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-020210"
+RULE_TITLE="The operating system must enable SELinux."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system verifies correct operation of all security functions.
+
+Check if "SELinux" is active and in "Enforcing" mode with the following command:
+
+# getenforce
+Enforcing
+
+If "SELinux" is not active and not in "Enforcing" mode, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to verify correct operation of all security functions.
+
+Set the "SELinux" status and the "Enforcing" mode by modifying the "/etc/selinux/config" file to have the following line:
+
+SELINUX=enforcing
+
+A reboot is required for the changes to take effect."
+
+CCI="CCI-000778"

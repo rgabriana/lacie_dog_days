@@ -1,0 +1,33 @@
+vulid="V-72227"
+GROUP_TITLE="SRG-OS-000250-GPOS-00093"
+RULE_ID="SV-86851r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040180"
+RULE_TITLE="The operating system must implement cryptography to protect the integrity of Lightweight Directory Access Protocol (LDAP) authentication communications."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system implements cryptography to protect the integrity of remote LDAP authentication sessions.
+
+To determine if LDAP is being used for authentication, use the following command:
+
+# grep -i useldapauth /etc/sysconfig/authconfig
+USELDAPAUTH=yes
+
+If USELDAPAUTH=yes, then LDAP is being used. To see if LDAP is configured to use TLS, use the following command:
+
+# grep -i ssl /etc/pam_ldap.conf
+ssl start_tls
+
+If the "ssl" option is not "start_tls", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to implement cryptography to protect the integrity of LDAP authentication sessions.
+
+Set the USELDAPAUTH=yes in "/etc/sysconfig/authconfig".
+
+Set "ssl start_tls" in "/etc/pam_ldap.conf"."
+
+CCI="CCI-000126"

@@ -1,0 +1,4 @@
+42c42
+< If \"banner-message-enable\" is set to \"false\" or is missing, this is a finding."
+---
+> If \"banner-message-enable\" is set to \"\" or is missing, this is a finding."

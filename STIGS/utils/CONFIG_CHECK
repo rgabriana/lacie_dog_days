@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+conf_dir=$1
+
+if [[ -z $conf_dir ]]; then 
+  echo -e "$redfont configuration directory missing $resetfont"
+  exit
+fi
+
+if [[ ! -d $conf_dir ]]; then 
+  echo -e "$redfont configuration directory cannot be located $resetfont"
+  exit
+fi
+
+if [[ ! -d $conf_dir ]]; then
+   echo -e "redfont configuration directory cannot be read"
+   exit
+fi

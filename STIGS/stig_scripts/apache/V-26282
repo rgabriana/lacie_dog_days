@@ -1,0 +1,22 @@
+vulid="V-26282"
+GROUP_TITLE="WA00620"
+RULE_ID="SV-33207r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WA00620 A22"
+RULE_TITLE="The LogLevel directive must be enabled."
+VULNERABILITY_DISCUSSION="The server error logs are invaluable because they can also be used to\
+ identify potential problems and enable proactive remediation. Log data can reveal anomalous\
+ behavior such as \“not found\” or \“unauthorized\” errors that may be an evidence of attack\
+ attempts. Failure to enable error logging can significantly reduce the ability of Web\
+ Administrators to detect or remediate problems. While the ErrorLog directive configures the\
+ error log file name, the LogLevel directive is used to configure the severity level for the\
+ error logs. The log level values are the standard syslog levels: emerg, alert, crit, error,\
+ warn, notice, info and debug."
+
+IAControls="ECAR-1"
+
+CHECK_CONTENT="Enter the following command:\n\tgrep \"LogLevel\"\
+ /usr/local/apache2/conf/httpd.conf\nThe command should return the following value:\n\t
+LogLevel warn\nIf the above value is not returned, this is a finding.\nNote: If LogLevel is set to error, crit, alert, or emerg which are higher thresholds this is not a finding."
+
+FIX_TEXT="Edit the httpd.conf file and add the value LogLevel warn."

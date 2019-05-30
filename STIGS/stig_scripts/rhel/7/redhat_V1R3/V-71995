@@ -1,0 +1,30 @@
+vulid="V-71995"
+GROUP_TITLE="SRG-OS-000480-GPOS-00228"
+RULE_ID="SV-86619r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020240"
+RULE_TITLE="The operating system must define default permissions for all authenticated users in such a way that the user can only read and modify their own files."
+
+
+VULNERABILITY_DISCUSSION="If an account has an empty password, anyone could log on and run commands with the privileges of that account. Accounts with empty passwords should never be used in operational environments.false"
+
+
+CHECK_CONTENT="Verify the operating system defines default permissions for all authenticated users in such a way that the user can only read and modify their own files.
+
+Check for the value of the "UMASK" parameter in "/etc/login.defs" file with the following command:
+
+Note: If the value of the "UMASK" parameter is set to "000" in "/etc/login.defs" file, the Severity is raised to a CAT I.
+
+# grep -i umask /etc/login.defs
+UMASK  077
+
+If the value for the "UMASK" parameter is not "077", or the "UMASK" parameter is missing or is commented out, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to define default permissions for all authenticated users in such a way that the user can only read and modify their own files.
+
+Add or edit the line for the "UMASK" parameter in "/etc/login.defs" file to "077":
+
+UMASK  077"
+
+CCI="CCI-000778"

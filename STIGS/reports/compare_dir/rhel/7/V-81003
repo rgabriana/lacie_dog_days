@@ -1,0 +1,4 @@
+22c22
+< Add the following line to \"/etc/pam.d/passwd\" (or modify the line to have the required value):
+---
+> Add the following line to "/etc/pam.d/passwd" (or modify the line to have the required value):

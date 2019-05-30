@@ -1,0 +1,31 @@
+vulid="V-72143"
+GROUP_TITLE="SRG-OS-000392-GPOS-00172"
+RULE_ID="SV-86767r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030600"
+RULE_TITLE="The operating system must generate audit records for all successful/unsuccessful account access count events."
+
+
+VULNERABILITY_DISCUSSION="If local interactive users are not assigned a valid home directory, there is no place for the storage and control of files they should own.false"
+
+
+CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful account access count events occur. 
+
+Check the file system rule in "/etc/audit/audit.rules" with the following commands: 
+
+# grep -i /var/log/tallylog /etc/audit/audit.rules
+
+-w /var/log/tallylog -p wa -k logins
+
+If the command does not return any output, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful account access count events occur.
+
+Add or update the following rule in "/etc/audit/rules.d/audit.rules": 
+
+-w /var/log/tallylog -p wa -k logins
+
+The audit daemon must be restarted for the changes to take effect."
+
+CCI="CCI-002234"

@@ -1,0 +1,22 @@
+12c12
+< CHECK_CONTENT="Verify \"AUTH_GSS\" is being used to authenticate NFS mounts.
+---
+> CHECK_CONTENT="Verify "AUTH_GSS" is being used to authenticate NFS mounts.
+14c14
+< To check if the system is importing an NFS file system, look for any entries in the \"/etc/fstab\" file that have a file system type of \"nfs\" with the following command:
+---
+> To check if the system is importing an NFS file system, look for any entries in the "/etc/fstab" file that have a file system type of "nfs" with the following command:
+19c19
+< If the system is mounting file systems via NFS and has the sec option without the \"krb5:krb5i:krb5p\" settings, the \"sec\" option has the \"sys\" setting, or the \"sec\" option is missing, this is a finding."
+---
+> If the system is mounting file systems via NFS and has the sec option without the "krb5:krb5i:krb5p" settings, the "sec" option has the "sys" setting, or the "sec" option is missing, this is a finding."
+22c22
+< FIX_TEXT="Update the \"/etc/fstab\" file so the option \"sec\" is defined for each NFS mounted file system and the \"sec\" option does not have the \"sys\" setting. 
+---
+> FIX_TEXT="Update the "/etc/fstab" file so the option "sec" is defined for each NFS mounted file system and the "sec" option does not have the "sys" setting. 
+24c24
+< Ensure the \"sec\" option is defined as \"krb5:krb5i:krb5p\"."
+\ No newline at end of file
+---
+> Ensure the "sec" option is defined as "krb5:krb5i:krb5p"."
+\ No newline at end of file

@@ -1,0 +1,29 @@
+vulid="V-72077"
+GROUP_TITLE="SRG-OS-000095-GPOS-00049"
+RULE_ID="SV-86701r1_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-021710"
+RULE_TITLE="The telnet-server package must not be installed."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system is configured to disable non-essential capabilities. The most secure way of ensuring a non-essential capability is disabled is to not have the capability installed.
+
+The telnet service provides an unencrypted remote access service that does not provide for the confidentiality and integrity of user passwords or the remote session.
+
+If a privileged user were to log on using this service, the privileged user password could be compromised. 
+
+Check to see if the telnet-server package is installed with the following command:
+
+# yum list installed | grep telnet-server
+
+If the telnet-server package is installed, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to disable non-essential capabilities by removing the telnet-server package from the system with the following command:
+
+# yum remove telnet-server"
+
+CCI="CCI-001812"

@@ -1,0 +1,24 @@
+vulid="V-72055"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86679r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021120"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that the cron.allow file, if it exists, is group-owned by root."
+
+
+VULNERABILITY_DISCUSSION="If the group owner of the "cron.allow" file is not set to root, sensitive information could be viewed or edited by unauthorized users."
+
+
+CHECK_CONTENT="Verify that the "cron.allow" file is group-owned by root.
+
+Check the group owner of the "cron.allow" file with the following command:
+
+# ls -al /etc/cron.allow
+-rw------- 1 root root 6 Mar  5  2011 /etc/cron.allow
+
+If the "cron.allow" file exists and has a group owner other than root, this is a finding."
+
+
+FIX_TEXT="Set the group owner on the "/etc/cron.allow" file to root with the following command:
+
+# chgrp root /etc/cron.allow"

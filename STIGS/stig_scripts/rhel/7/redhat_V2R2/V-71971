@@ -1,0 +1,60 @@
+vulid="V-71971"
+GROUP_TITLE="SRG-OS-000324-GPOS-00125"
+RULE_ID="SV-86595r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020020"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must prevent non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures."
+
+
+VULNERABILITY_DISCUSSION="Preventing non-privileged users from executing privileged functions mitigates the risk that unauthorized individuals or processes may gain unnecessary access to information or privileges.
+
+Privileged functions include, for example, establishing accounts, performing system integrity checks, or administering cryptographic key management activities. Non-privileged users are individuals who do not possess appropriate authorizations. Circumventing intrusion detection and prevention mechanisms or malicious code protection mechanisms are examples of privileged functions that require protection from non-privileged users."
+
+
+CHECK_CONTENT="If an HBSS or HIPS is active on the system, this is Not Applicable.
+
+Verify the operating system prevents non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures.
+
+Get a list of authorized users (other than System Administrator and guest accounts) for the system.
+
+Check the list against the system by using the following command:
+
+# semanage login -l | more
+Login Name SELinux User MLS/MCS Range Service
+__default__ user_u s0-s0:c0.c1023 *
+root unconfined_u s0-s0:c0.c1023 *
+system_u system_u s0-s0:c0.c1023 *
+joe staff_u s0-s0:c0.c1023 *
+
+All administrators must be mapped to the \"sysadm_u\" or \"staff_u\" users role.
+
+All authorized non-administrative users must be mapped to the \"user_u\" role.
+
+If they are not mapped in this way, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to prevent non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures.
+
+Use the following command to map a new user to the \"sysdam_u\" role: 
+
+#semanage login -a -s sysadm_u <username>
+
+Use the following command to map an existing user to the \"sysdam_u\" role:
+
+#semanage login -m -s sysadm_u <username>
+
+Use the following command to map a new user to the \"staff_u\" role:
+
+#semanage login -a -s staff_u <username>
+
+Use the following command to map an existing user to the \"staff_u\" role:
+
+#semanage login -m -s staff_u <username>
+
+Use the following command to map a new user to the \"user_u\" role:
+
+# semanage login -a -s user_u <username>
+
+Use the following command to map an existing user to the \"user_u\" role:
+
+# semanage login -m -s user_u <username>"

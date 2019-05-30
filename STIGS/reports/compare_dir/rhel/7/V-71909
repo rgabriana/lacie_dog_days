@@ -1,0 +1,20 @@
+16c16
+< Note: The value to require a number of special characters to be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
+---
+> Note: The value to require a number of special characters to be set is expressed as a negative number in "/etc/security/pwquality.conf".
+18c18
+< Check the value for \"ocredit\" in \"/etc/security/pwquality.conf\" with the following command:
+---
+> Check the value for "ocredit" in "/etc/security/pwquality.conf" with the following command:
+23c23
+< If the value of \"ocredit\" is not set to a negative value, this is a finding."
+---
+> If the value of "ocredit" is not set to a negative value, this is a finding."
+26c26
+< FIX_TEXT="Configure the operating system to enforce password complexity by requiring that at least one special character be used by setting the \"ocredit\" option.
+---
+> FIX_TEXT="Configure the operating system to enforce password complexity by requiring that at least one special character be used by setting the "ocredit" option.
+28c28
+< Add the following line to \"/etc/security/pwquality.conf\" (or modify the line to have the required value):
+---
+> Add the following line to "/etc/security/pwquality.conf" (or modify the line to have the required value):

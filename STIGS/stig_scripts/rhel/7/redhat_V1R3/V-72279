@@ -1,0 +1,25 @@
+vulid="V-72279"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86903r1_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-040550"
+RULE_TITLE="There must be no shosts.equiv files on the system."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify there are no "shosts.equiv" files on the system.
+
+Check the system for the existence of these files with the following command:
+
+# find / -name shosts.equiv
+
+If any "shosts.equiv" files are found on the system, this is a finding."
+
+
+FIX_TEXT="Remove any found "shosts.equiv" files from the system.
+
+# rm /[path]/[to]/[file]/shosts.equiv"
+
+CCI="CCI-000135"

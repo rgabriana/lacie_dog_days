@@ -1,0 +1,25 @@
+vulid="V-73161"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-87813r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021021"
+RULE_TITLE="File systems that are being imported via Network File System (NFS) must be mounted to prevent binary files from being executed."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify file systems that are being NFS exported are mounted with the "noexec" option.
+
+Find the file system(s) that contain the directories being exported with the following command:
+
+# more /etc/fstab | grep nfs
+
+UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d    /store           nfs           rw,noexec                                                    0 0
+
+If a file system found in "/etc/fstab" refers to NFS and it does not have the "noexec" option set, and use of NFS exported binaries is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
+
+
+FIX_TEXT="Configure the "/etc/fstab" to use the "noexec" option on file systems that are being exported via NFS."
+
+CCI="CCI-000172"

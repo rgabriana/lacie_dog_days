@@ -1,0 +1,41 @@
+!/bin/bash
+MID_REPORT () {
+
+      echo -e "\t\t\t<td align=right; valign=top>$FILE</td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top>"$FOUND_ITEM"</td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top>"$db_owner"</td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top>$RESULTS</td>" >> $report_file
+      echo -e "\t\t</tr>" >> $report_file
+      echo -e "\t\t<tr>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+      echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+}
+
+for FILE in $(find $(dirname $db_directory) \! -user $db_owner); do
+
+  FILE=$FILE
+  FOUND_ITEM=`stat -c %U $FILE`
+  EXPECTED_ITEM=root
+  RESULTS=0
+
+  if [[ $EXPECTED_ITEM == $FOUND_ITEM ]]; then
+
+    RESULTS=PASS
+  elif [[ -z $FOUND_ITEM ]]; then
+    FOUND_ITEM=`echo -e "TEST RESULT IS NULL"`
+    RESULTS=FAIL
+  else
+    RESULTS=FAIL
+  fi
+
+  MID_REPORT
+
+done

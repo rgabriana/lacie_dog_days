@@ -1,0 +1,16 @@
+25c25
+< If the \"sssd.service\" is \"active\", then LDAP is being used.  
+---
+> If the "sssd.service" is \"active\", then LDAP is being used.  
+32c32
+< If the \"ldap_tls_reqcert\" setting is missing, commented out, or does not exist, this is a finding.
+---
+> If the "ldap_tls_reqcert" setting is missing, commented out, or does not exist, this is a finding.
+34c34
+< If the \"ldap_tls_reqcert\" setting is not set to \"demand\" or \"hard\", this is a finding."
+---
+> If the "ldap_tls_reqcert" setting is not set to "demand" or "hard", this is a finding."
+39c39
+< Add or modify the following line in \"/etc/sssd/sssd.conf\":
+---
+> Add or modify the following line in "/etc/sssd/sssd.conf":

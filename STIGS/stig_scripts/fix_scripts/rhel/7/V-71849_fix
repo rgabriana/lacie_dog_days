@@ -1,0 +1,9 @@
+#!/bin/bash
+# for every file found, reset the ownership and permissions of files within a package
+
+for files in $_FILE_LIST
+  do
+    RPM_PKG=`rpm -q --whatprovides $files` 
+    rpm -v --setperms $RPM_PKG
+    rpm -v --setugids $RPM_PKG
+  done

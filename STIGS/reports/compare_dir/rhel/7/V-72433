@@ -1,0 +1,10 @@
+34c34
+< If \"ocsp_on\" is not present in all uncommented \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\", this is a finding."
+---
+> If "ocsp_on" is not present in all uncommented "cert_policy" lines in "/etc/pam_pkcs11/pam_pkcs11.conf", this is a finding."
+39c39
+< Modify all of the \"cert_policy\" lines in \"/etc/pam_pkcs11/pam_pkcs11.conf\" to include \"ocsp_on\"."
+\ No newline at end of file
+---
+> Modify all of the "cert_policy" lines in "/etc/pam_pkcs11/pam_pkcs11.conf" to include "ocsp_on"."
+\ No newline at end of file

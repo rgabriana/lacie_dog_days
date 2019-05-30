@@ -1,0 +1,36 @@
+3c3
+< RULE_ID="SV-86689r3_rule"
+---
+> RULE_ID="SV-86689r2_rule"
+12c12
+< CHECK_CONTENT="Verify that a separate file system/partition has been created for \"/tmp\".
+---
+> CHECK_CONTENT="Verify that a separate file system/partition has been created for "/tmp".
+14c14
+< Check that a file system/partition has been created for \"/tmp\" with the following command:
+---
+> Check that a file system/partition has been created for "/tmp" with the following command:
+19c19
+< If the \"tmp.mount\" service is not enabled, check to see if \"/tmp\" is defined in the fstab with a device and mount point:
+---
+> If the "tmp.mount" service is not enabled, this is a finding."
+21,22d20
+< # grep -i /tmp /etc/fstab
+< UUID=a411dc99-f2a1-4c87-9e05-184977be8539 /tmp   ext4   rw,relatime,discard,data=ordered,nosuid,noexec, 0 0
+24c22
+< If \"tmp.mount\" service is not enabled and the \"/tmp\" directory is not defined in the fstab with a device and mount point, this is a finding. "
+---
+> FIX_TEXT="Start the "tmp.mount" service with the following command:
+26,33c24
+<
+< FIX_TEXT="Start the \"tmp.mount\" service with the following command:
+<
+< # systemctl enable tmp.mount
+<    
+< OR
+<
+< Edit the \"/etc/fstab\" file and ensure the \"/tmp\" directory is defined in the fstab with a device and mount point."
+\ No newline at end of file
+---
+> # systemctl enable tmp.mount"
+\ No newline at end of file

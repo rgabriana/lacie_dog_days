@@ -1,0 +1,44 @@
+vulid="V-71961"
+GROUP_TITLE="SRG-OS-000080-GPOS-00048"
+RULE_ID="SV-86585r3_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-010480"
+RULE_TITLE="Systems with a Basic Input/Output System (BIOS) must require authentication upon booting into single-user and maintenance modes."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="For systems that use UEFI, this is Not Applicable.
+
+Check to see if an encrypted root password is set. On systems that use a BIOS, use the following command:
+
+# grep -i ^password_pbkdf2 /boot/grub2/grub.cfg
+password_pbkdf2 superusers-account password-hash
+
+If the root password entry does not begin with "password_pbkdf2", this is a finding."
+
+
+FIX_TEXT="Configure the system to encrypt the boot password for root.
+
+Generate an encrypted grub2 password for root with the following command:
+
+Note: The hash generated is an example.
+
+# grub-mkpasswd-pbkdf2
+Enter Password:
+Reenter Password:
+PBKDF2 hash of your password is grub.pbkdf2.sha512.10000.F3A7CFAA5A51EED123BE8238C23B25B2A6909AFC9812F0D45
+
+Using this hash, modify the "/etc/grub.d/10_linux" file with the following commands to add the password to the root entry:
+
+# cat << EOF
+> set superusers="root" password_pbkdf2 smithj grub.pbkdf2.sha512.10000.F3A7CFAA5A51EED123BE8238C23B25B2A6909AFC9812F0D45
+> EOF
+
+Generate a new "grub.conf" file with the new password with the following commands:
+
+# grub2-mkconfig --output=/tmp/grub2.cfg
+# mv /tmp/grub2.cfg /boot/grub2/grub.cfg"
+
+CCI="CCI-000366"

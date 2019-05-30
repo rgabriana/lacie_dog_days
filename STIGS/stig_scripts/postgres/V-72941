@@ -1,0 +1,24 @@
+vulid='V-72941'
+GROUP_TITLE='SRG-APP-000091-DB-000325'
+RULE_ID='SV-87593r1_rule'
+SEVERITY='CAT II'
+RULE_VERSION='PGS9-00-005300'
+RULE_TITLE='PostgreSQL must generate audit records when unsuccessful attempts to retrieve privileges/permissions occur.'
+VULNERABILITY_DISCUSSION='Under some circumstances, it may be useful to monitor who/what is reading privilege/permission/role information. Therefore, it must be possible to configure auditing to do this. PostgreSQLs typically make such information available through views or functions.
+This requirement addresses explicit requests for privilege/permission/role membership information. It does not refer to the implicit retrieval of privileges/permissions/role memberships that PostgreSQL continually performs to determine if any and every action on the database is permitted.
+To aid in diagnosis, it is necessary to keep track of failed attempts in addition to the successful ones.'
+CHECK_CONTENT="Note: The following instructions use the PGDATA environment variable. See supplementary content APPENDIX-F for instructions on configuring PGDATA.
+First, as the database administrator (shown here as \"postgres\"), create a role \'bob\' by running the following SQL:
+\$ sudo su - postgres
+\$ psql -c \"CREATE ROLE bob\"
+Next, attempt to retrieve information from the pg_authid table:
+\$ psql -c \"SET ROLE bob; SELECT * FROM pg_authid\"
+Now, as the database administrator (shown here as \"postgres\"), verify the event was logged in pg_log:
+\$ sudo su - postgres
+\$ cat \${PGDATA?}/pg_log/<latest_log>
+< 2016-07-13 16:49:58.864 EDT postgres postgres ERROR: > permission denied for relation pg_authid
+< 2016-07-13 16:49:58.864 EDT postgres postgres STATEMENT: > SELECT * FROM pg_authid;
+If the above steps cannot verify that audit records are produced when PostgreSQL denies retrieval of privileges/permissions/role memberships, this is a finding."
+FIX_TEXT='Configure PostgreSQL to produce audit records when unsuccessful attempts to access privileges occur.
+All denials are logged if logging is enabled. To ensure that logging is enabled, review supplementary content APPENDIX-C for instructions on enabling logging.'
+CCI='CCI-000172'

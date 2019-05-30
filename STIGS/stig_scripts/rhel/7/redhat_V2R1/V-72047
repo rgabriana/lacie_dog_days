@@ -1,0 +1,32 @@
+vulid="V-72047"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86671r4_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021030"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that all world-writable directories are group-owned by root, sys, bin, or an application group."
+
+
+VULNERABILITY_DISCUSSION="If a world-writable directory has the sticky bit set and is not group-owned by a privileged Group Identifier (GID), unauthorized users may be able to modify files created by others.
+
+The only authorized public directories are those temporary directories supplied with the system or those designed to be temporary file repositories. The setting is normally reserved for directories used by the system and by users for temporary file storage, (e.g., /tmp), and for directories requiring global read/write access."
+
+
+CHECK_CONTENT="Verify all world-writable directories are group-owned by root, sys, bin, or an application group.
+
+Check the system for world-writable directories with the following command:
+
+Note: The value after -fstype must be replaced with the filesystem type. XFS is used as an example.
+
+# find / -xdev -perm -002 -type d -fstype xfs -exec ls -lLd {} \;
+drwxrwxrwt 2 root root 40 Aug 26 13:07 /dev/mqueue
+drwxrwxrwt 2 root root 220 Aug 26 13:23 /dev/shm
+drwxrwxrwt 14 root root 4096 Aug 26 13:29 /tmp
+
+If any world-writable directories are not owned by root, sys, bin, or an application group associated with the directory, this is a finding."
+
+
+FIX_TEXT="Change the group of the world-writable directories to root with the following command:
+
+# chgrp root <directory>"
+
+CCI="CCI-000366"

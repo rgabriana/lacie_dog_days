@@ -1,0 +1,14 @@
+24c24
+< If any uncommented line is found with a \"NOPASSWD\" tag, this is a finding."
+---
+> If any uncommented line is found with a "NOPASSWD" tag, this is a finding."
+32c32
+< Remove any occurrences of \"NOPASSWD\" tags in the file.   
+---
+> Remove any occurrences of "NOPASSWD" tags in the file.   
+37c37
+< Remove any occurrences of \"NOPASSWD\" tags in the file."
+\ No newline at end of file
+---
+> Remove any occurrences of "NOPASSWD" tags in the file."
+\ No newline at end of file

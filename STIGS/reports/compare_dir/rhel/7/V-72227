@@ -1,0 +1,16 @@
+25c25
+< If the \"sssd.service\" is \"active\", then LDAP is being used. To see if LDAP is configured to use TLS, use the following command:
+---
+> If the "sssd.service" is \"active\", then LDAP is being used. To see if LDAP is configured to use TLS, use the following command:
+27c27
+< # grep -i \"start_tls\" /etc/sssd/sssd.conf
+---
+> # grep -i "start_tls" /etc/sssd/sssd.conf
+30c30
+< If the \"ldap_id_use_start_tls\" option is not \"true\", this is a finding."
+---
+> If the "ldap_id_use_start_tls" option is not "true", this is a finding."
+35c35
+< Add or modify the following line in \"/etc/sssd/sssd.conf\":
+---
+> Add or modify the following line in "/etc/sssd/sssd.conf":

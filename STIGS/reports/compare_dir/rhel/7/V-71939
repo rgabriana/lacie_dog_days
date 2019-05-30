@@ -1,0 +1,4 @@
+12c12
+< CHECK_CONTENT="To determine how the SSH daemon\'s \"PermitEmptyPasswords\" option is set, run the following command:
+---
+> CHECK_CONTENT="To determine how the SSH daemon's "PermitEmptyPasswords" option is set, run the following command:

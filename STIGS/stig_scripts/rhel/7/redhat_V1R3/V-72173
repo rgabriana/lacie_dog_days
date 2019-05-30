@@ -1,0 +1,31 @@
+vulid="V-72173"
+GROUP_TITLE="SRG-OS-000042-GPOS-00020"
+RULE_ID="SV-86797r4_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030750"
+RULE_TITLE="All uses of the umount command must be audited."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "umount" command occur.
+
+Check for the following system calls being audited by performing the following series of commands to check the file system rules in "/etc/audit/audit.rules": 
+
+# grep -i "/bin/umount" /etc/audit/audit.rules
+
+-a always,exit -F path=/bin/umount -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-mount  
+
+If the command does not return any output, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "umount" command occur.
+
+Add or update the following rule in "/etc/audit/rules.d/audit.rules": 
+
+-a always,exit -F path=/bin/umount -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-mount
+
+The audit daemon must be restarted for the changes to take effect."
+
+CCI="CCI-000172"

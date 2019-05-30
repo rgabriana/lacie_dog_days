@@ -1,0 +1,38 @@
+12c12
+< CHECK_CONTENT="If the \"firewalld\" package is not installed, ask the System Administrator (SA) if another firewall application (such as iptables) is installed. If an application firewall is not installed, this is a finding. 
+---
+> CHECK_CONTENT="If the "firewalld" package is not installed, ask the System Administrator (SA) if another firewall application (such as iptables) is installed. If an application firewall is not installed, this is a finding. 
+14c14
+< Verify the system\'s access control program is configured to grant or deny system access to specific hosts.
+---
+> Verify the system's access control program is configured to grant or deny system access to specific hosts.
+16c16
+< Check to see if \"firewalld\" is active with the following command:
+---
+> Check to see if "firewalld" is active with the following command:
+23c23
+< If \"firewalld\" is active, check to see if it is configured to grant or deny access to specific hosts or services with the following commands:
+---
+> If "firewalld" is active, check to see if it is configured to grant or deny access to specific hosts or services with the following commands:
+41c41
+< If \"firewalld\" is not active, determine whether \"tcpwrappers\" is being used by checking whether the \"hosts.allow\" and \"hosts.deny\" files are empty with the following commands:
+---
+> If "firewalld" is not active, determine whether "tcpwrappers" is being used by checking whether the "hosts.allow" and "hosts.deny" files are empty with the following commands:
+49c49
+< If \"firewalld\" and \"tcpwrappers\" are not installed, configured, and active, ask the SA if another access control program (such as iptables) is installed and active. Ask the SA to show that the running configuration grants or denies access to specific hosts or services.
+---
+> If "firewalld" and "tcpwrappers" are not installed, configured, and active, ask the SA if another access control program (such as iptables) is installed and active. Ask the SA to show that the running configuration grants or denies access to specific hosts or services.
+51c51
+< If \"firewalld\" is active and is not configured to grant access to specific hosts or \"tcpwrappers\" is not configured to grant or deny access to specific hosts, this is a finding."
+---
+> If "firewalld" is active and is not configured to grant access to specific hosts or "tcpwrappers" is not configured to grant or deny access to specific hosts, this is a finding."
+54c54
+< FIX_TEXT="If \"firewalld\" is installed and active on the system, configure rules for allowing specific services and hosts. 
+---
+> FIX_TEXT="If "firewalld" is installed and active on the system, configure rules for allowing specific services and hosts. 
+56c56
+< If \"firewalld\" is not \"active\", enable \"tcpwrappers\" by configuring \"/etc/hosts.allow\" and \"/etc/hosts.deny\" to allow or deny access to specific hosts."
+\ No newline at end of file
+---
+> If "firewalld" is not \"active\", enable "tcpwrappers" by configuring "/etc/hosts.allow" and "/etc/hosts.deny" to allow or deny access to specific hosts."
+\ No newline at end of file

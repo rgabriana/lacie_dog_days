@@ -1,0 +1,25 @@
+vulid="V-71931"
+GROUP_TITLE="SRG-OS-000076-GPOS-00044"
+RULE_ID="SV-86555r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010260"
+RULE_TITLE="Existing passwords must be restricted to a 60-day maximum lifetime."
+
+
+VULNERABILITY_DISCUSSION="Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks.
+
+Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that need to be tested before the password is compromised.false"
+
+
+CHECK_CONTENT="Check whether the maximum time period for existing passwords is restricted to 60 days.
+
+# awk -F: '$5 > 60 {print $1}' /etc/shadow
+
+If any results are returned that are not associated with a system account, this is a finding."
+
+
+FIX_TEXT="Configure non-compliant accounts to enforce a 60-day maximum password lifetime restriction.
+
+# chage -M 60 [user]"
+
+CCI="CCI-000199"

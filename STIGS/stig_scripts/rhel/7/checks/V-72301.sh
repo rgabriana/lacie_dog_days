@@ -1,0 +1,11 @@
+#!/bin/bash 
+FILE="tftp-5.2-13.el7.x86_64"
+FOUND_ITEM=`echo -e $(yum -q list installed tftp)`
+EXPECTED_ITEM="NOT INSTALLED"
+
+if [[ ! $FOUND_ITEM ]]
+  then
+    FOUND_ITEM="$EXPECTED_ITEM"
+fi  
+LOGIC_TEST "$EXPECTED_ITEM" "$FOUND_ITEM"
+# LOGIC_TEST_PLUS_MINUS < GREATER_THAN || LESS_THAN > $EXPECTED_ITEM $FOUND_ITEM

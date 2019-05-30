@@ -1,0 +1,30 @@
+vulid="V-72303"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86927r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-040710"
+RULE_TITLE="Remote X connections for interactive users must be encrypted."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify remote X connections for interactive users are encrypted.
+
+Check that remote X connections are encrypted with the following command:
+
+# grep -i x11forwarding /etc/ssh/sshd_config
+X11Fowarding yes
+
+If the "X11Forwarding" keyword is set to "no", is missing, or is commented out, this is a finding."
+
+
+FIX_TEXT="Configure SSH to encrypt connections for interactive users.
+
+Edit the "/etc/ssh/sshd_config" file to uncomment or add the line for the "X11Forwarding" keyword and set its value to "yes" (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor):
+
+X11Fowarding yes
+
+The SSH service must be restarted for changes to take effect."
+
+CCI="CCI-000135"

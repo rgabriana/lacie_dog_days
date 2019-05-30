@@ -1,0 +1,26 @@
+vulid="V-72309"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86933r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040740"
+RULE_TITLE="The system must not be performing packet forwarding unless the system is a router."
+
+
+VULNERABILITY_DISCUSSION="If security personnel are not notified immediately when the threshold for the repository maximum audit record storage capacity is reached, they are unable to expand the audit record storage capacity before records are lost.false"
+
+
+CHECK_CONTENT="Verify the system is not performing packet forwarding, unless the system is a router.
+
+Check to see if IP forwarding is enabled using the following command:
+
+# /sbin/sysctl -a | grep  net.ipv4.ip_forward
+net.ipv4.ip_forward=0
+
+If IP forwarding value is "1" and the system is hosting any application, database, or web servers, this is a finding."
+
+
+FIX_TEXT="Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" (or modify the line to have the required value):
+
+net.ipv4.ip_forward = 0"
+
+CCI="CCI-000130"

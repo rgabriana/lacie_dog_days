@@ -1,0 +1,35 @@
+vulid="V-73177"
+GROUP_TITLE="SRG-OS-000424-GPOS-00188"
+RULE_ID="SV-87829r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-041010"
+RULE_TITLE="Wireless network adapters must be disabled."
+
+
+VULNERABILITY_DISCUSSION="Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).
+
+Satisfies: SRG-OS-000458-GPOS-00203, SRG-OS-000392-GPOS-00172, SRG-OS-000064-GPOS-00033false"
+
+
+CHECK_CONTENT="Verify that there are no wireless interfaces configured on the system.
+
+This is N/A for systems that do not have wireless network adapters.
+
+Check for the presence of active wireless interfaces with the following command:
+
+# nmcli device
+DEVICE TYPE STATE
+eth0 ethernet connected
+wlp3s0 wifi disconnected
+lo loopback unmanaged
+
+If a wireless interface is configured and its use on the system is not documented with the Information System Security Officer (ISSO), this is a finding."
+
+
+FIX_TEXT="Configure the system to disable all wireless network interfaces with the following command:
+
+#nmcli radio wifi off"
+
+CCI="CCI-000172"

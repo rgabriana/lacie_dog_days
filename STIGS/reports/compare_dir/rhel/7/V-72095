@@ -1,0 +1,12 @@
+24c24
+< If the audit rule for \"SUID\" files is not defined, this is a finding.
+---
+> If the audit rule for "SUID" files is not defined, this is a finding.
+26c26
+< If the audit rule for \"SGID\" files is not defined, this is a finding."
+---
+> If the audit rule for "SGID" files is not defined, this is a finding."
+31c31
+< Add or update the following rule in \"/etc/audit/rules.d/audit.rules\":
+---
+> Add or update the following rule in "/etc/audit/rules.d/audit.rules":

@@ -1,0 +1,19 @@
+vulid="V-2265"
+GROUP_TITLE="WG490"
+RULE_ID="SV-33032r1_rule"
+SEVERITY="CAT III"
+RULE_VERSION="WG490 A22"
+RULE_TITLE="Java software on production web servers must be limited to class files and the JAVA virtual machine."
+VULNERABILITY_DISCUSSION="From the source code in a .java or a .jpp file, the Java compiler produces a binary file with an extension of .class. The .java or .jpp file would, therefore, reveal sensitive information regarding an application’s logic and permissions to resources on the server. By contrast, the .class file, because it is intended to be machine independent, is referred to as bytecode. Bytecodes are run by the Java Virtual Machine (JVM), or the Java Runtime Environment (JRE), via a browser configured to permit Java code."
+
+IAControls="ECSC-1"
+
+CHECK_CONTENT="Enter the commands:
+
+find / -name *.java
+
+find / -name *.jpp
+
+If either file type is found, this is a finding."
+
+FIX_TEXT="Remove the unnecessary files from the web server."

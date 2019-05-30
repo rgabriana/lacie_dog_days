@@ -1,0 +1,8 @@
+9c9
+< VULNERABILITY_DISCUSSION="Unintentionally running a rsyslog server accepting remote messages puts the system at increased risk. Malicious rsyslog messages sent to the server could exploit vulnerabilities in the server software itself, could introduce misleading information in to the system\'s logs, or could fill the system\'s storage leading to a Denial of Service.
+---
+> VULNERABILITY_DISCUSSION="Unintentionally running a rsyslog server accepting remote messages puts the system at increased risk. Malicious rsyslog messages sent to the server could exploit vulnerabilities in the server software itself, could introduce misleading information in to the system's logs, or could fill the system's storage leading to a Denial of Service.
+16c16
+< Check the configuration of \"rsyslog\" with the following command:
+---
+> Check the configuration of "rsyslog" with the following command:

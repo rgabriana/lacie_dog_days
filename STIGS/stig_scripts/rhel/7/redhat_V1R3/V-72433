@@ -1,0 +1,35 @@
+vulid="V-72433"
+GROUP_TITLE="SRG-OS-000375-GPOS-00160"
+RULE_ID="SV-87057r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-041003"
+RULE_TITLE="The operating system must implement certificate status checking for PKI authentication."
+
+
+VULNERABILITY_DISCUSSION="Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Audit records can be generated from various components within the information system (e.g., module or policy filter).
+
+Satisfies: SRG-OS-000064-GPOS-00033, SRG-OS-000392-GPOS-00172, SRG-OS-000458-GPOS-00203, SRG-OS-000474-GPOS-00219false"
+
+
+CHECK_CONTENT="Verify the operating system implements certificate status checking for PKI authentication.
+
+Check to see if Online Certificate Status Protocol (OCSP) is enabled on the system with the following command:
+
+# grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf
+
+cert_policy =ca, ocsp_on, signature;
+cert_policy =ca, ocsp_on, signature;
+cert_policy =ca, ocsp_on, signature;
+
+There should be at least three lines returned. All lines must match the example output; specifically that "ocsp_on" must be included in the "cert_policy" line.
+
+If "ocsp_on" is present in all "cert_policy" lines, this is not a finding."
+
+
+FIX_TEXT="Configure the operating system to do certificate status checking for PKI authentication.
+
+Modify all of the "cert_policy" lines in "/etc/pam_pkcs11/pam_pkcs11.conf" to include "ocsp_on"."
+
+CCI="CCI-000135"

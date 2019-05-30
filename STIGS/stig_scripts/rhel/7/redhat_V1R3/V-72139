@@ -1,0 +1,31 @@
+vulid="V-72139"
+GROUP_TITLE="SRG-OS-000392-GPOS-00172"
+RULE_ID="SV-86763r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030580"
+RULE_TITLE="All uses of the chcon command must be audited."
+
+
+VULNERABILITY_DISCUSSION="Files without a valid group owner may be unintentionally inherited if a group is assigned the same Group Identifier (GID) as the GID of the files without a valid group owner.false"
+
+
+CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "chcon" command occur.
+
+Check the file system rule in "/etc/audit/audit.rules" with the following command:
+
+# grep -i /usr/bin/chcon /etc/audit/audit.rules
+
+-a always,exit -F path=/usr/bin/chcon -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-priv_change
+
+If the command does not return any output, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "chcon" command occur.
+
+Add or update the following rule in "/etc/audit/rules.d/audit.rules":
+
+-a always,exit -F path=/usr/bin/chcon -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged-priv_change
+
+The audit daemon must be restarted for the changes to take effect."
+
+CCI="CCI-001855"

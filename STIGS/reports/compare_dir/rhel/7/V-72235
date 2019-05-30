@@ -1,0 +1,4 @@
+28c28
+< If \"sshd\" does not show a status of \"active\" and \"running\", this is a finding."
+---
+> If "sshd" does not show a status of \"active\" and "running", this is a finding."

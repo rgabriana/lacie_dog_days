@@ -1,0 +1,39 @@
+vulid="V-72223"
+GROUP_TITLE="SRG-OS-000163-GPOS-00072"
+RULE_ID="SV-86847r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040160"
+RULE_TITLE="All network connections associated with a communication session must be terminated at the end of the session or after 10 minutes of inactivity from the user at a command prompt, except to fulfill documented and validated mission requirements."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system terminates all network connections associated with a communications session at the end of the session or based on inactivity.
+
+Check the value of the system inactivity timeout with the following command:
+
+# grep -i tmout /etc/bashrc /etc/profile.d/*
+
+TMOUT=600
+
+If "TMOUT" is not set to "600" or less in "/etc/bashrc" or in a script created to enforce session termination after inactivity, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to terminate all network connections associated with a communications session at the end of the session or after a period of inactivity.
+
+Add or update the following lines in "/etc/profile".
+
+TMOUT=600
+readonly TMOUT
+export TMOUT
+
+Or create a script to enforce the inactivity timeout (for example /etc/profile.d/tmout.sh) such as:
+
+#!/bin/bash
+
+TMOUT=600
+readonly TMOUT
+export TMOUT"
+
+CCI="CCI-000172"

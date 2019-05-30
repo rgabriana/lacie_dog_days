@@ -1,0 +1,4 @@
+25c25
+< If the \"auditd\" status is not active, this is a finding."
+---
+> If the "auditd" status is not active, this is a finding."

@@ -1,0 +1,127 @@
+#!/bin/bash
+##########################################################################
+# Author: Rolando R. Gabriana Jr. (Software Engineer)
+# Title: stig_check
+# Purpose: This is an interactive script to run security vulnerability\
+# assesment of the local system based off of the DISA STIG. 
+# Usage: $ sudo stig_check
+##########################################################################
+
+set -e
+shopt -s nocasematch
+
+# LOAD CONFIG FILES
+
+for configs in $(ls /opt/STIGS/config/*); do 
+
+	if [[ -z $configs ]]; then
+
+		echo -e "$redfont NO CONFIG FILES FOUND $resetfont"
+		exit
+
+	elif [[ ! -r $configs ]]; then
+
+		echo -e "$redfont $config file unreadable $resetfont"
+		exit
+
+	else
+
+		source $configs
+
+	fi
+done
+
+# Prompt user
+
+ROOT_CHECK
+STIGS () {
+ 
+answer="$1"
+
+[[ -z $1 ]] && USER_PROMPT
+
+case $answer in
+
+  apache )
+    source $check_dir/$answer.conf
+    REPORT_TABLE
+      case $topbottom in
+        top )
+          RESULTS_TABLE_TOP
+        ;;
+        bottom )
+          RESULTS_TABLE_BOTTOM
+        ;;
+        * )
+          echo -e "Please choose top or bottom"
+          STIGS
+        ;;
+      esac
+  ;;
+  postgres )
+    set +e
+    db_exec=`which psql`
+      if [[ -x $db_exec ]]; then
+        db_exec=$db_exec
+      else
+        echo -e $redfont
+        read -p "DATABASE COMMAND UTILITY IS NOT FOUND IN $PATH PLEASE PROVIDE THE PATH OF THE EXECUTABLE
+        " db_exec
+        echo -e $resetfont
+      fi
+    echo -e $yellowfont
+    read -p "PLEASE ENTER THE USERNAME TO QUERY THE DATABASE
+    " db_user
+    echo -e $blackfont
+    $db_exec -U $db_user --tuples-only --no-align -c "show port"
+    db_user_check=`echo $?`
+    echo -e $resetfont
+    if [[ $db_user_check -gt 0 ]]; then 
+      echo -e "$redfont that is not a database user account please try again $resetfont"
+      exit
+    fi
+    source $check_dir/$answer.conf
+    set -e 
+    DB_ENCRYPT     
+    DB_OWNER
+    DB_SEC_LABEL
+    REPORT_TABLE
+      case $topbottom in
+        top )
+          RESULTS_TABLE_TOP
+        ;;
+        bottom )
+          RESULTS_TABLE_BOTTOM
+        ;;
+        * )
+          echo -e "Please choose top or bottom"
+          STIGS
+        ;;
+      esac
+  ;;
+  rhel|centos )
+    shopt -s nocasematch
+    OS_CHECK
+    source $check_dir/$answer.conf
+    REPORT_TABLE
+      case $topbottom in
+        top )
+          RESULTS_TABLE_TOP
+        ;;
+        bottom )
+          RESULTS_TABLE_BOTTOM
+        ;;
+        * )
+          echo -e "Please choose top or bottom"
+          STIGS
+        ;;
+      esac
+  ;;
+
+  * )
+    echo -e "$redfont $answer is not a recognized check.  Please choose apache, postgres, rhel or centos $resetfont"
+    STIGS
+  ;;
+esac
+}
+STIGS $1

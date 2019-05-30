@@ -1,0 +1,16 @@
+9c9
+< VULNERABILITY_DISCUSSION="Local initialization files are used to configure the user\'s shell environment upon logon. Malicious modification of these files could compromise accounts upon logon."
+---
+> VULNERABILITY_DISCUSSION="Local initialization files are used to configure the user's shell environment upon logon. Malicious modification of these files could compromise accounts upon logon."
+12c12
+< CHECK_CONTENT="Verify that all local initialization files have a mode of \"0740\" or less permissive.
+---
+> CHECK_CONTENT="Verify that all local initialization files have a mode of "0740" or less permissive.
+23c23
+< If any local initialization files have a mode more permissive than \"0740\", this is a finding."
+---
+> If any local initialization files have a mode more permissive than "0740", this is a finding."
+26c26
+< FIX_TEXT="Set the mode of the local initialization files to \"0740\" with the following command:
+---
+> FIX_TEXT="Set the mode of the local initialization files to "0740" with the following command:

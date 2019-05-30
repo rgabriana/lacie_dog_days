@@ -1,0 +1,24 @@
+vulid="V-72061"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86685r1_rule"
+SEVERITY="CAT I"
+RULE_VERSION="RHEL-07-021320"
+RULE_TITLE="The system must use a separate file system for /var."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify that a separate file system/partition has been created for "/var".
+
+Check that a file system/partition has been created for "/var" with the following command:
+
+# grep /var /etc/fstab
+UUID=c274f65f    /var                    ext4    noatime,nobarrier        1 2
+
+If a separate entry for "/var" is not in use, this is a finding."
+
+
+FIX_TEXT="Migrate the "/var" path onto a separate file system."
+
+CCI="CCI-001813"

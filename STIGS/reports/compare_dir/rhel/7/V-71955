@@ -1,0 +1,8 @@
+21c21
+< If the value of \"TimedLoginEnable\" is not set to \"false\", this is a finding."
+---
+> If the value of \"TimedLoginEnable\" is not set to \"\", this is a finding."
+28c28
+< Add or edit the line for the \"TimedLoginEnable\" parameter in the [daemon] section of the \"/etc/gdm/custom.conf\" file to \"false\":
+---
+> Add or edit the line for the \"TimedLoginEnable\" parameter in the [daemon] section of the \"/etc/gdm/custom.conf\" file to \"\":

@@ -1,0 +1,31 @@
+vulid="V-72233"
+GROUP_TITLE="SRG-OS-000423-GPOS-00187"
+RULE_ID="SV-86857r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040300"
+RULE_TITLE="All networked systems must have SSH installed."
+
+
+VULNERABILITY_DISCUSSION="If the group owner of the "cron.allow" file is not set to root, sensitive information could be viewed or edited by unauthorized users.false"
+
+
+CHECK_CONTENT="Check to see if sshd is installed with the following command:
+
+# yum list installed | grep  ssh
+libssh2.x86_64                           1.4.3-8.el7               @anaconda/7.1
+openssh.x86_64                           6.6.1p1-11.el7            @anaconda/7.1
+openssh-clients.x86_64                   6.6.1p1-11.el7            @anaconda/7.1
+openssh-server.x86_64                    6.6.1p1-11.el7            @anaconda/7.1
+
+If the "SSH server" package is not installed, this is a finding.
+
+If the "SSH client" package is not installed, this is a finding."
+
+
+FIX_TEXT="Install SSH packages onto the host with the following commands:
+
+# yum install openssh-clients.x86_64
+# yum install openssh-server.x86_64
+"
+
+CCI="CCI-000126"

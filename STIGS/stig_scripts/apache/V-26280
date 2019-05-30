@@ -1,0 +1,19 @@
+vulid="V-26280"
+GROUP_TITLE="WA00612"
+RULE_ID="SV-33203r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WA00612 A22"
+RULE_TITLE="The sites error logs must log the correct format."
+VULNERABILITY_DISCUSSION="The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. Log data can reveal anomalous behavior such as “not found” or “unauthorized” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems. The LogFormat directive defines the format and information to be included in the access log entries."
+IAControls="ECAR-1, ECAR-2"
+CHECK_CONTENT="Enter the following command:
+
+grep \"LogFormat\" /usr/local/apache2/conf/httpd.conf.
+
+The command should return the following value:
+
+LogFormat \"%a %A %h %H %l %m %s %t %u %U \\"%{Referer}i\\" \" combined.
+
+If the above value is not returned, this is a finding."
+
+FIX_TEXT="Edit the httpd.conf file and add LogFormat \"%a %A %h %H %l %m %s %t %u %U \\"%{Referer}i\\" \" combined"

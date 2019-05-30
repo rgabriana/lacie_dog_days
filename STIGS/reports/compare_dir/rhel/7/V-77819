@@ -1,0 +1,16 @@
+26c26
+< Note: The example is using the database local for the system, so the path is \"/etc/dconf/db/local.d\". This path must be modified if a database other than local is being used.
+---
+> Note: The example is using the database local for the system, so the path is "/etc/dconf/db/local.d". This path must be modified if a database other than local is being used.
+32c32
+< If \"enable-smartcard-authentication\" is set to \"false\" or the keyword is missing, this is a finding."
+---
+> If \"enable-smartcard-authentication\" is set to \"\" or the keyword is missing, this is a finding."
+41c41
+< Note: The example is using the database local for the system, so if the system is using another database in \"/etc/dconf/profile/user\", the file should be created under the appropriate subdirectory.
+---
+> Note: The example is using the database local for the system, so if the system is using another database in "/etc/dconf/profile/user", the file should be created under the appropriate subdirectory.
+45c45
+< Edit \"[org/gnome/login-screen]\" and add or update the following line:
+---
+> Edit "[org/gnome/login-screen]" and add or update the following line:

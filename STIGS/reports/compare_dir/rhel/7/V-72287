@@ -1,0 +1,8 @@
+18c18
+< Check that the operating system implements the \"icmp_echo_ignore_broadcasts\" variable with the following command:
+---
+> Check that the operating system implements the "icmp_echo_ignore_broadcasts" variable with the following command:
+26c26
+< FIX_TEXT="Set the system to the required kernel parameter by adding the following line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
+---
+> FIX_TEXT="Set the system to the required kernel parameter by adding the following line to "/etc/sysctl.conf" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):

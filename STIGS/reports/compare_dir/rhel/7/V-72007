@@ -1,0 +1,8 @@
+9c9
+< VULNERABILITY_DISCUSSION="Unowned files and directories may be unintentionally inherited if a user is assigned the same User Identifier \"UID\" as the UID of the un-owned files."
+---
+> VULNERABILITY_DISCUSSION="Unowned files and directories may be unintentionally inherited if a user is assigned the same User Identifier "UID" as the UID of the un-owned files."
+23c23
+< FIX_TEXT="Either remove all files and directories from the system that do not have a valid user, or assign a valid user to all unowned files and directories on the system with the \"chown\" command:
+---
+> FIX_TEXT="Either remove all files and directories from the system that do not have a valid user, or assign a valid user to all unowned files and directories on the system with the "chown" command:

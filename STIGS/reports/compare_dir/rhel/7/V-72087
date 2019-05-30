@@ -1,0 +1,8 @@
+19c19
+< If the value of the \"disk_full_action\" option is not \"syslog\", \"single\", or \"halt\", or the line is commented out, this is a finding."
+---
+> If the value of the "disk_full_action" option is not \"syslog\", \"single\", or \"halt\", or the line is commented out, this is a finding."
+24c24
+< Uncomment or edit the \"disk_full_action\" option in \"/etc/audisp/audisp-remote.conf\" and set it to \"syslog\", \"single\", or \"halt\", such as the following line:
+---
+> Uncomment or edit the "disk_full_action" option in "/etc/audisp/audisp-remote.conf" and set it to \"syslog\", \"single\", or \"halt\", such as the following line:

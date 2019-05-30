@@ -1,0 +1,49 @@
+vulid="V-72215"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86839r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-032010"
+RULE_TITLE="The system must update the virus scan program every seven days or more frequently."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the system is using a virus scan program and the virus definition file is less than seven days old.
+
+Check for the presence of "McAfee VirusScan Enterprise for Linux" with the following command:
+
+# systemctl status nails
+nails - service for McAfee VirusScan Enterprise for Linux 
+>  Loaded: loaded /opt/NAI/package/McAfeeVSEForLinux/McAfeeVSEForLinux-2.0.2.<build_number>; enabled)
+>  Active: active (running) since Mon 2015-09-27 04:11:22 UTC;21 min ago
+
+If the "nails" service is not active, check for the presence of "clamav" on the system with the following command:
+
+# systemctl status clamav-daemon.socket
+systemctl status clamav-daemon.socket
+  clamav-daemon.socket - Socket for Clam AntiVirus userspace daemon
+     Loaded: loaded (/lib/systemd/system/clamav-daemon.socket; enabled)
+     Active: active (running) since Mon 2015-01-12 09:32:59 UTC; 7min ago
+
+If "McAfee VirusScan Enterprise for Linux" is active on the system, check the dates of the virus definition files with the following command:
+
+# ls -al /opt/NAI/LinuxShield/engine/dat/*.dat
+<need output>
+
+If the virus definition files have dates older than seven days from the current date, this is a finding.
+
+If "clamav" is active on the system, check the dates of the virus database with the following commands:
+
+# grep -I databasedirectory /etc/clamav.conf
+DatabaseDirectory /var/lib/clamav
+
+# ls -al /var/lib/clamav/*.cvd
+-rwxr-xr-x  1 root root      149156 Mar  5  2011 daily.cvd
+
+If the database file has a date older than seven days from the current date, this is a finding."
+
+
+FIX_TEXT="Update the virus scan software and virus definition files."
+
+CCI="CCI-002884"

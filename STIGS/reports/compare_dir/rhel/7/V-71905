@@ -1,0 +1,16 @@
+14c14
+< CHECK_CONTENT="Note: The value to require a number of lower-case characters to be set is expressed as a negative number in \"/etc/security/pwquality.conf\".
+---
+> CHECK_CONTENT="Note: The value to require a number of lower-case characters to be set is expressed as a negative number in "/etc/security/pwquality.conf".
+16c16
+< Check the value for \"lcredit\" in \"/etc/security/pwquality.conf\" with the following command:
+---
+> Check the value for "lcredit" in "/etc/security/pwquality.conf" with the following command:
+21c21
+< If the value of \"lcredit\" is not set to a negative value, this is a finding."
+---
+> If the value of "lcredit" is not set to a negative value, this is a finding."
+27c27
+< in \"/etc/security/pwquality.conf\":
+---
+> in "/etc/security/pwquality.conf":

@@ -1,0 +1,10 @@
+14c14
+< Check to see if the \"/etc/snmp/snmpd.conf\" file exists with the following command:
+---
+> Check to see if the "/etc/snmp/snmpd.conf" file exists with the following command:
+29c29
+< FIX_TEXT="If the \"/etc/snmp/snmpd.conf\" file exists, modify any lines that contain a community string value of \"public\" or \"private\" to another string value."
+\ No newline at end of file
+---
+> FIX_TEXT="If the "/etc/snmp/snmpd.conf" file exists, modify any lines that contain a community string value of "public" or "private" to another string value."
+\ No newline at end of file

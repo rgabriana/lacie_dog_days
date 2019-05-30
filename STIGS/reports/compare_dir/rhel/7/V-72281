@@ -1,0 +1,26 @@
+17c17
+< If the DNS entry is missing from the host\'s line in the \"/etc/nsswitch.conf\" file, the \"/etc/resolv.conf\" file must be empty.
+---
+> If the DNS entry is missing from the host's line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must be empty.
+19c19
+< Verify the \"/etc/resolv.conf\" file is empty with the following command:
+---
+> Verify the "/etc/resolv.conf" file is empty with the following command:
+24c24
+< If local host authentication is being used and the \"/etc/resolv.conf\" file is not empty, this is a finding.
+---
+> If local host authentication is being used and the "/etc/resolv.conf" file is not empty, this is a finding.
+26c26
+< If the DNS entry is found on the host\'s line of the \"/etc/nsswitch.conf\" file, verify the operating system is configured to use two or more name servers for DNS resolution.
+---
+> If the DNS entry is found on the host's line of the "/etc/nsswitch.conf" file, verify the operating system is configured to use two or more name servers for DNS resolution.
+39c39
+< Edit the \"/etc/resolv.conf\" file to uncomment or add the two or more \"nameserver\" option lines with the IP address of local authoritative name servers. If local host resolution is being performed, the \"/etc/resolv.conf\" file must be empty. An empty \"/etc/resolv.conf\" file can be created as follows:
+---
+> Edit the "/etc/resolv.conf" file to uncomment or add the two or more "nameserver" option lines with the IP address of local authoritative name servers. If local host resolution is being performed, the "/etc/resolv.conf" file must be empty. An empty "/etc/resolv.conf" file can be created as follows:
+47c47
+< If the \"/etc/resolv.conf\" file must be mutable, the required configuration must be documented with the Information System Security Officer (ISSO) and the file must be verified by the system file integrity tool."
+\ No newline at end of file
+---
+> If the "/etc/resolv.conf" file must be mutable, the required configuration must be documented with the Information System Security Officer (ISSO) and the file must be verified by the system file integrity tool."
+\ No newline at end of file

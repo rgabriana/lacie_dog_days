@@ -1,0 +1,34 @@
+vulid="V-72019"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86643r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020640"
+RULE_TITLE="All local interactive user home directories must be owned by their respective users."
+
+
+VULNERABILITY_DISCUSSION="Without re-authentication, users may access resources or perform tasks for which they do not have authorization. 
+
+When operating systems provide the capability to escalate a functional capability, it is critical the user reauthenticate.
+
+Satisfies: SRG-OS-000373-GPOS-00156, SRG-OS-000373-GPOS-00157, SRG-OS-000373-GPOS-00158false"
+
+
+CHECK_CONTENT="Verify the assigned home directory of all local interactive users on the system exists.
+
+Check the home directory assignment for all local interactive non-privileged users on the system with the following command:
+
+Note: This may miss interactive users that have been assigned a privileged UID. Evidence of interactive use may be obtained from a number of log files containing system logon information.
+
+# ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+-rwxr-x--- 1 smithj users  18 Mar  5 17:06 /home/smithj
+
+If any home directories referenced in "/etc/passwd" are returned as not defined, this is a finding."
+
+
+FIX_TEXT="Change the owner of a local interactive user’s home directories to that owner. To change the owner of a local interactive user’s home directory, use the following command:
+
+Note: The example will be for the user smithj, who has a home directory of "/home/smithj".
+
+# chown smithj /home/smithj"
+
+CCI="CCI-000764"

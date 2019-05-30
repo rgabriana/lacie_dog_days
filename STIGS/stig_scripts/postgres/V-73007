@@ -1,0 +1,18 @@
+vulid='V-73007'
+GROUP_TITLE='SRG-APP-000141-DB-000091'
+RULE_ID='SV-87659r2_rule'
+SEVERITY='CAT II'
+RULE_VERSION='PGS9-00-008900'
+RULE_TITLE='Unused database components, PostgreSQL software, and database objects must be removed.'
+VULNERABILITY_DISCUSSION='Information systems are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions).
+It is detrimental for software products to provide, or install by default, functionality exceeding requirements or mission objectives.
+PostgreSQL must adhere to the principles of least functionality by providing only essential capabilities.'
+CHECK_CONTENT='To get a list of all extensions installed, use the following commands:
+\$ sudo su - postgres
+\$ psql -c "select * from pg_extension where extname != 'plpgsql'"
+If any extensions exist that are not approved, this is a finding.'
+FIX_TEXT='To remove extensions, use the following commands:
+\$ sudo su - postgres
+\$ psql -c "DROP EXTENSION <extension_name>"
+Note: It is recommended that plpgsql not be removed.'
+CCI='CCI-000381'

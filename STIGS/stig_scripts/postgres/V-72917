@@ -1,0 +1,16 @@
+vulid='V-72917'
+GROUP_TITLE='SRG-APP-000454-DB-000389'
+RULE_ID='SV-87569r1_rule'
+SEVERITY='CAT II'
+RULE_VERSION='PGS9-00-004300'
+RULE_TITLE='When updates are applied to PostgreSQL software, any software components that have been replaced or made unnecessary must be removed.'
+VULNERABILITY_DISCUSSION='Previous versions of PostgreSQL components that are not removed from the information system after updates have been installed may be exploited by adversaries.
+Some PostgreSQL installation tools may remove older versions of software automatically from the information system. In other cases, manual review and removal will be required. In planning installations and upgrades, organizations must include steps (automated, manual, or both) to identify and remove the outdated modules.
+A transition period may be necessary when both the old and the new software are required. This should be taken into account in the planning.'
+CHECK_CONTENT='To check software installed by packages, as the system administrator, run the following command:
+# RHEL/CENT Systems
+\$ sudo rpm -qa | grep postgres
+If multiple versions of postgres are installed but are unused, this is a finding.'
+FIX_TEXT='Use package managers (RPM or apt-get) for installing PostgreSQL. Unused software is removed when updated.'
+CCI='CCI-002617'
+

@@ -1,0 +1,26 @@
+3c3
+< RULE_ID="SV-86617r4_rule"
+---
+> RULE_ID="SV-86617r3_rule"
+14c14
+< Check that the ctrl-alt-del.target is masked and not active with the following command:
+---
+> Check that the ctrl.alt.del.target is masked and not active with the following command:
+16c16
+< # systemctl status ctrl-alt-del.target
+---
+> # systemctl status ctrl.alt.del.target
+22c22
+< If the ctrl-alt-del.target is not masked, this is a finding.
+---
+> If the ctrl.alt.del.target is not masked, this is a finding.
+24c24
+< If the ctrl-alt-del.target is active, this is a finding."
+---
+> If the ctrl.alt.del.target is active, this is a finding."
+38c38
+< logout=\'\'"
+\ No newline at end of file
+---
+> logout=''"
+\ No newline at end of file

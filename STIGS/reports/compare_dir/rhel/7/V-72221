@@ -1,0 +1,8 @@
+24c24
+< Inspect the \"Ciphers\" configuration with the following command:
+---
+> Inspect the "Ciphers" configuration with the following command:
+29c29
+< If any ciphers other than \"aes128-ctr\", \"aes192-ctr\", or \"aes256-ctr\" are listed, the \"Ciphers\" keyword is missing, or the returned line is commented out, this is a finding."
+---
+> If any ciphers other than "aes128-ctr", "aes192-ctr", or "aes256-ctr" are listed, the "Ciphers" keyword is missing, or the returned line is commented out, this is a finding."

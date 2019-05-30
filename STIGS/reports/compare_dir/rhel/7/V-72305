@@ -1,0 +1,8 @@
+26c26
+< If the \"server_args\" line does not have a \"-s\" option and a subdirectory is not assigned, this is a finding."
+---
+> If the "server_args" line does not have a "-s" option and a subdirectory is not assigned, this is a finding."
+29c29
+< FIX_TEXT="Configure the TFTP daemon to operate in secure mode by adding the following line to \"/etc/xinetd.d/tftp\" (or modify the line to have the required value):
+---
+> FIX_TEXT="Configure the TFTP daemon to operate in secure mode by adding the following line to "/etc/xinetd.d/tftp" (or modify the line to have the required value):

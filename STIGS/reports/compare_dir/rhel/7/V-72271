@@ -1,0 +1,28 @@
+16c16
+< # grep \'net.ipv4.tcp_invalid_ratelimit\' /etc/sysctl.conf /etc/sysctl.d/*
+---
+> # grep 'net.ipv4.tcp_invalid_ratelimit' /etc/sysctl.conf /etc/sysctl.d/*
+20c20
+< If \"net.ipv4.tcp_invalid_ratelimit\" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out this is a finding.
+---
+> If "net.ipv4.tcp_invalid_ratelimit" is not configured in the /etc/sysctl.conf file or in the /etc/sysctl.d/ directory, is commented out this is a finding.
+22c22
+< Check that the operating system implements the value of the \"tcp_invalid_ratelimit\" variable with the following command:
+---
+> Check that the operating system implements the value of the "tcp_invalid_ratelimit" variable with the following command:
+24c24
+< # /sbin/sysctl -a | grep \'net.ipv4.tcp_invalid_ratelimit\'
+---
+> # /sbin/sysctl -a | grep 'net.ipv4.tcp_invalid_ratelimit'
+27c27
+< If \"net.ipv4.tcp_invalid_ratelimit\" has a value of \"0\", this is a finding.
+---
+> If "net.ipv4.tcp_invalid_ratelimit" has a value of "0", this is a finding.
+29c29
+< If \"net.ipv4.tcp_invalid_ratelimit\" has a value greater than \"1000\" and is not documented with the Information System Security Officer (ISSO), this is a finding."
+---
+> If "net.ipv4.tcp_invalid_ratelimit" has a value greater than "1000" and is not documented with the Information System Security Officer (ISSO), this is a finding."
+32c32
+< FIX_TEXT="Set the system to implement rate-limiting measures by adding the following line to \"/etc/sysctl.conf\" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):
+---
+> FIX_TEXT="Set the system to implement rate-limiting measures by adding the following line to "/etc/sysctl.conf" or a configuration file in the /etc/sysctl.d/ directory (or modify the line to have the required value):

@@ -1,0 +1,27 @@
+vulid="V-81011"
+GROUP_TITLE="SRG-OS-000368-GPOS-00154"
+RULE_ID="SV-95723r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-021023"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must mount /dev/shm with the nosuid option."
+
+
+VULNERABILITY_DISCUSSION="The \"nosuid\" mount option causes the system to not execute \"setuid\" and \"setgid\" files with owner privileges. This option must be used for mounting any file system not containing approved \"setuid\" and \"setguid\" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access."
+
+
+CHECK_CONTENT="Verify that the \"nosuid\" option is configured for /dev/shm:
+
+# cat /etc/fstab | grep /dev/shm
+
+tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
+
+If any results are returned and the \"nosuid\" option is not listed, this is a finding.
+
+Verify \"/dev/shm\" is mounted with the \"nosuid\" option:
+
+# mount | grep \"/dev/shm\" | grep nosuid
+
+If no results are returned, this is a finding."
+
+
+FIX_TEXT="Configure the system so that /dev/shm is mounted with the \"nosuid\" option."

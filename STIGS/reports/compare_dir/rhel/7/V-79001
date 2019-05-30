@@ -1,0 +1,4 @@
+33c33
+< Add or update the following rules in \"/etc/audit/rules.d/audit.rules\": 
+---
+> Add or update the following rules in "/etc/audit/rules.d/audit.rules": 

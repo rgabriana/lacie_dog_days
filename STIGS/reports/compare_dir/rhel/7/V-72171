@@ -1,0 +1,24 @@
+16c16
+< CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
+---
+> CHECK_CONTENT="Verify the operating system generates audit records when successful/unsuccessful attempts to use the "mount" command and syscall occur.
+18c18
+< Check that the following system call is being audited by performing the following series of commands to check the file system rules in \"/etc/audit/audit.rules\": 
+---
+> Check that the following system call is being audited by performing the following series of commands to check the file system rules in "/etc/audit/audit.rules": 
+20c20
+< # grep -iw \"mount\" /etc/audit/audit.rules
+---
+> # grep -iw "mount" /etc/audit/audit.rules
+26c26
+< If all uses of the \"mount\" command and syscall are not being audited, this is a finding."
+---
+> If all uses of the "mount" command and syscall are not being audited, this is a finding."
+29c29
+< FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the \"mount\" command and syscall occur.
+---
+> FIX_TEXT="Configure the operating system to generate audit records when successful/unsuccessful attempts to use the "mount" command and syscall occur.
+31c31
+< Add or update the following rules in \"/etc/audit/rules.d/audit.rules\":
+---
+> Add or update the following rules in "/etc/audit/rules.d/audit.rules":

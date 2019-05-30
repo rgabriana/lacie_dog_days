@@ -1,0 +1,22 @@
+22c22
+< Note: AIDE is highly configurable at install time. These commands assume the \"aide.conf\" file is under the \"/etc\" directory. 
+---
+> Note: AIDE is highly configurable at install time. These commands assume the "aide.conf" file is under the "/etc" directory. 
+28c28
+< Check the \"aide.conf\" file to determine if the \"acl\" rule has been added to the rule list being applied to the files and directories selection lists.
+---
+> Check the "aide.conf" file to determine if the "acl" rule has been added to the rule list being applied to the files and directories selection lists.
+30c30
+< An example rule that includes the \"acl\" rule is below:
+---
+> An example rule that includes the "acl" rule is below:
+36c36
+< If the \"acl\" rule is not being used on all uncommented selection lines in the \"/etc/aide.conf\" file, or ACLs are not being checked by another file integrity tool, this is a finding."
+---
+> If the "acl" rule is not being used on all uncommented selection lines in the "/etc/aide.conf" file, or ACLs are not being checked by another file integrity tool, this is a finding."
+41c41
+< If AIDE is installed, ensure the \"acl\" rule is present on all uncommented file and directory selection lists."
+\ No newline at end of file
+---
+> If AIDE is installed, ensure the "acl" rule is present on all uncommented file and directory selection lists."
+\ No newline at end of file

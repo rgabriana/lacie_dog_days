@@ -1,0 +1,33 @@
+vulid="V-71849"
+GROUP_TITLE="SRG-OS-000257-GPOS-00098"
+RULE_ID="SV-86473r2_rule"
+SEVERITY="CAT III"
+RULE_VERSION="RHEL-07-010010"
+RULE_TITLE="The file permissions, ownership, and group membership of system files and commands must match the vendor values."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the file permissions, ownership, and group membership of system files and commands match the vendor values.
+
+Check the file permissions, ownership, and group membership of system files and commands with the following command:
+
+# rpm -Va | grep '^.M'
+
+If there is any output from the command indicating that the ownership or group of a system file or command, or a system file, has permissions less restrictive than the default, this is a finding."
+
+
+FIX_TEXT="Run the following command to determine which package owns the file:
+
+# rpm -qf <filename>
+
+Reset the permissions of files within a package with the following command:
+
+#rpm --setperms <packagename>
+
+Reset the user and group ownership of files within a package with the following command:
+
+#rpm --setugids <packagename>"
+
+CCI="CCI-001494"

@@ -1,0 +1,23 @@
+vulid="V-72063"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86687r5_rule"
+SEVERITY="CAT I"
+RULE_VERSION="RHEL-07-021330"
+RULE_TITLE="The system must use a separate file system for the system audit data path."
+
+
+VULNERABILITY_DISCUSSION="Preventing non-privileged users from executing privileged functions mitigates the risk that unauthorized individuals or processes may gain unnecessary access to information or privileges.
+
+Privileged functions include, for example, establishing accounts, performing system integrity checks, or administering cryptographic key management activities. Non-privileged users are individuals who do not possess appropriate authorizations. Circumventing intrusion detection and prevention mechanisms or malicious code protection mechanisms are examples of privileged functions that require protection from non-privileged users.false"
+
+
+CHECK_CONTENT="Determine if the "/var/log/audit" path is a separate file system.
+
+# grep /var/log/audit /etc/fstab
+
+If no result is returned, "/var/log/audit" is not on a separate file system, and this is a finding."
+
+
+FIX_TEXT="Migrate the system audit data path onto a separate file system."
+
+CCI="CCI-001814"

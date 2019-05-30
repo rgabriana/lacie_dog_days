@@ -1,0 +1,15 @@
+#!/bin/bash 
+ITEM=`yum -q list installed|awk 'FNR >= 2'`
+old_IFS=$IFS
+IFS=$'\n'
+for ENTRY in $ITEM
+  do
+    FILE=`echo -e "$ENTRY"|awk -F " " '{print $1}'`
+    FOUND_ITEM=`echo -e "$ENTRY"|awk -F " " '{print $2}'`
+    EXPECTED_ITEM="THIS IS A MANUAL CHECK."
+    NOTES="CONSULT WITH YOUR CYBERSECURITY PERSONNEL FOR LATEST SECURITY PATCHES."
+    LOGIC_TEST "$EXPECTED_ITEM" "$FOUND_ITEM"
+    FILL_RESULTS
+  done
+IFS=$old_IFS
+# LOGIC_TEST_PLUS_MINUS < GREATER_THAN || LESS_THAN > $EXPECTED_ITEM $FOUND_ITEM

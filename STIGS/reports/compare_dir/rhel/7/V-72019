@@ -1,0 +1,12 @@
+9c9
+< VULNERABILITY_DISCUSSION="If a local interactive user does not own their home directory, unauthorized users could access or modify the user\'s files, and the users may not be able to access their own files."
+---
+> VULNERABILITY_DISCUSSION="If a local interactive user does not own their home directory, unauthorized users could access or modify the user's files, and the users may not be able to access their own files."
+16c16
+< # ls -ld $(egrep \':[0-9]{4}\' /etc/passwd | cut -d: -f6)
+---
+> # ls -ld $(egrep ':[0-9]{4}' /etc/passwd | cut -d: -f6)
+23c23
+< FIX_TEXT="Change the owner of a local interactive user\'s home directories to that owner. To change the owner of a local interactive user\'s home directory, use the following command:
+---
+> FIX_TEXT="Change the owner of a local interactive user's home directories to that owner. To change the owner of a local interactive user's home directory, use the following command:

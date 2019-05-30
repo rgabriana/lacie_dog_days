@@ -1,0 +1,20 @@
+3c3
+< RULE_ID="SV-86899r4_rule"
+---
+> RULE_ID="SV-86899r3_rule"
+14c14
+< Check that \"pam_lastlog\" is used and not silent with the following command:
+---
+> Check that "pam_lastlog" is used and not silent with the following command:
+19c19
+< If \"pam_lastlog\" is missing from \"/etc/pam.d/postlogin\" file, or the silent option is present, this is a finding."
+---
+> If "pam_lastlog" is missing from "/etc/pam.d/postlogin" file, or the silent option is present, this is a finding."
+22c22
+< FIX_TEXT="Configure the operating system to provide users with feedback on when account accesses last occurred by setting the required configuration options in \"/etc/pam.d/postlogin\". 
+---
+> FIX_TEXT="Configure the operating system to provide users with feedback on when account accesses last occurred by setting the required configuration options in "/etc/pam.d/postlogin-ac". 
+24c24
+< Add the following line to the top of \"/etc/pam.d/postlogin\":
+---
+> Add the following line to the top of "/etc/pam.d/postlogin":

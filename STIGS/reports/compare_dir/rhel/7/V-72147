@@ -1,0 +1,8 @@
+18c18
+< Check the file system rules in \"/etc/audit/audit.rules\" with the following commands: 
+---
+> Check the file system rules in "/etc/audit/audit.rules" with the following commands: 
+29c29
+< Add or update the following rule in \"/etc/audit/rules.d/audit.rules\": 
+---
+> Add or update the following rule in "/etc/audit/rules.d/audit.rules": 

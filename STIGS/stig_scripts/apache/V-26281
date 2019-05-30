@@ -1,0 +1,19 @@
+vulid="V-26281"
+GROUP_TITLE="WA00615"
+RULE_ID="SV-33206r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WA00615 A22"
+RULE_TITLE="System logging must be enabled."
+VULNERABILITY_DISCUSSION="The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. Log data can reveal anomalous behavior such as “not found” or “unauthorized” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems. The CustomLog directive specifies the log file, syslog facility, or piped logging utility."
+IAControls="ECAR-1"
+CHECK_CONTENT="Enter the following command:
+
+grep \"CustomLog\" /usr/local/apache2/conf/httpd.conf
+
+The command should return the following value:.
+
+CustomLog \"Logs/access_log\" common
+
+If the above value is not returned, this is a finding."
+
+FIX_TEXT="Edit the httpd.conf file and enter the name, path and level for the CustomLog."

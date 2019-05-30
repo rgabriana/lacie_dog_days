@@ -1,0 +1,11 @@
+#!/bin/bash
+source /opt/STIGS/config/fonts.conf
+blinky_font='\e[5m'
+STIG="/opt/STIGS/stig_scripts/rhel/7/stig/"
+CHECKs="/opt/STIGS/stig_scripts/rhel/7/checks/"
+
+HOW_MANY_DO_WE_HAVE=`ls $STIG|wc -l`
+HOW_MANY_COMPLETED=`ls $CHECKs|wc -l`
+WHATS_LEFT=`echo -e $(($HOW_MANY_DO_WE_HAVE - $HOW_MANY_COMPLETED))`
+
+echo -e "You have $blinky_font $lcyanfont $WHATS_LEFT $resetfont left to complete!"

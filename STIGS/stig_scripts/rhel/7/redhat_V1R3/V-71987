@@ -1,0 +1,28 @@
+vulid="V-71987"
+GROUP_TITLE="SRG-OS-000437-GPOS-00194"
+RULE_ID="SV-86611r1_rule"
+SEVERITY="CAT I"
+RULE_VERSION="RHEL-07-020200"
+RULE_TITLE="The operating system must remove all software components after updated versions have been installed."
+
+
+VULNERABILITY_DISCUSSION="Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. If the information system or application allows the user to consecutively reuse their password when that password has exceeded its defined lifetime, the end result is a password that is not changed per policy requirements.false"
+
+
+CHECK_CONTENT="Verify the operating system removes all software components after updated versions have been installed.
+
+Check if yum is configured to remove unneeded packages with the following command:
+
+# grep -i clean_requirements_on_remove /etc/yum.conf
+clean_requirements_on_remove=1
+
+If "clean_requirements_on_remove" is not set to "1", "True", or "yes", or is not set in "/etc/yum.conf", this is a finding."
+
+
+FIX_TEXT="Configure the operating system to remove all software components after updated versions have been installed.
+
+Set the "clean_requirements_on_remove" option to "1" in the "/etc/yum.conf" file:
+
+clean_requirements_on_remove=1"
+
+CCI="CCI-000366"

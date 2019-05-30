@@ -1,0 +1,37 @@
+vulid="V-71901"
+GROUP_TITLE="SRG-OS-000029-GPOS-00010"
+RULE_ID="SV-86525r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010110"
+RULE_TITLE="The operating system must initiate a session lock for graphical user interfaces when the screensaver is activated."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system initiates a session lock a for graphical user interfaces when the screensaver is activated. The screen program must be installed to lock sessions on the console.
+
+Note: If the system does not have GNOME installed, this requirement is Not Applicable.
+
+If GNOME is installed, check to see a session lock occurs when the screensaver is activated with the following command:
+
+# grep -i lock-delay /etc/dconf/db/local.d/*
+lock-delay=uint32 5
+
+If the "lock-delay" setting is missing, or is not set, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to initiate a session lock for graphical user interfaces when a screensaver is activated.
+
+Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command: 
+
+# touch /etc/dconf/db/local.d/00-screensaver
+
+Add the setting to enable session locking when a screensaver is activated:
+
+[org/gnome/desktop/screensaver]
+lock-delay=uint32 5
+
+After the setting has been set, run dconf update."
+
+CCI="CCI-000057"

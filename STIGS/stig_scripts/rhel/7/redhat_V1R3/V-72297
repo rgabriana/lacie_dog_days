@@ -1,0 +1,33 @@
+vulid="V-72297"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86921r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040680"
+RULE_TITLE="The system must be configured to prevent unrestricted mail relaying."
+
+
+VULNERABILITY_DISCUSSION="Taking appropriate action in case of a filled audit storage volume will minimize the possibility of losing audit records.false"
+
+
+CHECK_CONTENT="Verify the system is configured to prevent unrestricted mail relaying.
+
+Determine if "postfix" is installed with the following commands:
+
+# yum list installed postfix
+postfix-2.6.6-6.el7.x86_64.rpm 
+
+If postfix is not installed, this is Not Applicable.
+
+If postfix is installed, determine if it is configured to reject connections from unknown or untrusted networks with the following command:
+
+# postconf -n smtpd_client_restrictions
+smtpd_client_restrictions = permit_mynetworks, reject
+
+If the "smtpd_client_restrictions" parameter contains any entries other than "permit_mynetworks" and "reject", this is a finding."
+
+
+FIX_TEXT="If "postfix" is installed, modify the "/etc/postfix/main.cf" file to restrict client connections to the local network with the following command:
+
+# postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject'"
+
+CCI="CCI-000172"

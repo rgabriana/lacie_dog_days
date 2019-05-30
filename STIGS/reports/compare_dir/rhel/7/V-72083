@@ -1,0 +1,6 @@
+30c30
+< Set the remote server option in \"/etc/audisp/audisp-remote.conf\" with the IP address of the log aggregation server."
+\ No newline at end of file
+---
+> Set the remote server option in "/etc/audisp/audisp-remote.conf" with the IP address of the log aggregation server."
+\ No newline at end of file

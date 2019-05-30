@@ -1,0 +1,12 @@
+18c18
+< Check for the value of the \"ClientAliveInterval\" keyword with the following command:
+---
+> Check for the value of the "ClientAliveInterval" keyword with the following command:
+24c24
+< If \"ClientAliveInterval\" is not configured, commented out, or has a value of \"0\", this is a finding.
+---
+> If "ClientAliveInterval" is not configured, commented out, or has a value of "0", this is a finding.
+26c26
+< If \"ClientAliveInterval\" has a value that is greater than \"600\" and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
+---
+> If "ClientAliveInterval" has a value that is greater than "600" and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."

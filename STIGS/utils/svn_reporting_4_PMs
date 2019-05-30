@@ -1,0 +1,78 @@
+#!/bin/bash
+#################################################################################
+# Title: SVN reporting for PM's							#
+# Purpose: Script to generate reports for PMs from SVN. Reports generated are \	#
+# based on date range.								#
+# Usage: $svn_reporting_4_PMs <FROM_DATE> to <TO_DATE>				#
+#################################################################################
+
+###########################################
+# Simple collection of font colors for bash
+###########################################
+resetfont='\e[0m'
+blackfont='\e[30m'
+redfont='\e[31m'
+greenfont='\e[32m'
+yellowfont='\e[33m'
+bluefont='\e[34m'
+magentafont='\e[35m'
+cyanfont='\e[36m'
+lgrayfont='\e[37m'
+dgrayfont='\e[90m'
+lredfont='\e[91m'
+lgreenfont='\e[92m'
+lyellowfont='\e[93m'
+lbluefont='\e[94m'
+lmagentafont='\e[95m'
+lcyanfont='\e[96m'
+whitefont='\e[97m'
+###########################################
+# Special Effects fonts for bash
+###########################################
+blinkyfont='\e[5m'
+underlinefont='\e[2m'
+hiddenfont='\e[8m'
+boldfont='\e[1m'
+invertfont='\e[7m'
+###########################################
+# Highlighted fonts for bash
+###########################################
+hlblack='\e[40m'
+hlred='\e[41m'
+hlgreen='\e[42m'
+hlyellow='\e[43m'
+hlblue='\e[44m'
+hlmagenta='\e[45m'
+hlcyan='\e[46m'
+hllightgrey='\e[47m'
+hldarkgrey='\e[100m'
+hllightred='\e[101m'
+hllightgreen='\e[102m'
+hllightyellow='\e[103m'
+hllightblue='\e[104m'
+hllightmagenta='\e[105m'
+hllightcyan='\e[106m'
+hllightwhite='\e[107m'
+###########################################
+# DIRECTORY VARIABLES
+###########################################
+echo -e "$lyellowfont"
+read -p "PLEASE ENTER THE STARTING DATE FOR THE REPORT IN FULL DATE FORMAT (YYYY-MM-DD)
+" FROM_DATE
+read -p "PLEASE ENTER THE END DATE FOR THE REPORT IN FULL DATE FORMAT (YYYY-MM-DD)
+" TO_DATE
+read -p "PLEASE ENTER THE DIRECTORY PATH OF WHERE TO SAVE THE REPORT
+" SAVE_DIR
+echo -e "$resetfont"
+if [[ ! -d $SAVE_DIR ]]
+  then
+    echo -e "$lredfont DIRECTORY NOT FOUND, USING $HOME DIRECTORY $resetfont"
+    SAVE_DIR=$HOME
+fi
+
+if [ $(which svn) ]
+  then
+  svn -v log --diff -r {"$FROM_DATE"}:{"$TO_DATE"} ../ > $SAVE_DIR/svn_report_"$FROM_DATE"_to_"$TO_DATE".txt
+else
+  echo -e "$hlred COULD NOT FIND DEPENDENT BINARY (svn) $redfont"
+fi 

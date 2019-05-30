@@ -1,0 +1,25 @@
+vulid="V-72045"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86669r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-021020"
+RULE_TITLE="File systems that are being imported via Network File System (NFS) must be mounted to prevent files with the setuid and setgid bit set from being executed."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify file systems that are being NFS exported are mounted with the "nosuid" option.
+
+Find the file system(s) that contain the directories being exported with the following command:
+
+# more /etc/fstab | grep nfs
+
+UUID=e06097bb-cfcd-437b-9e4d-a691f5662a7d    /store           nfs           rw,nosuid                                                    0 0
+
+If a file system found in "/etc/fstab" refers to NFS and it does not have the "nosuid" option set, this is a finding."
+
+
+FIX_TEXT="Configure the "/etc/fstab" to use the "nosuid" option on file systems that are being exported via NFS."
+
+CCI="CCI-000366"

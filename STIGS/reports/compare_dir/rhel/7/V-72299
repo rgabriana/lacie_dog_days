@@ -1,0 +1,8 @@
+20c20
+< If \"vsftpd\" is installed and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
+---
+> If "vsftpd" is installed and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding."
+23c23
+< FIX_TEXT="Document the \"vsftpd\" package with the ISSO as an operational requirement or remove it from the system with the following command:
+---
+> FIX_TEXT="Document the "vsftpd" package with the ISSO as an operational requirement or remove it from the system with the following command:

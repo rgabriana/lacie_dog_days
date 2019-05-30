@@ -1,0 +1,4 @@
+21c21
+< If the value of \"minclass\" is set to less than \"4\", this is a finding."
+---
+> If the value of \"minclass\" is set to less than "4", this is a finding."

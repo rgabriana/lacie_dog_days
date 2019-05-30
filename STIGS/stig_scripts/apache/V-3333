@@ -1,0 +1,20 @@
+vulid="V-3333"
+GROUP_TITLE="WG205"
+RULE_ID="SV-33021r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="WG205 A22"
+RULE_TITLE="The web document (home) directory must be in a separate partition from the web server’s system files."
+VULNERABILITY_DISCUSSION="Application partitioning enables an additional security measure by securing user traffic under one security context, while managing system and application files under another. Web content is can be to an anonymous web user. For such an account to have access to system files of any type is a major security risk that is avoidable and desirable. Failure to partition the system files from the web site documents increases risk of attack via directory traversal, or impede web site availability due to drive space exhaustion."
+IAControls="DCPA-1"
+CHECK_CONTENT="grep \"DocumentRoot\" /usr/local/apache2/conf/httpd.conf
+
+Note each location following the DocumentRoot string, this is the configured path to the document root directory(s).
+
+Use the command df -k to view each document root's partition setup.
+
+Compare that against the results for the Operating System file systems, and against the partition for the web server system files, which is the result of the command:
+
+df -k /usr/local/apache2/bin
+
+If the document root path is on the same partition as the web server system files or the OS file systems, this is a finding."
+FIX_TEXT="Move the web document (normally \"htdocs\") directory to a separate partition, other than the OS root partition and the web server’s system files."

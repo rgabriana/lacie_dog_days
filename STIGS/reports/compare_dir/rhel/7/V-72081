@@ -1,0 +1,16 @@
+20c20
+< Check to see what level \"auditctl\" is set to with following command: 
+---
+> Check to see what level "auditctl" is set to with following command: 
+22c22
+< # auditctl -s | grep -i \"fail"
+---
+> # auditctl -s | grep -i "fail"
+43c43
+< Edit the \"/etc/audit/rules.d/audit.rules\" file and add the following line:
+---
+> Edit the "/etc/audit/rules.d/audit.rules" file and add the following line:
+51c51
+< Edit the \"/etc/audit/rules.d/audit.rules\" file and add the following line:
+---
+> Edit the "/etc/audit/rules.d/audit.rules" file and add the following line:

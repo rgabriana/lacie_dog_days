@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+[[ $UID -gt "0" ]] && echo -e "$redfont YOU NEED ADMIN PRIVELEGES TO EXECUTE THIS SCRIPT" && exit

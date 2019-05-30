@@ -1,0 +1,866 @@
+
+vulid=V-2226
+$GROUP_TITLE WG210
+$RULE_ID SV-33022r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG210 A22
+$RULE_TITLE Web content directories must not be anonymously shared.
+
+
+$VULNERABILITY_DISCUSSION Sharing web content is a security risk when a web server is involved. Users accessing the share anonymously could experience privileged access to the content of such directories. Network sharable directories expose those directories and their contents to unnecessary access. Any unnecessary exposure increases the risk that someone could exploit that access and either compromises the web content or cause web server performance problems.
+
+IAControls: ECCD-1, ECCD-2
+
+$CHECK_CONTENT 
+To view the DocumentRoot enter the following command:
+
+grep "DocumentRoot" /usr/local/apache2/conf/httpd.conf
+
+To view the ServerRoot enter the following command:
+
+grep "serverRoot" /usr/local/apache2/conf/httpd.conf
+
+Note the location following the DocumentRoot and ServerRoot directives.
+
+Enter the following commands to determine if file sharing is running:
+
+ps -ef | grep nfs, ps -ef | grep smb
+
+If results are returned, determine the shares and confirm they are not in the same directory as listed above, If they are, this is a finding.
+
+$FIX_TEXT Remove the shares from the applicable directories.
+   _____________________________________________________________
+
+vulid=V-2227
+$GROUP_TITLE WG360
+$RULE_ID SV-30576r1_rule
+$SEVERITY CAT I
+$RULE_VERSION WG360 A22
+$RULE_TITLE Symbolic links must not be used in the web content directory tree.
+
+
+$VULNERABILITY_DISCUSSION A symbolic link allows a file or a directory to be referenced using a symbolic name raising a potential hazard if symbolic linkage is made to a sensitive area.
+
+When web scripts are executed and symbolic links are allowed, the web user could be allowed to access locations on the web server that are outside the scope of the web document root or home directory.
+
+
+$SEVERITY Override Guidance: 
+If symbolic links are found in the web content directory tree, the target file or directory is outside of the web content directory tree, and file permissions allow the web user write authority, then the severity level will remain at CAT 1.
+
+If symbolic links are found in the web content directory tree, the target file or directory is outside of the web content directory tree, and file permissions allow the web user any authority less than write, then the severity level will be downgraded to CAT 2.
+
+If symbolic links are found in the web content directory tree, the target file or directory is not outside of the web content directory tree, and file permissions allow the web user write authority, then the severity level will remain at CAT 1.
+
+If symbolic links are found in the web content directory tree, the target file or directory is not outside of the web content directory tree, and file permissions allow the web user any authority less than write, then the severity level will be downgraded to CAT 3.
+
+
+IAControls: DCPA-1, ECSC-1
+
+$CHECK_CONTENT 
+Locate the directories containing the web content, (i.e., /usr/local/apache/htdocs).
+
+Use ls –al.
+
+An entry, such as the following, would indicate the presence and use of symbolic links:
+
+lr-xr—r-- 4000 wwwusr wwwgrp       2345       Apr 15       data -> /usr/local/apache/htdocs
+
+Such a result found in a web document directory is a finding. Additional Apache configuration check in the httpd.conf file:
+
+<Directory /[website root dir]>
+Options FollowSymLinks
+AllowOverride None
+</Directory>
+
+The above configuration is incorrect and is a finding. The correct configuration is:
+
+<Directory /[website root dir]>
+Options SymLinksIfOwnerMatch
+AllowOverride None
+</Directory>
+
+Finally, the target file or directory must be owned by the same owner as the link, which should be a privileged account with access to the web content.
+
+
+$FIX_TEXT Disable symbolic links.
+   _____________________________________________________________
+
+vulid=V-2228
+$GROUP_TITLE WG400
+$RULE_ID SV-6928r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG400 A22
+$RULE_TITLE All interactive programs (CGI) must be placed in a designated directory with appropriate permissions.
+
+
+$VULNERABILITY_DISCUSSION CGI scripts represents one of the most common and exploitable means of compromising a web server. By definition, CGI are executable by the operating system of the host server. While access control is provided via the web service, the execution of CGI programs is not otherwise limited unless the SA or Web Manager takes specific measures. CGI programs can access and alter data files, launch other programs and use the network. CGI programs can be written in any available programming language. C, PERL, PHP, Javascript, VBScript and shell (sh, ksh, bash) are popular choices.
+
+IAControls: DCPA-1
+
+$CHECK_CONTENT 
+To preclude access to the servers root directory, ensure the following directive is in the httpd.conf file. This entry will also stop users from setting up .htaccess files which can override security features configured in httpd.conf.
+
+<DIRECTORY /[website root dir]>
+AllowOverride None
+</DIRECTORY>
+
+If the AllowOverride None is not set, this is a finding.
+
+
+$FIX_TEXT Ensure the CGI (or equivalent i.e. scripts) directory has access controls IAW the WEB Services STIG.   _____________________________________________________________
+
+vulid=V-2240
+$GROUP_TITLE WG110
+$RULE_ID SV-33018r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG110 A22
+$RULE_TITLE The number of allowed simultaneous requests must be set.
+
+
+$VULNERABILITY_DISCUSSION Resource exhaustion can occur when an unlimited number of concurrent requests are allowed on a web site, facilitating a denial of service attack. Mitigating this kind of attack will include limiting the number of concurrent HTTP/HTTPS requests per IP address and may include, where feasible, limiting parameter values associated with keepalive, (i.e., a parameter used to limit the amount of time a connection may be inactive).
+
+IAControls: ECSC-1
+
+$CHECK_CONTENT 
+To view the MaxKeepAliveRequests value, enter the following command:
+
+grep "MaxKeepAliveRequests" /usr/local/apache2/conf/httpd.conf
+
+If the returned value of MaxKeepAliveRequests is not set to 100 or greater, this is a finding.
+
+
+$FIX_TEXT Edit the httpd.conf file and set the MaxKeepAliveRequests directive to 100 or greater.   _____________________________________________________________
+
+vulid=V-2245
+$GROUP_TITLE WG170
+$RULE_ID SV-33020r1_rule
+$SEVERITY CAT III
+$RULE_VERSION WG170 A22
+$RULE_TITLE Each readable web document directory must contain either a default, home, index, or equivalent file.
+
+
+$VULNERABILITY_DISCUSSION The goal is to completely control the web users experience in navigating any portion of the web document root directories. Ensuring all web content directories have at least the equivalent of an index.html file is a significant factor to accomplish this end. Also, enumeration techniques, such as URL parameter manipulation, rely upon being able to obtain information about the web server’s directory structure by locating directories with default pages. This practice helps ensure that the anonymous web user will not obtain directory browsing information or an error message that reveals the server type and version.
+
+IAControls: ECAN-1, ECSC-1
+
+$CHECK_CONTENT 
+To view the DocumentRoot value enter the following command:
+awk '{print $1,$2,$3}' /usr/local/apache2/conf/httpd.conf|grep -i DocumentRoot|grep -v '^#'
+Note each location following the DocumentRoot string, this is the configured path(s) to the document root directory(s).
+To view a list of the directories and sub-directories and the file index.html, from each stated DocumentRoot location enter the following commands:
+find . -type d
+find . -type f -name index.html
+Review the results for each document root directory and it's subdirectories. If a directory does not contain an index.html or equivalent default document, this is a finding.
+
+
+$FIX_TEXT Add a default document to the applicable directories.   _____________________________________________________________
+
+vulid=V-2249
+$GROUP_TITLE WG230
+$RULE_ID SV-33023r3_rule
+$SEVERITY CAT I
+$RULE_VERSION WG230 A22
+$RULE_TITLE Web server administration must be performed over a secure path or at the local console.
+
+
+$VULNERABILITY_DISCUSSION Logging into a web server remotely using an unencrypted protocol or service when performing updates and maintenance is a major risk. Data, such as user account, is transmitted in plaintext and can easily be compromised. When performing remote administrative tasks, a protocol or service that encrypts the communication channel must be used.
+
+An alternative to remote administration of the web server is to perform web server administration locally at the console. Local administration at the console implies physical access to the server.
+
+
+IAControls: EBRU-1
+
+$CHECK_CONTENT 
+If web administration is performed remotely the following checks will apply:
+
+If administration of the server is performed remotely, it will only be performed securely by system administrators.
+
+If web site administration or web application administration has been delegated, those users will be documented and approved by the ISSO.
+
+Remote administration must be in compliance with any requirements contained within the Unix Server STIGs, and any applicable network STIGs.
+
+Remote administration of any kind will be restricted to documented and authorized personnel.
+
+All users performing remote administration must be authenticated.
+
+All remote sessions will be encrypted and they will utilize FIPS 140-2 approved protocols.
+
+FIPS 140-2 approved TLS versions include TLS V1.0 or greater.
+
+$FIX_TEXT Ensure the web server's administration is only performed over a secure path.   _____________________________________________________________
+
+vulid=V-2250
+$GROUP_TITLE WG240
+$RULE_ID SV-33025r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG240 A22
+$RULE_TITLE Logs of web server access and errors must be established and maintained
+
+
+$VULNERABILITY_DISCUSSION A major tool in exploring the web site use, attempted use, unusual conditions, and problems are reported in the access and error logs. In the event of a security incident, these logs can provide the SA and the web manager with valuable information. Without these log files, SAs and web managers are seriously hindered in their efforts to respond appropriately to suspicious or criminal actions targeted at the web site.
+
+IAControls: ECAT-1, ECAT-2
+
+$CHECK_CONTENT 
+To view a list of loaded modules enter the following command:
+
+/usr/local/apache2/bin/httpd -M
+
+If the following module is not found, this is a finding: "log_config_module"
+
+$FIX_TEXT Edit the httpd.conf file and add the following module to configure logging.
+
+"log_config_module"   _____________________________________________________________
+
+vulid=V-2252
+$GROUP_TITLE WG250
+$RULE_ID SV-33033r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG250 A22
+$RULE_TITLE Log file access must be restricted to System Administrators, Web Administrators or Auditors.
+
+
+$VULNERABILITY_DISCUSSION A major tool in exploring the web site use, attempted use, unusual conditions, and problems are the access and error logs. In the event of a security incident, these logs can provide the SA and the web manager with valuable information. To ensure the integrity of the log files and protect the SA and the web manager from a conflict of interest related to the maintenance of these files, only the members of the Auditors group will be granted permissions to move, copy, and delete these files in the course of their duties related to the archiving of these files.
+
+IAControls: ECTP-1
+
+$CHECK_CONTENT 
+Enter the following command to determine the directory the log files are located in:
+
+grep "ErrorLog" /usr/local/apache2/conf/httpd.conf
+
+grep "CustomLog" /usr/local/apache2/conf/httpd.conf
+
+Verify the permission of the ErrorLog & CustomLog files by entering the following command:
+
+ls -al /usr/local/apache2/logs/*.log
+
+Unix file permissions should be 640 or less for all web log files if not, this is a finding.
+
+
+$FIX_TEXT Use the chmod command to set the appropriate file permissions on the log files.   _____________________________________________________________
+
+vulid=V-2254
+$GROUP_TITLE WG260
+$RULE_ID SV-32830r2_rule
+$SEVERITY CAT II
+$RULE_VERSION WG260 A22
+$RULE_TITLE Only web sites that have been fully reviewed and tested must exist on a production web server.
+
+
+$VULNERABILITY_DISCUSSION In the case of a production web server, areas for content development and testing will not exist, as this type of content is only permissible on a development web site. The process of developing on a functional production web site entails a degree of trial and error and repeated testing. This process is often accomplished in an environment where debugging, sequencing, and formatting of content are the main goals. The opportunity for a malicious user to obtain files that reveal business logic and login schemes is high in this situation. The existence of such immature content on a web server represents a significant security risk that is totally avoidable.
+
+IAControls: ECSC-1
+
+$CHECK_CONTENT 
+Query the ISSO, the SA, and the web administrator to find out if development web sites are being housed on production web servers.
+
+Proposed Questions:
+Do you have development sites on your production web server?
+What is your process to get development web sites / content posted to the production server?
+Do you use under construction notices on production web pages?
+
+The reviewer can also do a manual check or perform a navigation of the web site via a browser could be used to confirm the information provided from interviewing the web staff. Graphics or texts which proclaim Under Construction or Under Development are frequently used to mark folders or directories in that status.
+
+If Under Construction or Under Development web content is discovered on the production web server, this is a finding.
+
+$FIX_TEXT The presences of portions of the web site that proclaim Under Construction or Under Development are clear indications that a production web server is being used for development. The web administrator will ensure that all pages that are in development are not installed on a production web server.   _____________________________________________________________
+
+vulid=V-2258
+$GROUP_TITLE WG290
+$RULE_ID SV-33027r1_rule
+$SEVERITY CAT I
+$RULE_VERSION WG290 A22
+$RULE_TITLE Web client access to the content directories must be restricted to read and execute.
+
+
+$VULNERABILITY_DISCUSSION Excessive permissions for the anonymous web user account are one of the most common faults contributing to the compromise of a web server. If this user is able to upload and execute files on the web server, the organization or owner of the server will no longer have control of the asset.
+
+IAControls: ECLP-1
+
+$CHECK_CONTENT 
+To view the value of Alias enter the following command:
+
+grep "Alias" /usr/local/apache2/conf/httpd.conf
+
+Alias
+ScriptAlias
+ScriptAliasMatch
+
+Review the results to determine the location of the files listed above.
+
+Enter the following command to determine the permissions of the above file:
+
+ls -Ll /file-path
+
+The only accounts listed should be the web administrator, developers, and the account assigned to run the apache server service.
+If accounts that don’t need access to these directories are listed, this is a finding.
+If the permissions assigned to the account for the Apache web server service is greater than Read & Execute (R_E), this is a finding.
+
+$FIX_TEXT Assign the appropriate permissions to the applicable directories and files using the chmod command.   _____________________________________________________________
+
+vulid=V-2260
+$GROUP_TITLE WG310
+$RULE_ID SV-33028r2_rule
+$SEVERITY CAT II
+$RULE_VERSION WG310 A22
+$RULE_TITLE A web site must not contain a robots.txt file.
+
+
+$VULNERABILITY_DISCUSSION Search engines are constantly at work on the Internet. Search engines are augmented by agents, often referred to as spiders or bots, which endeavor to capture and catalog web-site content. In turn, these search engines make the content they obtain and catalog available to any public web user.
+
+To request that a well behaved search engine not crawl and catalog a site, the web site may contain a file called robots.txt. This file contains directories and files that the web server SA desires not be crawled or cataloged, but this file can also be used, by an attacker or poorly coded search engine, as a directory and file index to a site. This information may be used to reduce an attacker’s time searching and traversing the web site to find files that might be relevant. If information on the web site needs to be protected from search engines and public view, other methods must be used.
+
+
+IAControls: ECLP-1
+
+$CHECK_CONTENT 
+Locate the Apache httpd.conf file.
+
+If unable to locate the file, perform a search of the system to find the location of the file.
+
+Open the httpd.conf file with an editor and search for the following uncommented directives: DocumentRoot & Alias
+
+Navigate to the location(s) specified in the Include statement(s), and review each file for the following uncommented directives: DocumentRoot & Alias
+
+At the top level of the directories identified after the enabled DocumentRoot & Alias directives, verify that a “robots.txt” file does not exist. If the file does exist, this is a finding.
+
+$FIX_TEXT Remove the robots.txt file from the web site. If there is information on the web site that needs protection from search engines and public view, then other methods must be used to safeguard the data.   _____________________________________________________________
+
+vulid=V-2262
+$GROUP_TITLE WG340
+$RULE_ID SV-33029r2_rule
+$SEVERITY CAT II
+$RULE_VERSION WG340 A22
+$RULE_TITLE A private web server must utilize an approved TLS version.
+
+
+$VULNERABILITY_DISCUSSION Transport Layer Security (TLS) encryption is a required security setting for a private web server. Encryption of private information is essential to ensuring data confidentiality. If private information is not encrypted, it can be intercepted and easily read by an unauthorized party. A private web server must use a FIPS 140-2 approved TLS version, and all non-FIPS-approved SSL versions must be disabled.
+
+FIPS 140-2 approved TLS versions include TLS V1.0 or greater. NIST SP 800-52 specifies the preferred configurations for government systems.
+
+
+IAControls: ECSC-1
+
+$CHECK_CONTENT 
+Enter the following command:
+
+/usr/local/apache2/bin/httpd –M |grep -i ssl
+
+This will provide a list of all the loaded modules. Verify that the “ssl_module” is loaded. If this module is not found, determine if it is loaded as a dynamic module. Enter the following command:
+
+grep ^LoadModule /usr/local/apache2/conf/httpd.conf
+
+If the SSL module is not enabled this is a finding.
+
+After determining that the ssl module is active, enter the following command to review the SSL directives.
+
+grep -i ssl /usr/local/apache2/conf/httpd.conf
+
+Review the SSL section(s) of the httpd.conf file, all enabled SSLProtocol directives must be set to “ALL -SSLv2 -SSLv3” or this is a finding.
+
+NOTE: For Apache 2.2.22 and older, all enabled SSLProtocol directives must be set to "TLSv1" or this is a finding.
+
+All enabled SSLEngine directive must be set to “on”, if not this is a finding.
+
+NOTE: In some cases web servers are configured in an environment to support load balancing. This configuration most likely utilizes a content switch to control traffic to the various web servers. In this situation, the TLS certificate for the web sites may be installed on the content switch vs the individual web sites. This solution is acceptable as long as the web servers are isolated from the general population LAN. Users should not have the ability to bypass the content switch to access the web sites.
+
+
+$FIX_TEXT Edit the httpd.conf file and set the SSLProtocol to "ALL -SSLv2 -SSLv3" and the SSLEngine to On. For Apache 2.2.22 and older, set SSLProtocol to "TLSv1".   _____________________________________________________________
+
+vulid=V-2263
+$GROUP_TITLE WG350
+$RULE_ID SV-33031r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG350 A22
+$RULE_TITLE A private web server will have a valid DoD server certificate.
+
+
+$VULNERABILITY_DISCUSSION This check verifies that DoD is a hosted web site's CA. The certificate is actually a DoD-issued server certificate used by the organization being reviewed. This is used to verify the authenticity of the web site to the user. If the certificate is not for the server (Certificate belongs to), if the certificate is not issued by DoD (Certificate was issued by), or if the current date is not included in the valid date (Certificate is valid from), then there is no assurance that the use of the certificate is valid. The entire purpose of using a certificate is, therefore, compromised.
+
+IAControls: IATS-1, IATS-2
+
+$CHECK_CONTENT 
+Open browser window and browse to the appropriate site. Before entry to the site, you should be presented with the server's DoD PKI credentials. Review these credentials for authenticity.
+
+Find an entry which cites:
+
+Issuer:
+CN = DOD CLASS 3 CA-3
+OU = PKI
+OU = DoD
+O = U.S. Government
+C = US
+
+If the server is running as a public web server, this finding should be Not Applicable.
+
+NOTE: In some cases, the web servers are configured in an environment to support load balancing. This configuration most likely utilizes a content switch to control traffic to the various web servers. In this situation, the SSL certificate for the web sites may be installed on the content switch vs. the individual web sites. This solution is acceptable as long as the web servers are isolated from the general population LAN. Users should not have the ability to bypass the content switch to access the web sites.
+
+
+$FIX_TEXT Configure the private web site to use a valid DoD certificate.   _____________________________________________________________
+
+vulid=V-2265
+$GROUP_TITLE WG490
+$RULE_ID SV-33032r1_rule
+$SEVERITY CAT III
+$RULE_VERSION WG490 A22
+$RULE_TITLE Java software on production web servers must be limited to class files and the JAVA virtual machine.
+
+
+$VULNERABILITY_DISCUSSION From the source code in a .java or a .jpp file, the Java compiler produces a binary file with an extension of .class. The .java or .jpp file would, therefore, reveal sensitive information regarding an application’s logic and permissions to resources on the server. By contrast, the .class file, because it is intended to be machine independent, is referred to as bytecode. Bytecodes are run by the Java Virtual Machine (JVM), or the Java Runtime Environment (JRE), via a browser configured to permit Java code.
+
+IAControls: ECSC-1
+
+$CHECK_CONTENT 
+Enter the commands:
+
+find / -name *.java
+
+find / -name *.jpp
+
+If either file type is found, this is a finding.
+
+$FIX_TEXT Remove the unnecessary files from the web server.   _____________________________________________________________
+
+vulid=V-2270
+$GROUP_TITLE WG430
+$RULE_ID SV-36641r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG430 A22
+$RULE_TITLE Anonymous FTP user access to interactive scripts is prohibited.
+
+
+$VULNERABILITY_DISCUSSION The directories containing the CGI scripts, such as PERL, must not be accessible to anonymous users via FTP. This applies to all directories that contain scripts that can dynamically produce web pages in an interactive manner (i.e., scripts based upon user-provided input). Such scripts contain information that could be used to compromise a web service, access system resources, or deface a web site.
+
+IAControls: ECCD-1, ECCD-2
+
+$CHECK_CONTENT 
+Locate the directories containing the CGI scripts. These directories should be language-specific (e.g., PERL, ASP, JS, JSP, etc.).
+
+Using ls –al, examine the file permissions on the CGI, the cgi-bin, and the cgi-shl directories.
+
+Anonymous FTP users must not have access to these directories.
+
+If the CGI, the cgi-bin, or the cgi-shl directories can be accessed by any group that does not require access, this is a finding.
+
+
+$FIX_TEXT If the CGI, the cgi-bin, or the cgi-shl directories can be accessed via FTP by any group or user that does not require access, remove permissions to such directories for all but the web administrators and the SAs. Ensure that any such access employs an encrypted connection.   _____________________________________________________________
+
+vulid=V-2272
+$GROUP_TITLE WG460
+$RULE_ID SV-6932r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG460 A22
+$RULE_TITLE PERL scripts must use the TAINT option.
+
+
+$VULNERABILITY_DISCUSSION PERL (Practical Extraction and Report Language) is an interpreted language optimized for scanning arbitrary text files, extracting information from those text files, and printing reports based on that information. The language is often used in shell scripting and is intended to be practical, easy to use, and efficient means of generating interactive web pages for the user. Unfortunately, many widely available freeware PERL programs (scripts) are extremely insecure. This is most readily accomplished by a malicious user substituting input to a PERL script during a POST or a GET operation.
+
+Consequently, the founders of PERL have developed a mechanism named TAINT that protects the system from malicious input sent from outside the program. When the data is tainted, it cannot be used in programs or functions such as eval(), system(), exec(), pipes, or popen(). The script will exit with a warning message. It is vital that if PERL is being used, the following line appear in the first line of PERL scripts:
+
+#!/usr/local/bin/perl –T
+
+
+Mitigations: 
+WG460 - General
+
+Mitigation Control: 
+If the TAINT option cannot be used for any reason, this finding can be mitigated by the use of a third-party input validation mechanism or input validation will be included as part of the script in use. This must be documented.
+
+IAControls: ECSC-1
+
+$CHECK_CONTENT 
+When a PERL script is invoked for execution on a UNIX server, the method which invokes the script must utilize the TAINT option.
+
+The server’s interpreter examines the first line of the script. Typically, the first line of the script contains a reference to the script’s language and processing options.
+
+The first line of a PERL script will be as follows:
+
+#!/usr/local/bin/perl –T
+
+The –T at the end of the line referenced above, tells the UNIX server to execute a PERL script using the TAINT option.
+
+Perform the following steps:
+1) grep perl httpd.conf |grep -v '#'
+
+You should also check /apache/sysconfig.d/loadmodule.conf for PERL.
+
+NOTE: The name of the loadmodule.conf may vary by installation.
+
+If Apache doesn't have the mod_perl module loaded and it doesn't use PERL, this check is Not Applicable.
+
+2) grep -i 'PerlTaintCheck' httpd.conf
+
+If 'PerlTaintCheck on' is set, this is not a finding, and the check can stop here.
+
+NOTE: If the PerlTaintCheck is a part of an included config file, this meets the requirement.
+
+3) Check each individual PERL script.
+
+From the ServerRoot directory: find . -name '*.pl'
+From the DocumentRoot directory: find . -name '*.pl'
+
+Examine the beginning of every PERL script for the -T option. If the -T option is not specified in any PERL script, this is a finding.
+
+NOTE: This only applies to PERL scripts that are used by the web server.
+
+NOTE: If the mod_perl module is installed and the directive “PerlTaintCheck on” in the httpd.conf is used, this satisfies the requirement.
+
+
+$FIX_TEXT Add the TAINT call to the PERL script.
+
+#!/usr/local/bin/perl –T   _____________________________________________________________
+
+vulid=V-3333
+$GROUP_TITLE WG205
+$RULE_ID SV-33021r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG205 A22
+$RULE_TITLE The web document (home) directory must be in a separate partition from the web server’s system files.
+
+
+$VULNERABILITY_DISCUSSION Application partitioning enables an additional security measure by securing user traffic under one security context, while managing system and application files under another. Web content is can be to an anonymous web user. For such an account to have access to system files of any type is a major security risk that is avoidable and desirable. Failure to partition the system files from the web site documents increases risk of attack via directory traversal, or impede web site availability due to drive space exhaustion.
+
+IAControls: DCPA-1
+
+$CHECK_CONTENT 
+grep "DocumentRoot" /usr/local/apache2/conf/httpd.conf
+
+Note each location following the DocumentRoot string, this is the configured path to the document root directory(s).
+
+Use the command df -k to view each document root's partition setup.
+
+Compare that against the results for the Operating System file systems, and against the partition for the web server system files, which is the result of the command:
+
+df -k /usr/local/apache2/bin
+
+If the document root path is on the same partition as the web server system files or the OS file systems, this is a finding.
+
+
+$FIX_TEXT Move the web document (normally "htdocs") directory to a separate partition, other than the OS root partition and the web server’s system files.
+  _____________________________________________________________
+
+vulid=V-6373
+$GROUP_TITLE WG265
+$RULE_ID SV-33026r2_rule
+$SEVERITY CAT III
+$RULE_VERSION WG265 A22
+$RULE_TITLE The required DoD banner page must be displayed to authenticated users accessing a DoD private website.
+
+
+$VULNERABILITY_DISCUSSION A consent banner will be in place to make prospective entrants aware that the website they are about to enter is a DoD web site and their activity is subject to monitoring. The document, DoDI 8500.01, establishes the policy on the use of DoD information systems. It requires the use of a standard Notice and Consent Banner and standard text to be included in user agreements. The requirement for the banner is for websites with security and access controls. These are restricted and not publicly accessible. If the website does not require authentication/authorization for use, then the banner does not need to be present. A manual check of the document root directory for a banner page file (such as banner.html) or navigation to the website via a browser can be used to confirm the information provided from interviewing the web staff.
+
+IAControls: ECWM-1
+
+$CHECK_CONTENT 
+The document, DoDI 8500.01, establishes the policy on the use of DoD information systems. It requires the use of a standard Notice and Consent Banner and standard text to be included in user agreements.
+
+The requirement for the banner is for websites with security and access controls. These are restricted and not publicly accessible. If the website does not require authentication/authorization for use, then the banner does not need to be present.
+
+If a banner is required, the following banner page must be in place:
+
+“You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+
+By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+
+-The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
+
+- At any time, the USG may inspect and seize data stored on this IS.
+
+- Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose.
+
+- This IS includes security measures (e.g., authentication and access controls) to protect USG interests—not for your personal benefit or privacy.
+
+- Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.”
+
+OR
+
+If your system cannot meet the character limits to store this amount of text in the banner, the following is another option for the warning banner:
+
+"I've read & consent to terms in IS user agreem't."
+
+NOTE: While DoDI 8500.01 does not contain a copy of the banner to be used, it does point to the RMF Knowledge Service for a copy of the required text. It is also noted that the banner is to be displayed only once when the individual enters the site and not for each page.
+
+If the access-controlled website does not display this banner page before entry, this is a finding.
+
+$FIX_TEXT Configure a DoD private website to display the required DoD banner page when authentication is required for user access.   _____________________________________________________________
+
+vulid=V-6531
+$GROUP_TITLE WG140
+$RULE_ID SV-33019r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG140 A22
+$RULE_TITLE Private web servers must require certificates issued from a DoD-authorized Certificate Authority.
+
+
+$VULNERABILITY_DISCUSSION Web sites requiring authentication within the DoD must utilize PKI as an authentication mechanism for web users. Information systems residing behind web servers requiring authorization based on individual identity must use the identity provided by certificate-based authentication to support access control decisions.
+
+IAControls: IATS-1, IATS-2
+
+$CHECK_CONTENT 
+To view the SSLVerifyClient value enter the following command:
+
+grep "SSLVerifyClient" /usr/local/apache2/conf/httpd.conf.
+
+If the value of SSLVerifyClient is not set to “require”, this is a finding.
+
+$FIX_TEXT Edit the httpd.conf file and set the value of SSLVerifyClient to "require".   _____________________________________________________________
+
+vulid=V-13686
+$GROUP_TITLE WG235
+$RULE_ID SV-33024r1_rule
+$SEVERITY CAT I
+$RULE_VERSION WG235 A22
+$RULE_TITLE Web Administrators must only use encrypted connections for Document Root directory uploads.
+
+
+$VULNERABILITY_DISCUSSION Logging in to a web server via an unencrypted protocol or service, to upload documents to the web site, is a risk if proper encryption is not utilized to protect the data being transmitted. An encrypted protocol or service must be used for remote access to web administration tasks.
+
+IAControls: EBRP-1, EBRU-1
+
+$CHECK_CONTENT 
+Determine if there is a process for the uploading of files to the web site. This process should include the requirement for the use of a secure encrypted logon and secure encrypted connection. If the remote users are uploading files without utilizing approved encryption methods, this is a finding.
+
+$FIX_TEXT Use only secure encrypted logons and connections for uploading files to the web site.   _____________________________________________________________
+
+vulid=V-13687
+$GROUP_TITLE WG237
+$RULE_ID SV-36699r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG237 A22
+$RULE_TITLE Remote authors or content providers must have all files scanned for viruses and malicious code before uploading files to the Document Root directory.
+
+
+$VULNERABILITY_DISCUSSION Remote web authors should not be able to upload files to the Document Root directory structure without virus checking and checking for malicious or mobile code. A remote web user, whose agency has a Memorandum of Agreement (MOA) with the hosting agency and has submitted a DoD form 2875 (System Authorization Access Request (SAAR)) or an equivalent document, will be allowed to post files to a temporary location on the server. All posted files to this temporary location will be scanned for viruses and content checked for malicious or mobile code. Only files free of viruses and malicious or mobile code will be posted to the appropriate DocumentRoot directory.
+
+IAControls: ECVP-1
+
+$CHECK_CONTENT 
+Remote web authors should not be able to upload files to the Document Root directory structure without virus checking and checking for malicious or mobile code.
+
+Query the SA to determine if there is anti-virus software active on the server with auto-protect enabled, or if there is another process in place for the scanning of files being posted by remote authors.
+
+If there is no virus software on the system with auto-protect enabled, or if there is not a process in place to ensure all files being posted are being virus scanned before being saved to the document root, this is a finding.
+
+
+$FIX_TEXT Install anti-virus software on the system and set it to automatically scan new files that are introduced to the web server.   _____________________________________________________________
+
+vulid=V-13688
+$GROUP_TITLE WG242
+$RULE_ID SV-36642r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG242 A22
+$RULE_TITLE Log file data must contain required data elements.
+
+
+$VULNERABILITY_DISCUSSION The use of log files is a critical component of the operation of the Information Systems (IS) used within the DoD, and they can provide invaluable assistance with regard to damage assessment, causation, and the recovery of both affected components and data. They may be used to monitor accidental or intentional misuse of the (IS) and may be used by law enforcement for criminal prosecutions. The use of log files is a requirement within the DoD.
+
+IAControls: ECAR-1, ECAR-2, ECAR-3
+
+$CHECK_CONTENT 
+To verify the log settings:
+
+Default UNIX location: /usr/local/apache/logs/access_log
+
+If this directory does not exist, you can search the web server for the httpd.conf file to determine the location of the logs.
+
+Items to be logged are as shown in this sample line in the httpd.conf file:
+
+LogFormat "%a %A %h %H %l %m %s %t %u %U \"%{Referer}i\" " combined
+
+If the web server is not configured to capture the required audit events for all sites and virtual directories, this is a finding.
+
+$FIX_TEXT Configure the web server to ensure the log file data includes the required data elements.   _____________________________________________________________
+
+vulid=V-13689
+$GROUP_TITLE WG255
+$RULE_ID SV-36643r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WG255 A22
+$RULE_TITLE Access to the web server log files must be restricted to administrators, web administrators, and auditors.
+
+
+$VULNERABILITY_DISCUSSION A major tool in exploring the web site use, attempted use, unusual conditions, and problems are the access and error logs. In the event of a security incident, these logs can provide the SA and the web administrator with valuable information. Because of the information that is captured in the logs, it is critical that only authorized individuals have access to the logs.
+
+IAControls: ECTP-1
+
+$CHECK_CONTENT 
+Look for the presence of log files at:
+
+/usr/local/apache/logs/access_log
+
+To ensure the correct location of the log files, examine the "ServerRoot" directive in the htttpd.conf file and then navigate to that directory where you will find a subdirectory for the logs.
+
+Determine permissions for log files, from the command line: cd to the directory where the log files are located and enter the command:
+
+ls –al *log and note the owner and group permissions on these files. Only the Auditors, Web Managers, Administrators, and the account that runs the web server should have permissions to the files.
+
+If any users other than those authorized have read access to the log files, this is a finding.
+
+
+$FIX_TEXT To ensure the integrity of the data that is being captured in the log files, ensure that only the members of the Auditors group, Administrators, and the user assigned to run the web server software is granted permissions to read the log files.   _____________________________________________________________
+
+vulid=V-13694
+$GROUP_TITLE WG342
+$RULE_ID SV-33030r2_rule
+$SEVERITY CAT II
+$RULE_VERSION WG342 A22
+$RULE_TITLE Public web servers must use TLS if authentication is required.
+
+
+$VULNERABILITY_DISCUSSION Transport Layer Security (TLS) is optional for a public web server. However, if authentication is being performed, then the use of the TLS protocol is required.
+
+Without the use of TLS, the authentication data would be transmitted unencrypted and would become vulnerable to disclosure. Using TLS along with DoD PKI certificates for encryption of the authentication data protects the information from being accessed by all parties on the network. To further protect the authentication data, the web server must use a FIPS 140-2 approved TLS version and all non-FIPS-approved SSL versions must be disabled.
+
+FIPS 140-2 approved TLS versions include TLS V1.0 or greater. NIST SP 800-52 specifies the preferred configurations for government systems.
+
+
+IAControls: ECCT-1, ECCT-2
+
+$CHECK_CONTENT 
+Enter the following command:
+
+/usr/local/apache2/bin/httpd –M
+
+This will provide a list of all the loaded modules. Verify that the “ssl_module” is loaded. If this module is not found, this is a finding.
+
+After determining that the ssl module is active, enter the following command:
+
+grep "SSL" /usr/local/apache2/conf/httpd.conf
+
+Review the SSL sections of the httpd.conf file, all enabled SSLProtocol directives for Apache 2.2.22 and older must be set to “TLSv1”. Releases newer than Apache 2.2.22 must be set to "ALL -SSLv2 -SSLv3". If SSLProtocol is not set to the proper value, this is a finding.
+
+All enabled SSLEngine directives must be set to “on”, If they are not, this a finding.
+
+NOTE: In some cases web servers are configured in an environment to support load balancing. This configuration most likely utilizes a content switch to control traffic to the various web servers. In this situation, the TLS certificate for the web sites may be installed on the content switch vs. the individual web sites. This solution is acceptable as long as the web servers are isolated from the general population LAN. Users should not have the ability to bypass the content switch to access the web sites.
+
+
+$FIX_TEXT Edit the httpd.conf file and set the SSLProtocol to "TLSv1" for Apache 2.2.22 and older or to "ALL -SSLv2 -SSLv3" for Apache versions newer than 2.2.22. The SSLEngine parameter must also be set to On.   _____________________________________________________________
+
+vulid=V-15334
+$GROUP_TITLE WG610
+$RULE_ID SV-34015r1_rule
+$SEVERITY CAT III
+$RULE_VERSION WG610 A22
+$RULE_TITLE Web sites must utilize ports, protocols, and services according to PPSM guidelines.
+
+
+$VULNERABILITY_DISCUSSION Failure to comply with DoD ports, protocols, and services (PPS) requirements can result
+in compromise of enclave boundary protections and/or functionality of the AIS.
+
+The IAM will ensure web servers are configured to use only authorized PPS in accordance with the Network Infrastructure STIG, DoD Instruction 8551.1, Ports, Protocols, and Services Management (PPSM), and the associated Ports, Protocols, and Services (PPS) Assurance Category Assignments List.
+
+
+IAControls: DCPP-1
+
+$CHECK_CONTENT 
+Review the web site to determine if HTTP and HTTPs are used in accordance with well known ports (e.g., 80 and 443) or those ports and services as registered and approved for use by the DoD PPSM. Any variation in PPS will be documented, registered, and approved by the PPSM. If not, this is a finding.
+
+$FIX_TEXT Ensure the web site enforces the use of IANA well-known ports for HTTP and HTTPS.   _____________________________________________________________
+
+vulid=V-26279
+$GROUP_TITLE WA00605
+$RULE_ID SV-33192r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WA00605 A22
+$RULE_TITLE Error logging must be enabled.
+
+
+$VULNERABILITY_DISCUSSION The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. . Log data can reveal anomalous behavior such as “not found” or “unauthorized” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems.
+
+IAControls: ECAR-1
+
+$CHECK_CONTENT 
+Enter the following command:
+
+grep "ErrorLog" /usr/local/apache2/conf/httpd.conf
+
+This directive lists the name and location of the error log.
+
+If the command result lists no data, this is a finding.
+
+
+$FIX_TEXT Edit the httpd.conf file and enter the name and path to the ErrorLog.   _____________________________________________________________
+
+vulid=V-26280
+$GROUP_TITLE WA00612
+$RULE_ID SV-33203r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WA00612 A22
+$RULE_TITLE The sites error logs must log the correct format.
+
+
+$VULNERABILITY_DISCUSSION The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. Log data can reveal anomalous behavior such as “not found” or “unauthorized” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems. The LogFormat directive defines the format and information to be included in the access log entries.
+
+IAControls: ECAR-1, ECAR-2
+
+$CHECK_CONTENT 
+Enter the following command:
+
+grep "LogFormat" /usr/local/apache2/conf/httpd.conf.
+
+The command should return the following value:
+
+LogFormat "%a %A %h %H %l %m %s %t %u %U \"%{Referer}i\" " combined.
+
+If the above value is not returned, this is a finding.
+
+$FIX_TEXT Edit the httpd.conf file and add LogFormat "%a %A %h %H %l %m %s %t %u %U \"%{Referer}i\" " combined   _____________________________________________________________
+
+vulid=V-26281
+$GROUP_TITLE WA00615
+$RULE_ID SV-33206r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WA00615 A22
+$RULE_TITLE System logging must be enabled.
+
+
+$VULNERABILITY_DISCUSSION The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. Log data can reveal anomalous behavior such as “not found” or “unauthorized” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems. The CustomLog directive specifies the log file, syslog facility, or piped logging utility.
+
+IAControls: ECAR-1
+
+$CHECK_CONTENT 
+Enter the following command:
+
+grep "CustomLog" /usr/local/apache2/conf/httpd.conf
+
+The command should return the following value:.
+
+CustomLog "Logs/access_log" common
+
+If the above value is not returned, this is a finding.
+
+
+$FIX_TEXT Edit the httpd.conf file and enter the name, path and level for the CustomLog.   _____________________________________________________________
+
+vulid=V-26282
+$GROUP_TITLE WA00620
+$RULE_ID SV-33207r1_rule
+$SEVERITY CAT II
+$RULE_VERSION WA00620 A22
+$RULE_TITLE The LogLevel directive must be enabled.
+
+
+$VULNERABILITY_DISCUSSION The server error logs are invaluable because they can also be used to identify potential problems and enable proactive remediation. Log data can reveal anomalous behavior such as “not found” or “unauthorized” errors that may be an evidence of attack attempts. Failure to enable error logging can significantly reduce the ability of Web Administrators to detect or remediate problems. While the ErrorLog directive configures the error log file name, the LogLevel directive is used to configure the severity level for the error logs. The log level values are the standard syslog levels: emerg, alert, crit, error, warn, notice, info and debug.
+
+IAControls: ECAR-1
+
+$CHECK_CONTENT 
+Enter the following command:
+
+grep "LogLevel" /usr/local/apache2/conf/httpd.conf
+
+The command should return the following value:
+
+LogLevel warn
+
+If the above value is not returned, this is a finding.
+Note: If LogLevel is set to error, crit, alert, or emerg which are higher thresholds this is not a finding.
+
+
+$FIX_TEXT Edit the httpd.conf file and add the value LogLevel warn.   _____________________________________________________________
+
+
+
+UNCLASSIFIED
+

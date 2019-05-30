@@ -1,0 +1,228 @@
+#!/bin/bash 
+################################################################################
+# Author: Rolando Gabriana
+# Title: RGNext_RPM_Build_Script
+# Purpose:  The purpose of this script is to create an RPM binary of the \
+# RGNext_STIG_CHECK_SCRIPT
+# VERSION: 1
+# DATE: May 17, 2019
+################################################################################
+shopt -s nocasematch
+# CONFIG FILE LOCATION
+
+conf_file="/opt/STIGS/build_stig_script.conf"
+
+if [[ -r $conf_file ]] 
+  then
+    source $conf_file
+
+else
+  echo -e "COULD NOT READ CONFIGURATION FILE, PLEASE CHECH IT'S LOCATION AND PERMISSSION" 
+  exit 1
+
+fi
+
+# BEGIN FUNCTIONS
+
+BINARY_CHECK () {
+
+  binary=`which $1`
+  rpm_pkg=`rpm -q --whatprovides "$binary"`
+  [[ ! "$binary" ]] && echo -e "$lredfont $binary is not installed please verify that "$rpm_pkg" package is installed.$resetfont" && exit 
+
+}
+
+CLEAN_UP() {
+
+  rm -fr $1
+
+}
+
+AUTHOR () {
+
+  USERNAME=`awk 'BEGIN {print ENVIRON["USER"]}'`
+  FULLNAME=`grep $USERNAME /etc/passwd|awk -F: '{print $5}'`
+
+}
+
+# END FUNCTIONS
+# SCRIPT PACKAGING START
+
+
+## DEPENDENCY CHECK STARTS
+
+binaries="\
+rpmdev-setuptree \
+rpmbuild \
+"
+
+for bin in $binaries;do BINARY_CHECK $bin;done
+
+## DEPENDENCY CHECK ENDS
+# VARIABLES START
+author=""
+author_title=""
+REV=`svn info . | grep -i Revision|awk -F ': ' '{print $2}'`
+SRC_TAR="RGNext_stig_scripts_V$REV.tar.gz"
+RPM_TAR="RGNext_stig_scripts-V$REV.RPMS.tar.gz"
+root_source="/opt/STIGS"
+rpm_root_dir="$HOME/rpmbuild"
+RPM_SOURCES_dir="$rpm_root_dir/SOURCES"
+RPM_SPECS_dir="$rpm_root_dir/SPECS"
+spec_file=""$RPM_SPECS_dir"/$(echo -e $SRC_TAR|awk -F_ '{print $1$2$3}').spec"
+src_tar_index=""$SRC_TAR".index"
+rpm_tar_index=""$RPM_TAR".index"
+RPM_DATE=`date +%a' '%b' '%d' '%Y`
+source $root_source/config/fonts.conf
+# VARIABLES ENDS
+# RPM-PREP
+## Create the RPM buid tree
+
+CLEAN_UP "$rpm_root_dir"
+
+[[ ! -d $rpm_root_dir ]] && rpmdev-setuptree
+
+# Create the RPM Macro start
+
+if [[ ! $HOME/.rpmmacros ]]
+  then
+    cat > $HOME/.rpmmacros << EOF
+%packager $author $author_title
+%_topdir %(echo $HOME)/rpmbuild
+
+%_smp_mflags %( \
+    [ -z "$RPM_BUILD_NCPUS" ] \\\
+        && RPM_BUILD_NCPUS="`/usr/bin/nproc 2>/dev/null || \\\
+                             /usr/bin/getconf _NPROCESSORS_ONLN`"; \\\
+    if [ "$RPM_BUILD_NCPUS" -gt 16 ]; then \\\
+        echo "-j16"; \\\
+    elif [ "$RPM_BUILD_NCPUS" -gt 3 ]; then \\\
+        echo "-j$RPM_BUILD_NCPUS"; \\\
+    else \\\
+        echo "-j3"; \\\
+    fi )
+
+%__arch_install_post \
+    [ "%{buildarch}" = "noarch" ] || QA_CHECK_RPATHS=1 ; \
+    case "${QA_CHECK_RPATHS:-}" in [1yY]*) /usr/lib/rpm/check-rpaths ;; esac \
+    /usr/lib/rpm/check-buildroot
+EOF
+fi
+
+# Create the RPM Macro end
+
+echo -e ""$greenfont"BUILDING $tar_file PLEASE WAIT.... $resetfont"
+
+## create the source tar package
+tar\
+ --create\
+ --verbose\
+ --gzip\
+ --file=$RPM_SOURCES_dir/$SRC_TAR\
+ --directory=/\
+ --exclude-vcs\
+ --exclude-backups\
+ --dereference\
+ --index-file=$RPM_SOURCES_dir/$src_tar_index\
+ --exclude-from=$root_source/utils/donot_package\
+ /opt/STIGS
+## create the build dir
+mkdir -p $RPM_SOURCES_dir/RGNext-STIG-scripts-1
+## extract the source tar packages into the build directory 
+tar\
+ --extract\
+ --verbose\
+ --gzip\
+ --file=$RPM_SOURCES_dir/$SRC_TAR\
+ --directory=$RPM_SOURCES_dir/RGNext-STIG-scripts-1
+## Recreate the RPMS tar file
+tar\
+  --create\
+  --verbose\
+  --gzip\
+  --file=$RPM_SOURCES_dir/$RPM_TAR\
+  --directory=$RPM_SOURCES_dir\
+  --index=""$RPM_SOURCES_dir"/"$rpm_tar_index""\
+ RGNext-STIG-scripts-1
+
+tar_dir_list=`grep -e "^/" $RPM_SOURCES_dir/$src_tar_index | grep -e "/$" | sort`
+tar_file_list=`grep -e "^/" $RPM_SOURCES_dir/$src_tar_index | grep -v "/$" | sort`
+
+# SCRIPT PACKAGING ENDS
+# RPM PACKAGING
+## RPM SETUP START
+AUTHOR
+[[ -z $spec_file ]] && touch $spec_file
+
+## Create spec file header
+
+cat > $spec_file <<EOF
+Name:           RGNext-STIG-scripts
+
+Version:        1
+
+Release:        1%{?dist}
+
+Summary:        Collection of STIG scripts based on DISA STIG
+
+License:        Public Domain
+
+URL:            https://svn-server/REPO/dev/software_tools/STIGS
+
+Source0:        $RPM_TAR
+
+Requires:       bash
+
+BuildArch:      noarch
+
+%description
+
+A collection of scripts intended to perform validation Security Technical Implementation Guides (STIG) from the Department of Information Services Agency (DISA)
+        - RHEL V2R3 <-- Needs fixing
+        - RHEL V2R2 <-- 100%
+        - PSQL <-- Needs revisiting
+        - Apache <-- Needs revisiting
+
+%prep
+
+%setup -q
+
+%build
+
+%install
+EOF
+
+## Create the install directive
+
+for DIRS in $tar_dir_list
+  do 
+    echo -e "install -m 750 -d %{buildroot}$DIRS" >> $spec_file
+  done
+
+for FILES in $tar_file_list
+  do 
+    echo -e "install -m 0640 %{_sourcedir}/%{name}-%{version}$FILES %{buildroot}$FILES" >> $spec_file
+  done
+
+echo -e "\n%files" >> $spec_file
+
+echo -e "$tar_file_list" >> $spec_file
+
+cat >> $spec_file <<EOF
+%exclude
+/opt/STIGS/utils/viper/*.pyc
+/opt/STIGS/utils/viper/*.pyo
+%changelog
+
+* $RPM_DATE $FULLNAME
+     -Author username $(whoami) $UID
+     -Build system hostname is $HOSTNAME $(hostname -I)
+     -Initial Release
+EOF
+## RPM SETUP ENDS
+## RPM SOURCE SETUP START
+
+
+shopt -u nocasematch
+cd $rpm_root_dir
+rpmbuild -ba $spec_file

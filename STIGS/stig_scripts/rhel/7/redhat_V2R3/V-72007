@@ -1,0 +1,25 @@
+vulid="V-72007"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86631r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-020320"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that all files and directories have a valid owner."
+
+
+VULNERABILITY_DISCUSSION="Unowned files and directories may be unintentionally inherited if a user is assigned the same User Identifier \"UID\" as the UID of the un-owned files."
+
+
+CHECK_CONTENT="Verify all files and directories on the system have a valid owner.
+
+Check the owner of all files and directories with the following command:
+
+Note: The value after -fstype must be replaced with the filesystem type. XFS is used as an example.
+
+# find / -fstype xfs -nouser
+
+If any files on the system do not have an assigned owner, this is a finding."
+
+
+FIX_TEXT="Either remove all files and directories from the system that do not have a valid user, or assign a valid user to all unowned files and directories on the system with the \"chown\" command:
+
+# chown <user> <file>"

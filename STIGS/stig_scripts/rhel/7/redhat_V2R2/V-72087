@@ -1,0 +1,26 @@
+vulid="V-72087"
+GROUP_TITLE="SRG-OS-000342-GPOS-00133"
+RULE_ID="SV-86711r3_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-030320"
+RULE_TITLE="The Red Hat Enterprise Linux operating system must be configured so that the audit system takes appropriate action when the audit storage volume is full."
+
+
+VULNERABILITY_DISCUSSION="Taking appropriate action in case of a filled audit storage volume will minimize the possibility of losing audit records."
+
+
+CHECK_CONTENT="Verify the action the operating system takes if the disk the audit records are written to becomes full.
+
+To determine the action that takes place if the disk is full on the remote server, use the following command:
+
+# grep -i disk_full_action /etc/audisp/audisp-remote.conf
+disk_full_action = single
+
+If the value of the "disk_full_action" option is not \"syslog\", \"single\", or \"halt\", or the line is commented out, this is a finding."
+
+
+FIX_TEXT="Configure the action the operating system takes if the disk the audit records are written to becomes full.
+
+Uncomment or edit the "disk_full_action" option in "/etc/audisp/audisp-remote.conf" and set it to \"syslog\", \"single\", or \"halt\", such as the following line:
+
+disk_full_action = single"

@@ -1,0 +1,14 @@
+#!/bin/bash 
+FILE="tmout.sh"
+FOUND_ITEM=`echo -e $(grep -i tmout /etc/profile.d/*)`
+
+if [[ $FOUND_ITEM ]]
+  then
+    EXPECTED_ITEM=$FOUND_ITEM
+    RESULTS=PASS
+    RESULTS_TABLE
+  else
+    EXPECTED_ITEM="$FILE"
+    LOGIC_TEST $EXPECTED_ITEM $FOUND_ITEM
+fi
+# LOGIC_TEST_PLUS_MINUS < GREATER_THAN || LESS_THAN > $EXPECTED_ITEM $FOUND_ITEM

@@ -1,0 +1,28 @@
+vulid="V-71929"
+GROUP_TITLE="SRG-OS-000076-GPOS-00044"
+RULE_ID="SV-86553r1_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-010250"
+RULE_TITLE="Passwords for new users must be restricted to a 60-day maximum lifetime."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the operating system enforces a 60-day maximum password lifetime restriction for new user accounts.
+
+Check for the value of "PASS_MAX_DAYS" in "/etc/login.defs" with the following command:
+
+# grep -i pass_max_days /etc/login.defs
+PASS_MAX_DAYS     60
+
+If the "PASS_MAX_DAYS" parameter value is not 60 or less, or is commented out, this is a finding."
+
+
+FIX_TEXT="Configure the operating system to enforce a 60-day maximum password lifetime restriction.
+
+Add the following line in "/etc/login.defs" (or modify the line to have the required value):
+
+PASS_MAX_DAYS     60"
+
+CCI="CCI-000198"

@@ -1,0 +1,28 @@
+vulid="V-72267"
+GROUP_TITLE="SRG-OS-000480-GPOS-00227"
+RULE_ID="SV-86891r2_rule"
+SEVERITY="CAT II"
+RULE_VERSION="RHEL-07-040470"
+RULE_TITLE="The SSH daemon must not allow compression or must only allow compression after successful authentication."
+
+
+VULNERABILITY_DISCUSSION="H"
+
+
+CHECK_CONTENT="Verify the SSH daemon performs compression after a user successfully authenticates.
+
+Check that the SSH daemon performs compression after a user successfully authenticates with the following command:
+
+# grep -i compression /etc/ssh/sshd_config
+Compression delayed
+
+If the "Compression" keyword is set to "yes", is missing, or the retuned line is commented out, this is a finding."
+
+
+FIX_TEXT="Uncomment the "Compression" keyword in "/etc/ssh/sshd_config" (this file may be named differently or be in a different location if using a version of SSH that is provided by a third-party vendor) on the system and set the value to "delayed" or "no":
+
+Compression no
+
+The SSH service must be restarted for changes to take effect."
+
+CCI="CCI-002884"

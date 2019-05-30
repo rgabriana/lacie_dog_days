@@ -1,0 +1,12 @@
+14c14
+< Check the status of the \"kdump\" service with the following command:
+---
+> Check the status of the "kdump" service with the following command:
+23c23
+< If the \"kdump\" service is active, ask the System Administrator if the use of the service is required and documented with the Information System Security Officer (ISSO).
+---
+> If the "kdump" service is active, ask the System Administrator if the use of the service is required and documented with the Information System Security Officer (ISSO).
+28c28
+< FIX_TEXT="If kernel core dumps are not required, disable the \"kdump\" service with the following command:
+---
+> FIX_TEXT="If kernel core dumps are not required, disable the "kdump" service with the following command:

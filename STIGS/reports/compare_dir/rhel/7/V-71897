@@ -1,0 +1,39 @@
+3c3
+< RULE_ID="SV-86521r3_rule"
+---
+> RULE_ID="SV-86521r2_rule"
+9c9
+< VULNERABILITY_DISCUSSION=":  A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user\'s session has idled and take action to initiate the session lock.
+---
+> VULNERABILITY_DISCUSSION="A session time-out lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not log out because of the temporary nature of the absence. Rather than relying on the user to manually lock their operating system session prior to vacating the vicinity, operating systems need to be able to identify when a user's session has idled and take action to initiate the session lock.
+11,12c11
+< The screen and tmux packages allow for a session lock to be implemented and configured.
+< "
+---
+> The screen package allows for a session lock to be implemented and configured."
+22c21
+< If the screen package is not installed, check to see if the tmux package is installed with the following command:
+---
+> If is not installed, this is a finding."
+24,25d22
+< #yum list installed tmux
+< tmux-1.8-4.el7.x86_64.rpm 
+27,30c24
+< If either the screen package or the tmux package is not installed, this is a finding."
+<
+<
+< FIX_TEXT="Install the screen package to allow the initiation of a session lock after a 15-minute period of inactivity.
+---
+> FIX_TEXT="Install the screen package to allow the initiation a session lock after a 15-minute period of inactivity for graphical users interfaces.
+34,40c28
+< # yum install screen   
+<
+< OR
+<
+< Install the tmux program (if it is not on the system) with the following command:
+<
+< #yum install tmux"
+\ No newline at end of file
+---
+> # yum install screen"
+\ No newline at end of file

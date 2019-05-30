@@ -1,0 +1,8 @@
+18c18
+< Check for the value of the \"ClientAliveCountMax\" keyword with the following command:
+---
+> Check for the value of the "ClientAliveCountMax" keyword with the following command:
+23c23
+< If \"ClientAliveCountMax\" is not set to \"0\", this is a finding."
+---
+> If "ClientAliveCountMax" is not set to "0", this is a finding."

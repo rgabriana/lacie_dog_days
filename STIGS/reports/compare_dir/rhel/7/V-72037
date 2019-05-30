@@ -1,0 +1,4 @@
+20c20
+< Note: The example will be for a system that is configured to create users\' home directories in the \"/home\" directory.
+---
+> Note: The example will be for a system that is configured to create users' home directories in the "/home" directory.

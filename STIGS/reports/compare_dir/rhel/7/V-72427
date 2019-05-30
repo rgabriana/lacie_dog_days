@@ -1,0 +1,14 @@
+24c24
+< Check the \"/etc/sssd/sssd.conf\" file for the authentication services that are being used with the following command:
+---
+> Check the "/etc/sssd/sssd.conf" file for the authentication services that are being used with the following command:
+30c30
+< If the \"pam\" service is not present on all \"services\" lines, this is a finding."
+---
+> If the "pam" service is not present on all "services" lines, this is a finding."
+35c35
+< Modify all of the services lines in \"/etc/sssd/sssd.conf\" or in configuration files found under \"/etc/sssd/conf.d\" to include pam."
+\ No newline at end of file
+---
+> Modify all of the services lines in "/etc/sssd/sssd.conf" or in configuration files found under "/etc/sssd/conf.d" to include pam."
+\ No newline at end of file

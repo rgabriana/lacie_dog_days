@@ -1,0 +1,39 @@
+#!/bin/bash
+IFS=$'\n'
+FILE=$db_hba_file
+LIST=" "#`grep -v ^# $db_hba_file`
+
+for a in $LIST; do 
+
+  FOUND_ITEM="$a"
+  TEST=`echo "$FOUND_ITEM" | awk -F " " '{print $NF}'`
+  EXPECTED_ITEM="gss, sspi, or ldap"
+  RESULTS=0
+
+    if [[ $TEST == gss || $TEST == sspi || $TEST == ldap ]]; then
+      RESULTS=PASS
+    elif [[ -z $FOUND_ITEM ]]; then
+      FOUND_ITEM=`echo -e "TEST RESULT IS NULL"`
+      RESULTS=FAIL
+    else
+      RESULTS=FAIL
+    fi
+
+  echo -e "\t\t\t<td align=right; valign=top>$FILE</td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top>"$FOUND_ITEM"</td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top>$EXPECTED_ITEM</td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top>$RESULTS</td>" >> $report_file
+  echo -e "\t\t<tr>" >> $report_file
+  echo -e "\t\t</tr>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+  echo -e "\t\t\t<td align=right; valign=top></td>" >> $report_file
+
+done

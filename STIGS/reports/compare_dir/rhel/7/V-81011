@@ -1,0 +1,36 @@
+3c3
+< RULE_ID="SV-95723r2_rule"
+---
+> RULE_ID="SV-95723r1_rule"
+9c9
+< VULNERABILITY_DISCUSSION="The \"nosuid\" mount option causes the system to not execute \"setuid\" and \"setgid\" files with owner privileges. This option must be used for mounting any file system not containing approved \"setuid\" and \"setguid\" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access."
+---
+> VULNERABILITY_DISCUSSION="The "nosuid" mount option causes the system to not execute "setuid" and "setgid" files with owner privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access."
+12c12
+< CHECK_CONTENT="Verify that the \"nosuid\" option is configured for /dev/shm:
+---
+> CHECK_CONTENT="Verify that the "nosuid" option is configured for /dev/shm.
+14c14,16
+< # cat /etc/fstab | grep /dev/shm
+---
+> Check that the operating system is configured to use the "nosuid" option for /dev/shm with the following command:
+>
+> # cat /etc/fstab | grep /dev/shm | grep nosuid
+18c20
+< If any results are returned and the \"nosuid\" option is not listed, this is a finding.
+---
+> If the "nosuid" option is not present on the line for "/dev/shm", this is a finding.
+20c22
+< Verify \"/dev/shm\" is mounted with the \"nosuid\" option:
+---
+> Verify "/dev/shm" is mounted with the "nosuid" option:
+22c24
+< # mount | grep \"/dev/shm\" | grep nosuid
+---
+> # mount | grep "/dev/shm" | grep nosuid
+27c29
+< FIX_TEXT="Configure the system so that /dev/shm is mounted with the \"nosuid\" option."
+\ No newline at end of file
+---
+> FIX_TEXT="Configure the "/etc/fstab" to use the "nosuid" option for all lines containing "/dev/shm"."
+\ No newline at end of file
